@@ -5,13 +5,15 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import plateau.engine.resource.ResourceLoader;
 
-public class PlateauDisplay implements Runnable {
+public abstract class PlateauDisplay implements Runnable {
 
+	private boolean isCreated;
 
 	private String title, icon;
 	private int width, height;
 	private boolean vSync, fullscreen;
 
+	//TODO Error Messages
 	private boolean initThread() {
 		try {
 			if (fullscreen) {
@@ -33,6 +35,14 @@ public class PlateauDisplay implements Runnable {
 		return true;
 	}
 
+	/**
+	 * Handles tasks that need to be done in the thread, this will call methods in other classes
+	 */
+	public void runLoop() {
+		//TODO Profiler needed
+
+	}
+
 	@Override
 	public void run() {
 		if (!initThread()) {
@@ -41,6 +51,9 @@ public class PlateauDisplay implements Runnable {
 
 		while (true) {
 
+			if (Display.isCloseRequested()) {
+				break;
+			}
 			Display.update();
 		}
 	}
@@ -53,12 +66,18 @@ public class PlateauDisplay implements Runnable {
 	 * @param height: The height of the displayed window
 	 */
 	public void createWindowDisplay(String title, int width, int height, String icon) {
-		this.title = title;
-		this.width = width;
-		this.height = height;
-		this.icon = icon;
+		if (!this.isCreated) {
+			this.title = title;
+			this.width = width;
+			this.height = height;
+			this.icon = icon;
+			this.isCreated = true;
 
-		new Thread(this, "LWJGL Display").start();
+			new Thread(this, "LWJGL Display").start();
+			this.init();
+		} else {
+			// ERROR
+		}
 	}
 
 	/**
@@ -67,9 +86,18 @@ public class PlateauDisplay implements Runnable {
 	 * @param vSync: The Boolean to decided if you want to run the game at a fps around your monitor's refresh rate
 	 */
 	public void createFullScreenDisplay(boolean vSync, String icon) {
-		this.icon = icon;
-		this.vSync = vSync;
-		this.fullscreen = true;
-		new Thread(this, "LWJGL Display").start();
+		if (!this.isCreated) {
+			this.icon = icon;
+			this.vSync = vSync;
+			this.fullscreen = true;
+			this.isCreated = true;
+
+			new Thread(this, "LWJGL Display").start();
+			this.init();
+		} else {
+			// ERROR
+		}
 	}
+
+	public abstract void init();
 }
