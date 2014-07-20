@@ -8,17 +8,19 @@ public class TestInput implements IInput {
 
 	@Override
 	public int[] getKey() {
-		return new int[]{Keyboard.KEY_W};
+		return new int[]{Keyboard.KEY_W, Keyboard.KEY_S, Keyboard.KEY_A, Keyboard.KEY_D};
 	}
 
 	@Override
 	public String[] getName() {
-		return null;
+		return new String[]{"Forward", "Back", "Left", "Right"};
 	}
 
 	@Override
-	public void onPressed(int key, String getName, boolean isRepeated, boolean onPressed) {
-
+	public void onPressed(int key, String name, boolean isRepeated, boolean onPressed) {
+		switch (name) {
+			
+		}
 	}
 
 }

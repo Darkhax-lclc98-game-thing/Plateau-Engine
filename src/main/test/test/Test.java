@@ -28,22 +28,8 @@ public class Test extends PlateauDisplay {
 		Box box = new Box(1, 1, 1);
 		scene.addObject(box);
 
-		input.registerInput(new IInput() {
-			@Override
-			public int getKey() {
-				return Keyboard.KEY_W;
-			}
+		input.registerInput(new TestInput());
 
-			@Override
-			public String getName() {
-				return "Test_Forward";
-			}
-
-			@Override
-			public void onPressed(boolean isRepeated, boolean onPressed) {
-				moveFromLook(cam, 0, -speed * 0.009f);
-			}
-		});
 	}
 
 	private static void moveFromLook(Camera cam, float dx, float dz) {
