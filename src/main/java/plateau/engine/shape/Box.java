@@ -1,11 +1,40 @@
 package plateau.engine.shape;
 
-import org.lwjgl.util.vector.Vector3f;
+import static org.lwjgl.opengl.GL11.*;
 
-public class Box {
-	public Vector3f location;
+public class Box extends Shape {
 
-	public Box(float x, float y, float z) {
-		location = new Vector3f(x, y, z);
+	public Box(float sizeX, float sizeY, float sizeZ) {
+		super(sizeX, sizeY, sizeZ);
+	}
+
+	@Override
+	public void render() {
+		glBegin(GL_TRIANGLES);                    // Drawing Using Triangles
+		glColor3f(1.0f, 0.0f, 0.0f);             // Red
+		glVertex3f(0.0f, 1.0f, 0.0f);         // Top Of Triangle (Front)
+		glColor3f(0.0f, 1.0f, 0.0f);             // Green
+		glVertex3f(-1.0f, -1.0f, 1.0f);         // Left Of Triangle (Front)
+		glColor3f(0.0f, 0.0f, 1.0f);             // Blue
+		glVertex3f(1.0f, -1.0f, 1.0f);         // Right Of Triangle (Front)
+		glColor3f(1.0f, 0.0f, 0.0f);             // Red
+		glVertex3f(0.0f, 1.0f, 0.0f);         // Top Of Triangle (Right)
+		glColor3f(0.0f, 0.0f, 1.0f);             // Blue
+		glVertex3f(1.0f, -1.0f, 1.0f);         // Left Of Triangle (Right)
+		glColor3f(0.0f, 1.0f, 0.0f);             // Green
+		glVertex3f(1.0f, -1.0f, -1.0f);            // Right Of Triangle (Right)
+		glColor3f(1.0f, 0.0f, 0.0f);             // Red
+		glVertex3f(0.0f, 1.0f, 0.0f);         // Top Of Triangle (Back)
+		glColor3f(0.0f, 1.0f, 0.0f);             // Green
+		glVertex3f(1.0f, -1.0f, -1.0f);            // Left Of Triangle (Back)
+		glColor3f(0.0f, 0.0f, 1.0f);             // Blue
+		glVertex3f(-1.0f, -1.0f, -1.0f);            // Right Of Triangle (Back)
+		glColor3f(1.0f, 0.0f, 0.0f);             // Red
+		glVertex3f(0.0f, 1.0f, 0.0f);         // Top Of Triangle (Left)
+		glColor3f(0.0f, 0.0f, 1.0f);             // Blue
+		glVertex3f(-1.0f, -1.0f, -1.0f);         // Left Of Triangle (Left)
+		glColor3f(0.0f, 1.0f, 0.0f);             // Green
+		glVertex3f(-1.0f, -1.0f, 1.0f);         // Right Of Triangle (Left)
+		glEnd();
 	}
 }

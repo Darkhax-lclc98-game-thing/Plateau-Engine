@@ -3,7 +3,13 @@ package plateau.engine;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.util.glu.GLU;
+import plateau.engine.input.InputHandler;
 import plateau.engine.resource.ResourceLoader;
+import plateau.engine.scene.Scene;
+
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 
 public abstract class PlateauDisplay implements Runnable {
 
@@ -13,9 +19,12 @@ public abstract class PlateauDisplay implements Runnable {
 	private int width, height;
 	private boolean vSync, fullscreen;
 
+	public Scene scene;
+	public InputHandler input;
 	//TODO Error Messages
 	private boolean initThread() {
 		try {
+
 			if (fullscreen) {
 				Display.setFullscreen(true);
 				Display.setVSyncEnabled(vSync);
@@ -29,6 +38,9 @@ public abstract class PlateauDisplay implements Runnable {
 			}
 
 			Display.create();
+			scene = new Scene();
+			input = new InputHandler();
+			this.init();
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
@@ -40,7 +52,7 @@ public abstract class PlateauDisplay implements Runnable {
 	 */
 	public void runLoop() {
 		//TODO Profiler needed
-
+		input.update();
 	}
 
 	@Override
@@ -50,12 +62,19 @@ public abstract class PlateauDisplay implements Runnable {
 		}
 
 		while (true) {
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			scene.update();
+			runLoop();
 
+			if (Display.wasResized()) {
+				System.out.println(Display.getWidth() + ":" + Display.getHeight());
+			}
 			if (Display.isCloseRequested()) {
 				break;
 			}
 			Display.update();
 		}
+		Display.destroy();
 	}
 
 	/**
@@ -72,9 +91,8 @@ public abstract class PlateauDisplay implements Runnable {
 			this.height = height;
 			this.icon = icon;
 			this.isCreated = true;
-
+			Display.setResizable(true);
 			new Thread(this, "LWJGL Display").start();
-			this.init();
 		} else {
 			// ERROR
 		}
@@ -93,7 +111,6 @@ public abstract class PlateauDisplay implements Runnable {
 			this.isCreated = true;
 
 			new Thread(this, "LWJGL Display").start();
-			this.init();
 		} else {
 			// ERROR
 		}
