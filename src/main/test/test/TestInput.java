@@ -43,7 +43,7 @@ public class TestInput implements IInput {
 		Vector3f camLoc = cam.getLocation();
 		float x = (float) (camLoc.getX() - dx * (float) sin(toRadians(cam.getYaw() - 90)) + dz * sin(toRadians(-cam.getYaw())));
 		float z = (float) (camLoc.getZ() + dx * (float) cos(toRadians(cam.getYaw() - 90)) + dz * cos(toRadians(-cam.getYaw())));
-		camLoc.setX(x);
-		camLoc.setZ(z);
+
+		cam.setLocation(new Vector3f(x, camLoc.getY(), z));
 	}
 }
