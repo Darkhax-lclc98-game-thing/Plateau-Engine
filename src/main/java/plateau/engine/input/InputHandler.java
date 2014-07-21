@@ -5,8 +5,8 @@ import org.lwjgl.input.Keyboard;
 import java.util.HashMap;
 
 public class InputHandler {
-	private HashMap<Integer, IInput> inputList = new HashMap<>();
-	private HashMap<Integer, String> nameList = new HashMap<>();
+	private HashMap<Integer, IInput> inputList = new HashMap<Integer, IInput>();
+	private HashMap<Integer, String> nameList = new HashMap<Integer, String>();
 
 	public void registerInput(IInput input) {
 		for (int i = 0; i < input.getKey().length; i++) {

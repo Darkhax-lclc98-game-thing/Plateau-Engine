@@ -1,10 +1,17 @@
 package test;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.util.vector.Vector3f;
 import plateau.engine.input.IInput;
+import plateau.engine.renderer.Camera;
+
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+import static java.lang.Math.toRadians;
 
 public class TestInput implements IInput {
 
+	private static float speed = 50f;
 
 	@Override
 	public int[] getKey() {
@@ -18,9 +25,25 @@ public class TestInput implements IInput {
 
 	@Override
 	public void onPressed(int key, String name, boolean isRepeated, boolean onPressed) {
-		switch (name) {
-			
+		if (onPressed) {
+			if (name.equalsIgnoreCase("Forward")) {
+				move(0, -speed * 0.009f);
+			} else if (name.equalsIgnoreCase("Back")) {
+				move(0, speed * 0.009f);
+			} else if (name.equalsIgnoreCase("Left")) {
+				move(-speed * 0.009f, 0);
+			} else if (name.equalsIgnoreCase("Right")) {
+				move(speed * 0.009f, 0);
+			}
 		}
 	}
 
+	private void move(float dx, float dz) {
+		Camera cam = Test.scene.getCamera();
+		Vector3f camLoc = cam.getLocation();
+		float x = (float) (camLoc.getX() - dx * (float) sin(toRadians(cam.getYaw() - 90)) + dz * sin(toRadians(-cam.getYaw())));
+		float z = (float) (camLoc.getZ() + dx * (float) cos(toRadians(cam.getYaw() - 90)) + dz * cos(toRadians(-cam.getYaw())));
+		camLoc.setX(x);
+		camLoc.setZ(z);
+	}
 }

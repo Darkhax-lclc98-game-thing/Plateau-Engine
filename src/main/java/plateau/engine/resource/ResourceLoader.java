@@ -13,7 +13,7 @@ import java.util.HashMap;
 import static org.lwjgl.opengl.GL11.*;
 
 public class ResourceLoader {
-	private static HashMap<String, Integer> textureIndex = new HashMap<>();
+	private static HashMap<String, Integer> textureIndex = new HashMap<String, Integer>();
 
 	public static ByteBuffer[] getIcon(String file) {
 		try {

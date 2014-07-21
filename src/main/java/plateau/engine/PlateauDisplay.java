@@ -19,8 +19,9 @@ public abstract class PlateauDisplay implements Runnable {
 	private int width, height;
 	private boolean vSync, fullscreen;
 
-	public Scene scene;
+	public static Scene scene;
 	public InputHandler input;
+
 	//TODO Error Messages
 	private boolean initThread() {
 		try {
