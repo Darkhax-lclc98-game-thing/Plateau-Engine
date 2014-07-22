@@ -2,14 +2,14 @@ package test;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
-import plateau.engine.input.IInput;
+import plateau.engine.input.IKeyboard;
 import plateau.engine.renderer.Camera;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import static java.lang.Math.toRadians;
 
-public class TestInput implements IInput {
+public class TestInput implements IKeyboard {
 
 	private static float speed = 50f;
 

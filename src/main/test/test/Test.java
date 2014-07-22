@@ -1,14 +1,8 @@
 package test;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.util.vector.Vector3f;
 import plateau.engine.PlateauDisplay;
-import plateau.engine.input.IInput;
 import plateau.engine.renderer.Camera;
 import plateau.engine.shape.Box;
-
-import static java.lang.Math.*;
-import static java.lang.Math.sin;
 
 public class Test extends PlateauDisplay {
 

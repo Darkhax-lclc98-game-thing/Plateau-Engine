@@ -1,6 +1,6 @@
 package plateau.engine.input;
 
-public interface IInput {
+public interface IKeyboard {
 
 	int[] getKey();
 
