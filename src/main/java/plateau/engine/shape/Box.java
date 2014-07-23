@@ -4,37 +4,67 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Box extends Shape {
 
-	public Box(float sizeX, float sizeY, float sizeZ) {
-		super(sizeX, sizeY, sizeZ);
-	}
+    public Box(float sizeX, float sizeY, float sizeZ) {
+        super(sizeX, sizeY, sizeZ);
+    }
 
-	@Override
-	public void render() {
-		glBegin(GL_TRIANGLES);                    // Drawing Using Triangles
-		glColor3f(1.0f, 0.0f, 0.0f);             // Red
-		glVertex3f(0.0f, 1.0f, 0.0f);         // Top Of Triangle (Front)
-		glColor3f(0.0f, 1.0f, 0.0f);             // Green
-		glVertex3f(-1.0f, -1.0f, 1.0f);         // Left Of Triangle (Front)
-		glColor3f(0.0f, 0.0f, 1.0f);             // Blue
-		glVertex3f(1.0f, -1.0f, 1.0f);         // Right Of Triangle (Front)
-		glColor3f(1.0f, 0.0f, 0.0f);             // Red
-		glVertex3f(0.0f, 1.0f, 0.0f);         // Top Of Triangle (Right)
-		glColor3f(0.0f, 0.0f, 1.0f);             // Blue
-		glVertex3f(1.0f, -1.0f, 1.0f);         // Left Of Triangle (Right)
-		glColor3f(0.0f, 1.0f, 0.0f);             // Green
-		glVertex3f(1.0f, -1.0f, -1.0f);            // Right Of Triangle (Right)
-		glColor3f(1.0f, 0.0f, 0.0f);             // Red
-		glVertex3f(0.0f, 1.0f, 0.0f);         // Top Of Triangle (Back)
-		glColor3f(0.0f, 1.0f, 0.0f);             // Green
-		glVertex3f(1.0f, -1.0f, -1.0f);            // Left Of Triangle (Back)
-		glColor3f(0.0f, 0.0f, 1.0f);             // Blue
-		glVertex3f(-1.0f, -1.0f, -1.0f);            // Right Of Triangle (Back)
-		glColor3f(1.0f, 0.0f, 0.0f);             // Red
-		glVertex3f(0.0f, 1.0f, 0.0f);         // Top Of Triangle (Left)
-		glColor3f(0.0f, 0.0f, 1.0f);             // Blue
-		glVertex3f(-1.0f, -1.0f, -1.0f);         // Left Of Triangle (Left)
-		glColor3f(0.0f, 1.0f, 0.0f);             // Green
-		glVertex3f(-1.0f, -1.0f, 1.0f);         // Right Of Triangle (Left)
-		glEnd();
-	}
+    @Override
+    public void render() {
+        //Multi-colored side - FRONT
+        glBegin(GL_POLYGON);
+
+        glColor3d(1.0, 0.0, 0.0);
+        glVertex3d(0.5, -0.5, -0.5);      // P1 is red
+        glColor3d(0.0, 1.0, 0.0);
+        glVertex3d(0.5, 0.5, -0.5);      // P2 is green
+        glColor3d(0.0, 0.0, 1.0);
+        glVertex3d(-0.5, 0.5, -0.5);      // P3 is blue
+        glColor3d(1.0, 0.0, 1.0);
+        glVertex3d(-0.5, -0.5, -0.5);      // P4 is purple
+
+        glEnd();
+        glBegin(GL_POLYGON);
+        glColor3d(1.0, 1.0, 1.0);
+        glVertex3d(0.5, -0.5, 0.5);
+        glVertex3d(0.5, 0.5, 0.5);
+        glVertex3d(-0.5, 0.5, 0.5);
+        glVertex3d(-0.5, -0.5, 0.5);
+        glEnd();
+
+        // Purple side - RIGHT
+        glBegin(GL_POLYGON);
+        glColor3d(1.0, 0.0, 1.0);
+        glVertex3d(0.5, -0.5, -0.5);
+        glVertex3d(0.5, 0.5, -0.5);
+        glVertex3d(0.5, 0.5, 0.5);
+        glVertex3d(0.5, -0.5, 0.5);
+        glEnd();
+
+        // Green side - LEFT
+        glBegin(GL_POLYGON);
+        glColor3d(0.0, 1.0, 0.0);
+        glVertex3d(-0.5, -0.5, 0.5);
+        glVertex3d(-0.5, 0.5, 0.5);
+        glVertex3d(-0.5, 0.5, -0.5);
+        glVertex3d(-0.5, -0.5, -0.5);
+        glEnd();
+
+        // Blue side - TOP
+        glBegin(GL_POLYGON);
+        glColor3d(0.0, 0.0, 1.0);
+        glVertex3d(0.5, 0.5, 0.5);
+        glVertex3d(0.5, 0.5, -0.5);
+        glVertex3d(-0.5, 0.5, -0.5);
+        glVertex3d(-0.5, 0.5, 0.5);
+        glEnd();
+
+        // Red side - BOTTOM
+        glBegin(GL_POLYGON);
+        glColor3d(1.0, 0.0, 0.0);
+        glVertex3d(0.5, -0.5, -0.5);
+        glVertex3d(0.5, -0.5, 0.5);
+        glVertex3d(-0.5, -0.5, 0.5);
+        glVertex3d(-0.5, -0.5, -0.5);
+        glEnd();
+    }
 }

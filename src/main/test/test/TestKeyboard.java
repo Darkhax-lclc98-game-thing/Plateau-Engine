@@ -9,7 +9,7 @@ import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import static java.lang.Math.toRadians;
 
-public class TestInput implements IKeyboard {
+public class TestKeyboard implements IKeyboard {
 
 	private static float speed = 50f;
 

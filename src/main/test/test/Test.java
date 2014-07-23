@@ -1,5 +1,6 @@
 package test;
 
+import org.lwjgl.input.Mouse;
 import plateau.engine.PlateauDisplay;
 import plateau.engine.renderer.Camera;
 import plateau.engine.shape.Box;
@@ -20,9 +21,9 @@ public class Test extends PlateauDisplay {
 
 		Box box = new Box(1, 1, 1);
 		scene.addObject(box);
-
-		input.registerInput(new TestInput());
-
+        Mouse.setGrabbed(true);
+        input.registerInput(new TestKeyboard());
+        input.registerInput(new TestMouse());
 	}
 
 }
