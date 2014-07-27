@@ -33,12 +33,12 @@ public class InputHandler {
 
 		while (Mouse.next()) {
 			int eventButton = Mouse.getEventButton();
-			if(eventButton != -1){
-				for(int i = 0; i<mouseInput.size();i++){
+			if (eventButton != -1) {
+				for (int i = 0; i < mouseInput.size(); i++) {
 					mouseInput.get(i).onPress(eventButton);
 				}
-			}else{
-				for(int i = 0; i<mouseInput.size();i++){
+			} else {
+				for (int i = 0; i < mouseInput.size(); i++) {
 					mouseInput.get(i).onMove(Mouse.getDX(), Mouse.getDY());
 				}
 			}

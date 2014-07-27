@@ -12,18 +12,13 @@ public class Scene {
 	private Camera camera;
 	private ArrayList<Shape> objectArray = new ArrayList<Shape>();
 
-	public void setCamera(Camera camera) {
-		this.camera = camera;
-		initCamera(camera.getWidth(), camera.getHeight());
-	}
-
 	public void initCamera(int width, int height) {
 		glViewport(0, 0, width, height);
 
 		glClearColor(0, 0.75f, 1, 1);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		gluPerspective(60, width / height, 0.1f, 200);
+		gluPerspective(60, (float) width / height, 0.1f, 200);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glDepthFunc(GL_LEQUAL);
@@ -34,14 +29,18 @@ public class Scene {
 		return camera;
 	}
 
+	public void setCamera(Camera camera) {
+		this.camera = camera;
+		initCamera(camera.getWidth(), camera.getHeight());
+	}
+
 	public void addObject(Shape shape) {
 		objectArray.add(shape);
 	}
 
 	public void update() {
 		for (Shape shape : objectArray) {
-
-			glTranslated(shape.getLocation().getX(), shape.getLocation().getY(), shape.getLocation().getZ());
+			glTranslated(shape.getLocation().getX() / 2, shape.getLocation().getY() / 2, shape.getLocation().getZ() / 2);
 			shape.render();
 		}
 

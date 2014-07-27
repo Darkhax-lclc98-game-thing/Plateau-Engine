@@ -1,10 +1,8 @@
 package plateau.engine.renderer;
 
-import static org.lwjgl.util.glu.GLU.*;
+import org.lwjgl.util.vector.Vector3f;
 
 import static org.lwjgl.opengl.GL11.*;
-
-import org.lwjgl.util.vector.Vector3f;
 
 public class Camera {
 	private Vector3f location;
@@ -54,6 +52,10 @@ public class Camera {
 		return yaw;
 	}
 
+	public void setYaw(float yaw) {
+		this.yaw = yaw;
+	}
+
 	public float getRoll() {
 		return roll;
 	}
@@ -62,11 +64,7 @@ public class Camera {
 		return pitch;
 	}
 
-    public void setYaw(float yaw) {
-        this.yaw = yaw;
-    }
-
-    public void setPitch(float pitch) {
-        this.pitch = pitch;
-    }
+	public void setPitch(float pitch) {
+		this.pitch = pitch;
+	}
 }

@@ -11,7 +11,7 @@ import static java.lang.Math.toRadians;
 
 public class TestKeyboard implements IKeyboard {
 
-	private static float speed = 50f;
+	private static float speed = 0.09f;
 
 	@Override
 	public int[] getKey() {
@@ -27,13 +27,13 @@ public class TestKeyboard implements IKeyboard {
 	public void onPressed(int key, String name, boolean isRepeated, boolean onPressed) {
 		if (onPressed) {
 			if (name.equalsIgnoreCase("Forward")) {
-				move(0, -speed * 0.009f);
+				move(0, -speed);
 			} else if (name.equalsIgnoreCase("Back")) {
-				move(0, speed * 0.009f);
+				move(0, speed);
 			} else if (name.equalsIgnoreCase("Left")) {
-				move(-speed * 0.009f, 0);
+				move(-speed, 0);
 			} else if (name.equalsIgnoreCase("Right")) {
-				move(speed * 0.009f, 0);
+				move(speed, 0);
 			}
 		}
 	}

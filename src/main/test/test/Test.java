@@ -19,7 +19,7 @@ public class Test extends PlateauDisplay {
 		final Camera cam = new Camera(width, height);
 		scene.setCamera(cam);
 
-		Box box = new Box(1, 1, 1);
+		Box box = new Box(0.5f, 0.5f, 0.5f);
 		scene.addObject(box);
         Mouse.setGrabbed(true);
         input.registerInput(new TestKeyboard());

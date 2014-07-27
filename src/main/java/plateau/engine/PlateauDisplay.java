@@ -3,24 +3,20 @@ package plateau.engine;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.util.glu.GLU;
 import plateau.engine.input.InputHandler;
 import plateau.engine.resource.ResourceLoader;
 import plateau.engine.scene.Scene;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 
 public abstract class PlateauDisplay implements Runnable {
 
+	public static Scene scene;
+	public InputHandler input;
 	private boolean isCreated;
-
 	private String title, icon;
 	private int width, height;
 	private boolean vSync, fullscreen;
-
-	public static Scene scene;
-	public InputHandler input;
 
 	//TODO Error Messages
 	private boolean initThread() {
@@ -64,11 +60,11 @@ public abstract class PlateauDisplay implements Runnable {
 
 		while (true) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			scene.update();
 			runLoop();
 
+			scene.update();
 			if (Display.wasResized()) {
-				System.out.println(Display.getWidth() + ":" + Display.getHeight());
+				scene.initCamera(Display.getWidth(), Display.getHeight());
 			}
 			if (Display.isCloseRequested()) {
 				break;
