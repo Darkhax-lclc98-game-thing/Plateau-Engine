@@ -24,7 +24,7 @@ public class TestKeyboard implements IKeyboard {
 	}
 
 	@Override
-	public void onPressed(int key, String name, boolean isRepeated, boolean onPressed) {
+	public void onPressed(String name, boolean isRepeated, boolean onPressed) {
 		if (onPressed) {
 			if (name.equalsIgnoreCase("Forward")) {
 				move(0, -speed);

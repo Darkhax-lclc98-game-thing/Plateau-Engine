@@ -27,7 +27,7 @@ public class InputHandler {
 			int key = Keyboard.getEventKey();
 			if (keyboardInput.containsKey(key) && nameList.containsKey(key)) {
 				IKeyboard input = keyboardInput.get(key);
-				input.onPressed(key, nameList.get(key), false, Keyboard.getEventKeyState());
+				input.onPressed(nameList.get(key), false, Keyboard.getEventKeyState());
 			}
 		}
 

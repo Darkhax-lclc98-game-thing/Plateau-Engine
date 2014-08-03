@@ -2,6 +2,7 @@ package plateau.engine.scene;
 
 import plateau.engine.renderer.Camera;
 import plateau.engine.shape.Shape;
+import plateau.engine.world.World;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,7 @@ import static org.lwjgl.util.glu.GLU.gluPerspective;
 public class Scene {
 	private Camera camera;
 	private ArrayList<Shape> objectArray = new ArrayList<Shape>();
-
+	private ArrayList<World> worldList = new ArrayList<World>();
 	public void initCamera(int width, int height) {
 		glViewport(0, 0, width, height);
 
@@ -38,6 +39,12 @@ public class Scene {
 		objectArray.add(shape);
 	}
 
+	public void registerWorld(World world) {
+		if (!worldList.contains(world)) {
+			worldList.add(world);
+		}
+	}
+
 	public void update() {
 		for (Shape shape : objectArray) {
 			glTranslated(shape.getLocation().getX() / 2, shape.getLocation().getY() / 2, shape.getLocation().getZ() / 2);
@@ -46,6 +53,8 @@ public class Scene {
 
 		if (camera != null) {
 			camera.update();
+
 		}
+
 	}
 }

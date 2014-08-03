@@ -24,6 +24,8 @@ public class Test extends PlateauDisplay {
         Mouse.setGrabbed(true);
         input.registerInput(new TestKeyboard());
         input.registerInput(new TestMouse());
+
+
 	}
 
 }
