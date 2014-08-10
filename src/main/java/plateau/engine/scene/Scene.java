@@ -50,11 +50,14 @@ public class Scene {
 			glTranslated(shape.getLocation().getX() / 2, shape.getLocation().getY() / 2, shape.getLocation().getZ() / 2);
 			shape.render();
 		}
-
+		for (World world : worldList) {
+			world.render();
+		}
 		if (camera != null) {
 			camera.update();
 
 		}
+
 
 	}
 }

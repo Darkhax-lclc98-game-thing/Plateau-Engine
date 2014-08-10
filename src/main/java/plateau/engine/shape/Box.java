@@ -11,12 +11,11 @@ public class Box extends Shape {
 	@Override
 	public void render() {
 
-		float x = this.getSize().getX() / 10;
-		float y = this.getSize().getY() / 10;
-		float z = this.getSize().getZ() / 10;
+		float x = this.getSize().getX();
+		float y = this.getSize().getY();
+		float z = this.getSize().getZ();
 
 		glBegin(GL_QUADS);
-		glColor3d(1.0, 0.5, 0.0);
 		glVertex3d(x, -y, -z);      // P1 is red
 		glVertex3d(x, y, -z);      // P2 is green
 		glVertex3d(-x, y, -z);      // P3 is blue
@@ -24,7 +23,6 @@ public class Box extends Shape {
 		glEnd();
 
 		glBegin(GL_QUADS);
-		glColor3d(1.0, 1.0, 1.0);
 		glVertex3d(x, -y, z);
 		glVertex3d(x, y, z);
 		glVertex3d(-x, y, z);
@@ -33,7 +31,6 @@ public class Box extends Shape {
 
 		// Purple side - RIGHT
 		glBegin(GL_QUADS);
-		glColor3d(1.0, 0.0, 1.0);
 		glVertex3d(x, -y, -z);
 		glVertex3d(x, y, -z);
 		glVertex3d(x, y, z);
@@ -42,7 +39,6 @@ public class Box extends Shape {
 
 		// Green side - LEFT
 		glBegin(GL_QUADS);
-		glColor3d(0.0, 1.0, 0.0);
 		glVertex3d(-x, -y, z);
 		glVertex3d(-x, y, z);
 		glVertex3d(-x, y, -z);
@@ -51,7 +47,6 @@ public class Box extends Shape {
 
 		// Blue side - TOP
 		glBegin(GL_QUADS);
-		glColor3d(0.0, 0.0, 1.0);
 		glVertex3d(x, y, z);
 		glVertex3d(x, y, -z);
 		glVertex3d(-x, y, -z);
@@ -60,7 +55,6 @@ public class Box extends Shape {
 
 		// Red side - BOTTOM
 		glBegin(GL_QUADS);
-		glColor3d(1.0, 0.0, 0.0);
 		glVertex3d(x, -y, -z);
 		glVertex3d(x, -y, z);
 		glVertex3d(-x, -y, z);
