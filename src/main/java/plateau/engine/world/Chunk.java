@@ -1,36 +1,31 @@
 package plateau.engine.world;
 
 import plateau.engine.block.Block;
-import plateau.engine.shape.Box;
-
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
-import static org.lwjgl.opengl.GL11.glTranslated;
 
 public class Chunk {
 
-	private Block[][][] blocks = new Block[16][256][16];
+	private Block[][][] blocks = new Block[16][16][16];
 
 	public Chunk() {
 		for (int x = 0; x < blocks.length; x++) {
-			for (int y = 0; y < blocks.length; y++) {
-				for (int z = 0; z < blocks.length; z++) {
+			for (int y = 0; y < blocks[x].length; y++) {
+				for (int z = 0; z < blocks[x][y].length; z++) {
 					blocks[x][y][z] = new Block();
 				}
 			}
 		}
 	}
 
-	public void render() {
-		for (int x = 0; x < blocks.length; x++) {
-			for (int y = 0; y < blocks.length; y++) {
-				for (int z = 0; z < blocks.length; z++) {
-					glPushMatrix();
-					glTranslated(x, y, z);
-					new Box(0.5f, 0.5f, 0.5f).render();
-					glPopMatrix();
+	public Block getBlock(int x, int y, int z) {
+		if (y < 0 || y > 14 || x < 0 || x > 14|| z < 0 || z > 14) {
+			return new Block() {
+				@Override
+				public boolean isSideSolid(int side) {
+					return false;
 				}
-			}
+			};
+			//y = y + 1;
 		}
+		return blocks[x][y][z];
 	}
 }

@@ -17,6 +17,7 @@ public abstract class PlateauDisplay implements Runnable {
 	private String title, icon;
 	private int width, height;
 	private boolean vSync, fullscreen;
+    private FPS fps = new FPS();
 
 	//TODO Error Messages
 	private boolean initThread() {
@@ -50,7 +51,8 @@ public abstract class PlateauDisplay implements Runnable {
 	public void runLoop() {
 		//TODO Profiler needed
 		input.update();
-	}
+	    fps.fps();
+    }
 
 	@Override
 	public void run() {

@@ -2,10 +2,8 @@ package test;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
 import plateau.engine.PlateauDisplay;
 import plateau.engine.renderer.Camera;
-import plateau.engine.shape.Box;
 import plateau.engine.world.World;
 
 public class Test extends PlateauDisplay {
@@ -22,16 +20,11 @@ public class Test extends PlateauDisplay {
 		final Camera cam = new Camera(width, height);
 		scene.setCamera(cam);
 
-		Box box = new Box(0.5f, 0.5f, 0.5f);
-		scene.addObject(box);
         Mouse.setGrabbed(true);
 		Keyboard.enableRepeatEvents(true);
 		input.registerInput(new TestKeyboard());
         input.registerInput(new TestMouse());
 		new World();
-
-
-
 	}
 
 	@Override

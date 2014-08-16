@@ -16,6 +16,7 @@ public class Camera {
 
 		this.width = width;
 		this.height = height;
+		location.setY(2);
 	}
 
 	public void update() {
