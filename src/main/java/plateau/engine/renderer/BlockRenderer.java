@@ -2,6 +2,7 @@ package plateau.engine.renderer;
 
 import plateau.engine.block.Block;
 import plateau.engine.renderer.mc.Tessellator;
+import plateau.engine.resource.ResourceLoader;
 import plateau.engine.world.World;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -39,7 +40,7 @@ public class BlockRenderer {
 
 		glEnable(GL_TEXTURE_2D);
 
-		RenderEngine.bindTextures("stone.png");
+		ResourceLoader.bindTextures("stone.png");
 		Block block = world.getBlock(x1, y1, z1);
 		glTranslated(x1 * (x * 2), y1 * (y * 2), z1 * (z * 2));
 		Tessellator tessellator = Tessellator.instance;

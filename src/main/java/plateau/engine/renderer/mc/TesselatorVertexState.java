@@ -9,14 +9,14 @@ public class TesselatorVertexState {
 	private boolean hasNormals;
 	private boolean hasColor;
 
-	public TesselatorVertexState(int[] p_i45079_1_, int p_i45079_2_, int p_i45079_3_, boolean p_i45079_4_, boolean p_i45079_5_, boolean p_i45079_6_, boolean p_i45079_7_) {
-		this.rawBuffer = p_i45079_1_;
-		this.rawBufferIndex = p_i45079_2_;
-		this.vertexCount = p_i45079_3_;
-		this.hasTexture = p_i45079_4_;
-		this.hasBrightness = p_i45079_5_;
-		this.hasNormals = p_i45079_6_;
-		this.hasColor = p_i45079_7_;
+	public TesselatorVertexState(int[] rawBuffer, int rawBufferIndex, int vertexCount, boolean hasTexture, boolean hasBrightness, boolean hasNormals, boolean hasColor) {
+		this.rawBuffer = rawBuffer;
+		this.rawBufferIndex = rawBufferIndex;
+		this.vertexCount = vertexCount;
+		this.hasTexture = hasTexture;
+		this.hasBrightness = hasBrightness;
+		this.hasNormals = hasNormals;
+		this.hasColor = hasColor;
 	}
 
 	public int[] getRawBuffer() {

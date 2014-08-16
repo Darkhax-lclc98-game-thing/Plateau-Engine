@@ -14,7 +14,7 @@ public class Tessellator {
 	 * The static instance of the Tessellator.
 	 */
 	public static final Tessellator instance = new Tessellator(2097152);
-	private static final String __OBFID = "CL_00000960";
+
 	private static int nativeBufferSize = 0x200000;
 	/**
 	 * The byte buffer used for GL allocation.
@@ -113,8 +113,6 @@ public class Tessellator {
 	private Tessellator(int p_i1250_1_) {
 	}
 
-	public Tessellator() {
-	}
 
 	static {
 		instance.defaultTexture = true;
