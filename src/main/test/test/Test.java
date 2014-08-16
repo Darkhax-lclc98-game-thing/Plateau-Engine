@@ -20,10 +20,10 @@ public class Test extends PlateauDisplay {
 		final Camera cam = new Camera(width, height);
 		scene.setCamera(cam);
 
-        Mouse.setGrabbed(true);
+		Mouse.setGrabbed(true);
 		Keyboard.enableRepeatEvents(true);
 		input.registerInput(new TestKeyboard());
-        input.registerInput(new TestMouse());
+		input.registerInput(new TestMouse());
 		new World();
 	}
 

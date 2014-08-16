@@ -21,9 +21,9 @@ public class World {
 		int x1 = x >> 4;
 		int z1 = z >> 4;
 		Chunk chunks = null;
-		if (x1 >= 0 && z1 >= 0 && x1 < chunk.length && z1 < chunk[x1].length){
+		if (x1 >= 0 && z1 >= 0 && x1 < chunk.length && z1 < chunk[x1].length) {
 			chunks = this.getChunk(x >> 4, z >> 4);
-		}else {
+		} else {
 			chunks = this.getChunk(0, 0);
 		}
 		return chunks.getBlock(x & 15, y, z & 15);

@@ -17,7 +17,7 @@ public class Chunk {
 	}
 
 	public Block getBlock(int x, int y, int z) {
-		if (y < 0 || y > 14 || x < 0 || x > 14|| z < 0 || z > 14) {
+		if (y < 0 || y > 14 || x < 0 || x > 14 || z < 0 || z > 14) {
 			return new Block() {
 				@Override
 				public boolean isSideSolid(int side) {

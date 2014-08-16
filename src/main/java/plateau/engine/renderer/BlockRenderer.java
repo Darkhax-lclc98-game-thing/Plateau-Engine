@@ -90,7 +90,7 @@ public class BlockRenderer {
 
 		// Bottom 5
 		if (block.isSideSolid(5) && world.getBlock(x1, y1 - 1, z1) != null && !world.getBlock(x1, y1 - 1, z1).isSideSolid(4)) {
-			tessellator.addVertexWithUV(x, -y, -z, 0,0);
+			tessellator.addVertexWithUV(x, -y, -z, 0, 0);
 			tessellator.addVertexWithUV(x, -y, z, 1, 1);
 			tessellator.addVertexWithUV(-x, -y, z, 1, 0);
 			tessellator.addVertexWithUV(-x, -y, -z, 0, 1);

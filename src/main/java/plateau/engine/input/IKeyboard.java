@@ -4,12 +4,14 @@ public interface IKeyboard {
 
 	/**
 	 * The list of keys used by this class
+	 *
 	 * @return: List of keys used in class on pressed
 	 */
 	int[] getKey();
 
 	/**
 	 * Used to be compared with the list of keys
+	 *
 	 * @return: List of key names to match keys
 	 */
 	String[] getName();

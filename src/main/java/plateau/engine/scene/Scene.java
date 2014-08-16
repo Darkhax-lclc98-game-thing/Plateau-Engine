@@ -10,10 +10,9 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.util.glu.GLU.gluPerspective;
 
 public class Scene {
+	BlockRenderer blockRenderer = new BlockRenderer();
 	private Camera camera;
 	private ArrayList<World> worldList = new ArrayList<World>();
-
-	BlockRenderer blockRenderer = new BlockRenderer();
 
 	public void initCamera(int width, int height) {
 		glViewport(0, 0, width, height);

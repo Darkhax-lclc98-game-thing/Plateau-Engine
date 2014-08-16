@@ -10,10 +10,12 @@ import java.util.PriorityQueue;
 
 //TODO Rewrite
 public class Tessellator {
+	/**
+	 * The static instance of the Tessellator.
+	 */
+	public static final Tessellator instance = new Tessellator(2097152);
+	private static final String __OBFID = "CL_00000960";
 	private static int nativeBufferSize = 0x200000;
-	public boolean defaultTexture = false;
-	private int rawBufferSize = 0;
-
 	/**
 	 * The byte buffer used for GL allocation.
 	 */
@@ -30,6 +32,8 @@ public class Tessellator {
 	 * The same memory as byteBuffer, but referenced as an short buffer.
 	 */
 	private static ShortBuffer shortBuffer = byteBuffer.asShortBuffer();
+	public boolean defaultTexture = false;
+	private int rawBufferSize = 0;
 	/**
 	 * Raw integer array.
 	 */
@@ -98,10 +102,6 @@ public class Tessellator {
 	 */
 	private int normal;
 	/**
-	 * The static instance of the Tessellator.
-	 */
-	public static final Tessellator instance = new Tessellator(2097152);
-	/**
 	 * Whether this tessellator is currently in draw mode.
 	 */
 	private boolean isDrawing;
@@ -109,7 +109,6 @@ public class Tessellator {
 	 * The size of the buffers used (in integers).
 	 */
 	private int bufferSize;
-	private static final String __OBFID = "CL_00000960";
 
 	private Tessellator(int p_i1250_1_) {
 	}
@@ -119,6 +118,10 @@ public class Tessellator {
 
 	static {
 		instance.defaultTexture = true;
+	}
+
+	public static synchronized ByteBuffer createDirectByteBuffer(int p_74524_0_) {
+		return ByteBuffer.allocateDirect(p_74524_0_).order(ByteOrder.nativeOrder());
 	}
 
 	/**
@@ -462,10 +465,6 @@ public class Tessellator {
 		this.xOffset += (double) p_78372_1_;
 		this.yOffset += (double) p_78372_2_;
 		this.zOffset += (double) p_78372_3_;
-	}
-
-	public static synchronized ByteBuffer createDirectByteBuffer(int p_74524_0_) {
-		return ByteBuffer.allocateDirect(p_74524_0_).order(ByteOrder.nativeOrder());
 	}
 
 }
