@@ -31,7 +31,7 @@ public abstract class PlateauDisplay implements Runnable {
 				Display.setDisplayMode(new DisplayMode(width, height));
 			}
 
-			if (icon != null && icon != "") {
+			if (icon != null && !icon.equals("")) {
 				Display.setIcon(ResourceLoader.getIcon(icon));
 			}
 

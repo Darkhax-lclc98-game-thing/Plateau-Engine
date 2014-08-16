@@ -404,7 +404,7 @@ public class Tessellator {
 			this.rawBuffer[this.rawBufferIndex + 6] = this.normal;
 		}
 
-		this.rawBuffer[this.rawBufferIndex + 0] = Float.floatToRawIntBits((float) (p_78377_1_ + this.xOffset));
+		this.rawBuffer[this.rawBufferIndex] = Float.floatToRawIntBits((float) (p_78377_1_ + this.xOffset));
 		this.rawBuffer[this.rawBufferIndex + 1] = Float.floatToRawIntBits((float) (p_78377_3_ + this.yOffset));
 		this.rawBuffer[this.rawBufferIndex + 2] = Float.floatToRawIntBits((float) (p_78377_5_ + this.zOffset));
 		this.rawBufferIndex += 8;

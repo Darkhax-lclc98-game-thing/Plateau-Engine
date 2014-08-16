@@ -1,15 +1,12 @@
 package test;
 
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.util.vector.Vector3f;
+import plateau.engine.entity.player.EntityPlayer;
 import plateau.engine.input.IKeyboard;
-import plateau.engine.renderer.Camera;
 
 import static java.lang.Math.*;
 
 public class TestKeyboard implements IKeyboard {
-
-	private static float speed = 0.09f;
 
 	@Override
 	public int[] getKey() {
@@ -24,6 +21,7 @@ public class TestKeyboard implements IKeyboard {
 	@Override
 	public void onPressed(String name, boolean isRepeated, boolean onPressed) {
 		if (onPressed) {
+			float speed = 0.09f;
 			if (name.equalsIgnoreCase("Forward")) {
 				move(0, -speed);
 			} else if (name.equalsIgnoreCase("Back")) {
@@ -37,11 +35,11 @@ public class TestKeyboard implements IKeyboard {
 	}
 
 	private void move(float dx, float dz) {
-		Camera cam = Test.scene.getCamera();
-		Vector3f camLoc = cam.getLocation();
-		float x = (float) (camLoc.getX() - dx * (float) sin(toRadians(cam.getYaw() - 90)) + dz * sin(toRadians(-cam.getYaw())));
-		float z = (float) (camLoc.getZ() + dx * (float) cos(toRadians(cam.getYaw() - 90)) + dz * cos(toRadians(-cam.getYaw())));
+		EntityPlayer player = Test.scene.getPlayer();
+		float x = (float) (player.getX() - dx * (float) sin(toRadians(player.getYaw() - 90)) + dz * sin(toRadians(-player.getYaw())));
+		float z = (float) (player.getZ() + dx * (float) cos(toRadians(player.getYaw() - 90)) + dz * cos(toRadians(-player.getYaw())));
 
-		cam.setLocation(new Vector3f(x, camLoc.getY(), z));
+		player.setX(x);
+		player.setZ(z);
 	}
 }

@@ -1,22 +1,17 @@
-package plateau.engine.renderer;
-
-import org.lwjgl.util.vector.Vector3f;
+package plateau.engine.entity.player;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class Camera {
-	private Vector3f location;
-
+public class EntityPlayer {
+	private double x, y, z;
 	private float yaw, pitch, roll;
 
 	private int width, height;
 
-	public Camera(int width, int height) {
-		location = new Vector3f();
+	public EntityPlayer(int width, int height) {
 
 		this.width = width;
 		this.height = height;
-		location.setY(2);
 	}
 
 	public void update() {
@@ -28,17 +23,33 @@ public class Camera {
 		glRotatef(this.getYaw(), 0, 1, 0);
 		glRotatef(this.getRoll(), 0, 0, 1);
 
-		glTranslated(-this.getLocation().getX(), -this.getLocation().getY(), -this.getLocation().getZ());
+		glTranslated(-this.getX(), -this.getY(), -this.getZ());
 
 		glPopAttrib();
 	}
 
-	public Vector3f getLocation() {
-		return this.location;
+	public double getX() {
+		return this.x;
 	}
 
-	public void setLocation(Vector3f vec) {
-		this.location = vec;
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public double getY() {
+		return this.y;
+	}
+
+	public void setY(double y) {
+		this.y = y;
+	}
+
+	public double getZ() {
+		return this.z;
+	}
+
+	public void setZ(double z) {
+		this.z = z;
 	}
 
 	public int getWidth() {

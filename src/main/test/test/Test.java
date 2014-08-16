@@ -3,7 +3,7 @@ package test;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import plateau.engine.PlateauDisplay;
-import plateau.engine.renderer.Camera;
+import plateau.engine.entity.player.EntityPlayer;
 import plateau.engine.world.World;
 
 public class Test extends PlateauDisplay {
@@ -17,8 +17,8 @@ public class Test extends PlateauDisplay {
 
 	@Override
 	public void init() {
-		final Camera cam = new Camera(width, height);
-		scene.setCamera(cam);
+		final EntityPlayer player = new EntityPlayer(width, height);
+		scene.setPlayer(player);
 
 		Mouse.setGrabbed(true);
 		Keyboard.enableRepeatEvents(true);

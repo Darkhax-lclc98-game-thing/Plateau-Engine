@@ -20,7 +20,7 @@ public class World {
 	public Block getBlock(int x, int y, int z) {
 		int x1 = x >> 4;
 		int z1 = z >> 4;
-		Chunk chunks = null;
+		Chunk chunks;
 		if (x1 >= 0 && z1 >= 0 && x1 < chunk.length && z1 < chunk[x1].length) {
 			chunks = this.getChunk(x >> 4, z >> 4);
 		} else {
