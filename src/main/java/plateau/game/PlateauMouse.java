@@ -1,9 +1,9 @@
-package test;
+package plateau.game;
 
 import plateau.engine.entity.player.EntityPlayer;
 import plateau.engine.input.IMouse;
 
-public class TestMouse implements IMouse {
+public class PlateauMouse implements IMouse {
 
 	@Override
 	public void onPress(int eventButton) {
@@ -12,7 +12,7 @@ public class TestMouse implements IMouse {
 
 	@Override
 	public void onMove(int x, int y) {
-		EntityPlayer player = Test.scene.getPlayer();
+		EntityPlayer player = Plateau.scene.getPlayer();
 
 		float mouseDX = x * 0.16f;
 		float mouseDY = y * 0.16f;

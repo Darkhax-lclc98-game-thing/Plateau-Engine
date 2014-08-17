@@ -80,7 +80,7 @@ public class BlockRenderer {
 			tessellator.addVertexWithUV(-x, -y, -z, 1, 1);
 		}
 
-		// TODO Fix These
+		// TODO Fix these
 		// Top 4
 		if (block.isSideSolid(4) && world.getBlock(x1, y1 + 1, z1) != null && !world.getBlock(x1, y1 + 1, z1).isSideSolid(5)) {
 			tessellator.addVertexWithUV(x, y, z, 0, 0);

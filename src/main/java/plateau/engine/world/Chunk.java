@@ -6,7 +6,12 @@ public class Chunk {
 
 	private Block[][][] blocks = new Block[16][16][16];
 
-	public Chunk() {
+	private int chunkX, chunkZ;
+
+	public Chunk(int chunkX, int chunkZ) {
+		this.chunkX = chunkX;
+		this.chunkZ = chunkZ;
+
 		for (int x = 0; x < blocks.length; x++) {
 			for (int y = 0; y < blocks[x].length; y++) {
 				for (int z = 0; z < blocks[x][y].length; z++) {
@@ -24,8 +29,15 @@ public class Chunk {
 					return false;
 				}
 			};
-			//y = y + 1;
 		}
 		return blocks[x][y][z];
+	}
+
+	public int getChunkX() {
+		return chunkX;
+	}
+
+	public int getChunkZ() {
+		return chunkZ;
 	}
 }

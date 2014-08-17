@@ -3,38 +3,52 @@ package plateau.engine.world;
 import plateau.engine.PlateauDisplay;
 import plateau.engine.block.Block;
 
+import java.util.ArrayList;
+
 public class World {
 
-	private Chunk[][] chunk = new Chunk[1][1];
+	int x, z;
+	private ArrayList<Chunk> chunk = new ArrayList<Chunk>();
 
 	public World() {
 		PlateauDisplay.scene.registerWorld(this);
 
-		for (int x = 0; x < chunk.length; x++) {
-			for (int z = 0; z < chunk[x].length; z++) {
-				chunk[x][z] = new Chunk();
-			}
-		}
+		for (int i = 0; i < 5; i++)
+			chunk.add(new Chunk(x++, z++));
 	}
 
 	public Block getBlock(int x, int y, int z) {
 		int x1 = x >> 4;
 		int z1 = z >> 4;
-		Chunk chunks;
-		if (x1 >= 0 && z1 >= 0 && x1 < chunk.length && z1 < chunk[x1].length) {
-			chunks = this.getChunk(x >> 4, z >> 4);
-		} else {
-			chunks = this.getChunk(0, 0);
+
+		for (int i = 0; i < chunk.size(); i++) {
+			Chunk chunks = chunk.get(i);
+
+			if (chunks.getChunkX() != x1 || chunks.getChunkZ() != z1) continue;
+
+			return chunks.getBlock(x & 15, y, z & 15);
 		}
-		return chunks.getBlock(x & 15, y, z & 15);
+		// TODO Return empty chunk
+		return null;
 	}
 
 	private Chunk getChunk(int x, int z) {
-		return chunk[x][z];
+		for (int i = 0; i < chunk.size(); i++) {
+			Chunk chunks = chunk.get(i);
+
+			if (chunks.getChunkX() == x || chunks.getChunkZ() == z) {
+				return chunks;
+			}
+		}
+		// TODO Return empty chunk
+		return null;
 	}
 
 	public boolean isAirBlock(int x, int y, int z) {
-		Chunk chunk = this.getChunk(x >> 4, z >> 4);
-		return chunk.getBlock(x & 15, y, z & 15) == null;
+		return this.getBlock(x & 15, y, z & 15) == null;
+	}
+
+	public void loadChunk(int x, int z) {
+
 	}
 }

@@ -1,4 +1,4 @@
-package test;
+package plateau.game;
 
 import org.lwjgl.input.Keyboard;
 import plateau.engine.entity.player.EntityPlayer;
@@ -6,7 +6,7 @@ import plateau.engine.input.IKeyboard;
 
 import static java.lang.Math.*;
 
-public class TestKeyboard implements IKeyboard {
+public class PlateauKeyboard implements IKeyboard {
 
 	@Override
 	public int[] getKey() {
@@ -35,7 +35,7 @@ public class TestKeyboard implements IKeyboard {
 	}
 
 	private void move(float dx, float dz) {
-		EntityPlayer player = Test.scene.getPlayer();
+		EntityPlayer player = Plateau.scene.getPlayer();
 		float x = (float) (player.getX() - dx * (float) sin(toRadians(player.getYaw() - 90)) + dz * sin(toRadians(-player.getYaw())));
 		float z = (float) (player.getZ() + dx * (float) cos(toRadians(player.getYaw() - 90)) + dz * cos(toRadians(-player.getYaw())));
 

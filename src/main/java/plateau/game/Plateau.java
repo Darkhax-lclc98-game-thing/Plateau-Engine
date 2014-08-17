@@ -1,4 +1,4 @@
-package test;
+package plateau.game;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -6,13 +6,13 @@ import plateau.engine.PlateauDisplay;
 import plateau.engine.entity.player.EntityPlayer;
 import plateau.engine.world.World;
 
-public class Test extends PlateauDisplay {
+public class Plateau extends PlateauDisplay {
 
 	private static int width = 854;
 	private static int height = 480;
 
 	public static void main(String[] args) {
-		new Test().createWindowDisplay("Test", width, height, null);
+		new Plateau().createWindowDisplay("Test", width, height, null);
 	}
 
 	@Override
@@ -22,8 +22,8 @@ public class Test extends PlateauDisplay {
 
 		Mouse.setGrabbed(true);
 		Keyboard.enableRepeatEvents(true);
-		input.registerInput(new TestKeyboard());
-		input.registerInput(new TestMouse());
+		input.registerInput(new PlateauKeyboard());
+		input.registerInput(new PlateauMouse());
 		new World();
 	}
 
