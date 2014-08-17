@@ -6,23 +6,30 @@ import org.lwjgl.opengl.DisplayMode;
 import plateau.engine.input.InputHandler;
 import plateau.engine.resource.ResourceLoader;
 import plateau.engine.scene.Scene;
+import plateau.engine.util.Logger;
 
 import static org.lwjgl.opengl.GL11.*;
 
 public abstract class PlateauDisplay implements Runnable {
 
 	public static Scene scene;
+	private static int width;
+	private static int height;
 	public InputHandler input;
-	private boolean isCreated;
 	private String title, icon;
-	private int width, height;
 	private boolean vSync, fullscreen;
 	private FPS fps = new FPS();
 
-	//TODO Error Messages
+	public static int getWidth() {
+		return width;
+	}
+
+	public static int getHeight() {
+		return height;
+	}
+
 	private boolean initThread() {
 		try {
-
 			if (fullscreen) {
 				Display.setFullscreen(true);
 				Display.setVSyncEnabled(vSync);
@@ -38,9 +45,10 @@ public abstract class PlateauDisplay implements Runnable {
 			Display.create();
 			scene = new Scene();
 			input = new InputHandler();
+
 			this.init();
 		} catch (LWJGLException e) {
-			e.printStackTrace();
+			Logger.log(e.getMessage(), Logger.LogLevel.FATAL);
 		}
 		return true;
 	}
@@ -56,9 +64,7 @@ public abstract class PlateauDisplay implements Runnable {
 
 	@Override
 	public void run() {
-		if (!initThread()) {
-			// Error Message
-		}
+		initThread();
 
 		while (true) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -84,17 +90,13 @@ public abstract class PlateauDisplay implements Runnable {
 	 * @param height: The height of the displayed window
 	 */
 	public void createWindowDisplay(String title, int width, int height, String icon) {
-		if (!this.isCreated) {
-			this.title = title;
-			this.width = width;
-			this.height = height;
-			this.icon = icon;
-			this.isCreated = true;
-			Display.setResizable(true);
-			new Thread(this, "LWJGL Display").start();
-		} else {
-			// ERROR
-		}
+		this.title = title;
+		this.width = width;
+		this.height = height;
+		this.icon = icon;
+		Display.setResizable(true);
+
+		new Thread(this, "LWJGL Display").start();
 	}
 
 	/**
@@ -103,16 +105,11 @@ public abstract class PlateauDisplay implements Runnable {
 	 * @param vSync: The Boolean to decided if you want to run the game at a fps around your monitor's refresh rate
 	 */
 	public void createFullScreenDisplay(boolean vSync, String icon) {
-		if (!this.isCreated) {
-			this.icon = icon;
-			this.vSync = vSync;
-			this.fullscreen = true;
-			this.isCreated = true;
+		this.icon = icon;
+		this.vSync = vSync;
+		this.fullscreen = true;
 
-			new Thread(this, "LWJGL Display").start();
-		} else {
-			// ERROR
-		}
+		new Thread(this, "LWJGL Display").start();
 	}
 
 	public abstract void init();

@@ -29,72 +29,70 @@ public class BlockRenderer {
 		glPopMatrix();
 	}
 
-	public void setupDraw(World world, int x1, int y1, int z1) {
+	public void setupDraw(World world, int x, int y, int z) {
 
 		glPushMatrix();
 
-		float x = 0.25f;
-		float y = 0.25f;
-		float z = 0.25f;
+		float size = 1f;
+
 		int render = GL_QUADS;
 
 		glEnable(GL_TEXTURE_2D);
 
 		ResourceLoader.bindTextures("stone.png");
-		Block block = world.getBlock(x1, y1, z1);
-		glTranslated(x1 * (x * 2), y1 * (y * 2), z1 * (z * 2));
+		Block block = world.getBlock(x, y, z);
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawing(render);
 
 		// Front 0
-		if (block.isSideSolid(0) && world.getBlock(x1 + 1, y1, z1) != null && !world.getBlock(x1 + 1, y1, z1).isSideSolid(1)) {
+		if (block.isSideSolid(0) && world.getBlock(x + 1, y, z) != null && !world.getBlock(x + 1, y, z).isSideSolid(1)) {
 			block.getIcon(0);
 
-			tessellator.addVertexWithUV(x, -y, -z, 1, 1);
-			tessellator.addVertexWithUV(x, y, -z, 1, 0);
-			tessellator.addVertexWithUV(x, y, z, 0, 0);
-			tessellator.addVertexWithUV(x, -y, z, 0, 1);
+			tessellator.addVertexWithUV(x + size, y, z, 1, 1);
+			tessellator.addVertexWithUV(x + size, y + size, z, 1, 0);
+			tessellator.addVertexWithUV(x + size, y + size, z + size, 0, 0);
+			tessellator.addVertexWithUV(x + size, y, z + size, 0, 1);
 		}
 
 		// Back 1
-		if (block.isSideSolid(1) && world.getBlock(x1 - 1, y1, z1) != null && !world.getBlock(x1 - 1, y1, z1).isSideSolid(0)) {
-			tessellator.addVertexWithUV(-x, y, -z, 0, 0);
-			tessellator.addVertexWithUV(-x, -y, -z, 0, 1);
-			tessellator.addVertexWithUV(-x, -y, z, 1, 1);
-			tessellator.addVertexWithUV(-x, y, z, 1, 0);
+		if (block.isSideSolid(1) && world.getBlock(x - 1, y, z) != null && !world.getBlock(x - 1, y, z).isSideSolid(0)) {
+			tessellator.addVertexWithUV(x, y + size, z, 0, 0);
+			tessellator.addVertexWithUV(x, y, z, 0, 1);
+			tessellator.addVertexWithUV(x, y, z + size, 1, 1);
+			tessellator.addVertexWithUV(x, y + size, z + size, 1, 0);
 		}
 
 		// Right 2
-		if (block.isSideSolid(2) && world.getBlock(x1, y1, z1 + 1) != null && !world.getBlock(x1, y1, z1 + 1).isSideSolid(3)) {
-			tessellator.addVertexWithUV(x, -y, z, 1, 1);
-			tessellator.addVertexWithUV(x, y, z, 1, 0);
-			tessellator.addVertexWithUV(-x, y, z, 0, 0);
-			tessellator.addVertexWithUV(-x, -y, z, 0, 1);
+		if (block.isSideSolid(2) && world.getBlock(x, y, z + 1) != null && !world.getBlock(x, y, z + 1).isSideSolid(3)) {
+			tessellator.addVertexWithUV(x + size, y, z + size, 1, 1);
+			tessellator.addVertexWithUV(x + size, y + size, z + size, 1, 0);
+			tessellator.addVertexWithUV(x, y + size, z + size, 0, 0);
+			tessellator.addVertexWithUV(x, y, z + size, 0, 1);
 		}
 
 		// Left 3
-		if (block.isSideSolid(3) && world.getBlock(x1, y1, z1 - 1) != null && !world.getBlock(x1, y1, z1 - 1).isSideSolid(2)) {
-			tessellator.addVertexWithUV(x, -y, -z, 0, 1);
-			tessellator.addVertexWithUV(x, y, -z, 0, 0);
-			tessellator.addVertexWithUV(-x, y, -z, 1, 0);
-			tessellator.addVertexWithUV(-x, -y, -z, 1, 1);
+		if (block.isSideSolid(3) && world.getBlock(x, y, z - 1) != null && !world.getBlock(x, y, z - 1).isSideSolid(2)) {
+			tessellator.addVertexWithUV(x + size, y, z, 0, 1);
+			tessellator.addVertexWithUV(x + size, y + size, z, 0, 0);
+			tessellator.addVertexWithUV(x, y + size, z, 1, 0);
+			tessellator.addVertexWithUV(x, y, z, 1, 1);
 		}
 
 		// TODO Fix these
 		// Top 4
-		if (block.isSideSolid(4) && world.getBlock(x1, y1 + 1, z1) != null && !world.getBlock(x1, y1 + 1, z1).isSideSolid(5)) {
-			tessellator.addVertexWithUV(x, y, z, 0, 0);
-			tessellator.addVertexWithUV(x, y, -z, 1, 1);
-			tessellator.addVertexWithUV(-x, y, -z, 1, 0);
-			tessellator.addVertexWithUV(-x, y, z, 0, 1);
+		if (block.isSideSolid(4) && world.getBlock(x, y + 1, z) != null && !world.getBlock(x, y + 1, z).isSideSolid(5)) {
+			tessellator.addVertexWithUV(x + size, y + size, z + size, 0, 0);
+			tessellator.addVertexWithUV(x + size, y + size, z, 1, 1);
+			tessellator.addVertexWithUV(x, y + size, z, 1, 0);
+			tessellator.addVertexWithUV(x, y + size, z + size, 0, 1);
 		}
 
 		// Bottom 5
-		if (block.isSideSolid(5) && world.getBlock(x1, y1 - 1, z1) != null && !world.getBlock(x1, y1 - 1, z1).isSideSolid(4)) {
-			tessellator.addVertexWithUV(x, -y, -z, 0, 0);
-			tessellator.addVertexWithUV(x, -y, z, 1, 1);
-			tessellator.addVertexWithUV(-x, -y, z, 1, 0);
-			tessellator.addVertexWithUV(-x, -y, -z, 0, 1);
+		if (block.isSideSolid(5) && world.getBlock(x, y - 1, z) != null && !world.getBlock(x, y - 1, z).isSideSolid(4)) {
+			tessellator.addVertexWithUV(x + size, y, z, 0, 0);
+			tessellator.addVertexWithUV(x + size, y, z + size, 1, 1);
+			tessellator.addVertexWithUV(x, y, z + size, 1, 0);
+			tessellator.addVertexWithUV(x, y, z, 0, 1);
 		}
 		tessellator.draw();
 

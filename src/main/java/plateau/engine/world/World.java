@@ -1,7 +1,7 @@
 package plateau.engine.world;
 
-import plateau.engine.PlateauDisplay;
 import plateau.engine.block.Block;
+import plateau.engine.registery.GameRegistry;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ public class World {
 	private ArrayList<Chunk> chunk = new ArrayList<Chunk>();
 
 	public World() {
-		PlateauDisplay.scene.registerWorld(this);
+		GameRegistry.registerWorld(this);
 
 		for (int i = 0; i < 5; i++)
 			chunk.add(new Chunk(x++, z++));
@@ -51,4 +51,5 @@ public class World {
 	public void loadChunk(int x, int z) {
 
 	}
+
 }

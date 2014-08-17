@@ -6,12 +6,8 @@ public class EntityPlayer {
 	private double x, y, z;
 	private float yaw, pitch, roll;
 
-	private int width, height;
-
-	public EntityPlayer(int width, int height) {
-
-		this.width = width;
-		this.height = height;
+	public EntityPlayer() {
+		y = 2;
 	}
 
 	public void update() {
@@ -50,14 +46,6 @@ public class EntityPlayer {
 
 	public void setZ(double z) {
 		this.z = z;
-	}
-
-	public int getWidth() {
-		return this.width;
-	}
-
-	public int getHeight() {
-		return this.height;
 	}
 
 	public float getYaw() {

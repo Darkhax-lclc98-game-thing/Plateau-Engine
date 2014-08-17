@@ -1,10 +1,10 @@
 package plateau.engine.scene;
 
+import plateau.engine.PlateauDisplay;
 import plateau.engine.entity.player.EntityPlayer;
+import plateau.engine.registery.GameRegistry;
 import plateau.engine.renderer.BlockRenderer;
 import plateau.engine.world.World;
-
-import java.util.ArrayList;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.util.glu.GLU.gluPerspective;
@@ -12,7 +12,12 @@ import static org.lwjgl.util.glu.GLU.gluPerspective;
 public class Scene {
 	BlockRenderer blockRenderer = new BlockRenderer();
 	private EntityPlayer player;
-	private ArrayList<World> worldList = new ArrayList<World>();
+
+
+	public Scene(){
+		player = new EntityPlayer();
+		initCamera(PlateauDisplay.getWidth(), PlateauDisplay.getHeight());
+	}
 
 	public void initCamera(int width, int height) {
 		glViewport(0, 0, width, height);
@@ -31,19 +36,9 @@ public class Scene {
 		return player;
 	}
 
-	public void setPlayer(EntityPlayer player) {
-		this.player = player;
-		initCamera(player.getWidth(), player.getHeight());
-	}
-
-	public void registerWorld(World world) {
-		if (!worldList.contains(world)) {
-			worldList.add(world);
-		}
-	}
 
 	public void update() {
-		for (World world : worldList) {
+		for (World world : GameRegistry.getWorldList()) {
 			blockRenderer.renderWorld(world);
 		}
 

@@ -3,7 +3,9 @@ package plateau.game;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import plateau.engine.PlateauDisplay;
+import plateau.engine.block.BlockAir;
 import plateau.engine.entity.player.EntityPlayer;
+import plateau.engine.registery.GameRegistry;
 import plateau.engine.world.World;
 
 public class Plateau extends PlateauDisplay {
@@ -17,13 +19,11 @@ public class Plateau extends PlateauDisplay {
 
 	@Override
 	public void init() {
-		final EntityPlayer player = new EntityPlayer(width, height);
-		scene.setPlayer(player);
-
 		Mouse.setGrabbed(true);
 		Keyboard.enableRepeatEvents(true);
 		input.registerInput(new PlateauKeyboard());
 		input.registerInput(new PlateauMouse());
+
 		new World();
 	}
 
