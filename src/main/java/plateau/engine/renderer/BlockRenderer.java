@@ -15,9 +15,12 @@ public class BlockRenderer {
 		int l = 0;
 		int i1 = 0;
 		int j1 = 0;
-
+		int render = GL_QUADS;
 		glPushMatrix();
+		glEnable(GL_TEXTURE_2D);
 
+		Tessellator tessellator = Tessellator.instance;
+		tessellator.startDrawing(render);
 		for (int x = l; x < l + renderDistance; x++) {
 			for (int y = i1; y < i1 + renderDistance; y++) {
 				for (int z = j1; z < j1 + renderDistance; z++) {
@@ -25,7 +28,9 @@ public class BlockRenderer {
 				}
 			}
 		}
+		tessellator.draw();
 
+		glDisable(GL_TEXTURE_2D);
 		glPopMatrix();
 	}
 
@@ -35,15 +40,12 @@ public class BlockRenderer {
 
 		float size = 1f;
 
-		int render = GL_QUADS;
 
-		glEnable(GL_TEXTURE_2D);
 
 		ResourceLoader.bindTextures("stone.png");
 		Block block = world.getBlock(x, y, z);
-		Tessellator tessellator = Tessellator.instance;
-		tessellator.startDrawing(render);
 
+		Tessellator tessellator = Tessellator.instance;
 		// Front 0
 		if (block.isSideSolid(0) && world.getBlock(x + 1, y, z) != null && !world.getBlock(x + 1, y, z).isSideSolid(1)) {
 			block.getIcon(0);
@@ -94,9 +96,7 @@ public class BlockRenderer {
 			tessellator.addVertexWithUV(x, y, z + size, 1, 0);
 			tessellator.addVertexWithUV(x, y, z, 0, 1);
 		}
-		tessellator.draw();
 
-		glDisable(GL_TEXTURE_2D);
 		glPopMatrix();
 	}
 }

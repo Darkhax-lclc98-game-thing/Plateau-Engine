@@ -20,7 +20,6 @@ public class EntityPlayer {
 		glRotatef(this.getRoll(), 0, 0, 1);
 
 		glTranslated(-this.getX(), -this.getY(), -this.getZ());
-
 		glPopAttrib();
 	}
 

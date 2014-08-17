@@ -71,9 +71,11 @@ public abstract class PlateauDisplay implements Runnable {
 			runLoop();
 
 			scene.update();
+
 			if (Display.wasResized()) {
 				scene.initCamera(Display.getWidth(), Display.getHeight());
 			}
+
 			if (Display.isCloseRequested()) {
 				break;
 			}
