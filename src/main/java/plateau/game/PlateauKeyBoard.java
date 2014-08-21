@@ -6,7 +6,7 @@ import plateau.engine.input.IKeyboard;
 
 import static java.lang.Math.*;
 
-public class PlateauKeyboard implements IKeyboard {
+public class PlateauKeyBoard implements IKeyboard {
 
 	@Override
 	public int[] getKey() {
