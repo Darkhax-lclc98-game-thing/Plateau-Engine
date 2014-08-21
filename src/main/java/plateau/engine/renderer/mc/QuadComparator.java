@@ -2,7 +2,7 @@ package plateau.engine.renderer.mc;
 
 import java.util.Comparator;
 
-public class QuadComparator implements Comparator {
+public class QuadComparator implements Comparator<Object> {
 	private float field_147630_a;
 	private float field_147628_b;
 	private float field_147629_c;

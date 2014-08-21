@@ -1,9 +1,9 @@
 package plateau.engine.world;
 
+import java.util.ArrayList;
+
 import plateau.engine.block.Block;
 import plateau.engine.registery.GameRegistry;
-
-import java.util.ArrayList;
 
 public class World {
 
@@ -32,7 +32,7 @@ public class World {
 		return null;
 	}
 
-	private Chunk getChunk(int x, int z) {
+	public Chunk getChunk(int x, int z) {
 		for (int i = 0; i < chunk.size(); i++) {
 			Chunk chunks = chunk.get(i);
 

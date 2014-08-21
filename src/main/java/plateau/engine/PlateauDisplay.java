@@ -19,6 +19,7 @@ public abstract class PlateauDisplay implements Runnable {
 	private String title, icon;
 	private boolean vSync, fullscreen;
 	private DebugTitleInfo debugTitle = new DebugTitleInfo();
+	private GameTimer timer = new GameTimer();
 
 	public static int getWidth() {
 		return width;
@@ -58,7 +59,8 @@ public abstract class PlateauDisplay implements Runnable {
 	 */
 	public void runLoop() {
 		//TODO Profiler needed
-		input.update();
+		if(timer.tick())
+			input.update();
 		debugTitle.updateDebugTitle();
 	}
 
