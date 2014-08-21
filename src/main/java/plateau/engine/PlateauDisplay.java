@@ -18,7 +18,7 @@ public abstract class PlateauDisplay implements Runnable {
 	public InputHandler input;
 	private String title, icon;
 	private boolean vSync, fullscreen;
-	private FPS fps = new FPS();
+	private DebugTitleInfo debugTitle = new DebugTitleInfo();
 
 	public static int getWidth() {
 		return width;
@@ -59,7 +59,7 @@ public abstract class PlateauDisplay implements Runnable {
 	public void runLoop() {
 		//TODO Profiler needed
 		input.update();
-		fps.fps();
+		debugTitle.updateDebugTitle();
 	}
 
 	@Override
