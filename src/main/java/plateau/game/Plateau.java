@@ -21,7 +21,7 @@ public class Plateau extends PlateauDisplay {
 	public void init() {
 		Mouse.setGrabbed(true);
 		Keyboard.enableRepeatEvents(true);
-		input.registerInput(new PlateauKeyboard());
+		input.registerInput(new PlateauKeyBoard());
 		input.registerInput(new PlateauMouse());
 
 		new World();

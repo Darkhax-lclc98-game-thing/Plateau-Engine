@@ -9,7 +9,7 @@ import org.lwjgl.input.Keyboard;
 import plateau.engine.entity.player.EntityPlayer;
 import plateau.engine.input.IKeyboard;
 
-public class PlateauKeyboard implements IKeyboard {
+public class PlateauKeyBoard implements IKeyboard {
 
 	@Override
 	public int[] getKey() {
