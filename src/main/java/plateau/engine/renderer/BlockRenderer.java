@@ -80,20 +80,19 @@ public class BlockRenderer {
 			tessellator.addVertexWithUV(x, y, z, 1, 1);
 		}
 
-		// TODO Fix these
 		// Top 4
 		if (block.isSideSolid(4) && world.getBlock(x, y + 1, z) != null && !world.getBlock(x, y + 1, z).isSideSolid(5)) {
 			tessellator.addVertexWithUV(x + size, y + size, z + size, 0, 0);
-			tessellator.addVertexWithUV(x + size, y + size, z, 1, 1);
-			tessellator.addVertexWithUV(x, y + size, z, 1, 0);
+			tessellator.addVertexWithUV(x + size, y + size, z, 1, 0);
+			tessellator.addVertexWithUV(x, y + size, z, 1, 1);
 			tessellator.addVertexWithUV(x, y + size, z + size, 0, 1);
 		}
 
 		// Bottom 5
 		if (block.isSideSolid(5) && world.getBlock(x, y - 1, z) != null && !world.getBlock(x, y - 1, z).isSideSolid(4)) {
 			tessellator.addVertexWithUV(x + size, y, z, 0, 0);
-			tessellator.addVertexWithUV(x + size, y, z + size, 1, 1);
-			tessellator.addVertexWithUV(x, y, z + size, 1, 0);
+			tessellator.addVertexWithUV(x + size, y, z + size, 1, 0);
+			tessellator.addVertexWithUV(x, y, z + size, 1, 1);
 			tessellator.addVertexWithUV(x, y, z, 0, 1);
 		}
 
