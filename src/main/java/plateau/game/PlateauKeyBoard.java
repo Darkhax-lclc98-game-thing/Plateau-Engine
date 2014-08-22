@@ -1,13 +1,10 @@
 package plateau.game;
 
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
-import static java.lang.Math.toRadians;
-
 import org.lwjgl.input.Keyboard;
-
 import plateau.engine.entity.player.EntityPlayer;
 import plateau.engine.input.IKeyboard;
+
+import static java.lang.Math.*;
 
 public class PlateauKeyBoard implements IKeyboard {
 
@@ -24,7 +21,7 @@ public class PlateauKeyBoard implements IKeyboard {
 	@Override
 	public void onPressed(String name, boolean isRepeated, boolean onPressed) {
 		if (onPressed) {
-			float speed = 0.5f / 3f;
+			float speed = 0.5f / 4f;
 			if (name.equalsIgnoreCase("Forward")) {
 				move(0, -speed);
 			} else if (name.equalsIgnoreCase("Back")) {
@@ -33,26 +30,26 @@ public class PlateauKeyBoard implements IKeyboard {
 				move(-speed, 0);
 			} else if (name.equalsIgnoreCase("Right")) {
 				move(speed, 0);
-			} else if(name.equalsIgnoreCase("Escape"))
+			} else if (name.equalsIgnoreCase("Escape"))
 				Plateau.shutdown();
 		}
 	}
 
-	private void move(float dx, float dz){
+	private void move(float dx, float dz) {
 		move(dx, 0, dz, false);
 	}
-	
+
 	private void move(float dx, float dy, float dz, boolean yMovement) {
 		EntityPlayer player = Plateau.scene.getPlayer();
-		float x = (float) (player.getX() - dx * (float) sin(toRadians(player.getYaw() - 90)) + dz * sin(toRadians(-player.getYaw())));
-		float y = (float) player.getY();
-		if(yMovement)
-			y = (float) (player.getY() + dy * (float) sin(toRadians(player.getPitch() - 90)) + dz * sin(toRadians(player.getPitch())));
-		float z = (float) (player.getZ() + dx * (float) cos(toRadians(player.getYaw() - 90)) + dz * cos(toRadians(-player.getYaw())));
+		float x = (float) (player.getMotionX() - dx * (float) sin(toRadians(player.getYaw() - 90)) + dz * sin(toRadians(-player.getYaw())));
+		float y = (float) player.getMotionY();
+		if (yMovement)
+			y = (float) (player.getMotionY() + dy * (float) sin(toRadians(player.getPitch() - 90)) + dz * sin(toRadians(player.getPitch())));
+		float z = (float) (player.getMotionZ() + dx * (float) cos(toRadians(player.getYaw() - 90)) + dz * cos(toRadians(-player.getYaw())));
 
-		player.setX(x);
-		player.setY(y);
-		player.setZ(z);
+		player.setMotionX(x);
+		player.setMotionY(y);
+		player.setMotionZ(z);
 	}
 
 	@Override

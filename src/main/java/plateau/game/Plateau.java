@@ -3,7 +3,6 @@ package plateau.game;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-
 import plateau.engine.PlateauDisplay;
 import plateau.engine.security.PlateauSecurityManager;
 import plateau.engine.world.World;
@@ -17,6 +16,11 @@ public class Plateau extends PlateauDisplay {
 		new Plateau().createWindowDisplay("Test", width, height, null);
 	}
 
+	public static void shutdown() {
+		Display.destroy();
+		System.exit(0);
+	}
+
 	@Override
 	public void init() {
 		Mouse.setGrabbed(true);
@@ -25,17 +29,12 @@ public class Plateau extends PlateauDisplay {
 		input.registerInput(new PlateauMouse());
 
 		new World();
-		
+
 		System.setSecurityManager(new PlateauSecurityManager());
 	}
 
 	@Override
 	public void runLoop() {
 		super.runLoop();
-	}
-
-	public static void shutdown() {
-		Display.destroy();
-		System.exit(0);
 	}
 }

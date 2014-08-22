@@ -2,7 +2,7 @@ package plateau.engine;
 
 
 import org.lwjgl.Sys;
-import org.lwjgl.opengl.Display;
+import plateau.engine.renderer.FontRenderer;
 
 public class DebugTitleInfo {
 	private long timerTicksPerSecond = Sys.getTimerResolution();
@@ -37,15 +37,16 @@ public class DebugTitleInfo {
 			this.fps = 0;
 		}
 	}
-	
+
 	public synchronized void memory() {
 		this.freeMemory = Runtime.getRuntime().freeMemory() / 1048576;
 		this.usedMemory = (this.maxMemory - this.freeMemory);
 	}
-	
-	public synchronized void updateDebugTitle() {
+
+	public synchronized void updateDebugTitle(FontRenderer renderer) {
 		fps();
 		memory();
-		Display.setTitle("FPS: " + this.currentFps + " Memory: " + this.usedMemory + "MB/" + this.maxMemory + "MB");
+		renderer.drawString(10, 10, "FPS: " + this.currentFps + " Memory: " + this.usedMemory + "MB/" + this.maxMemory + "MB");
+		//Display.setTitle("FPS: " + this.currentFps + " Memory: " + this.usedMemory + "MB/" + this.maxMemory + "MB");
 	}
 }

@@ -12,6 +12,7 @@ public class Block {
 	public static Block stone = new BlockStone();
 	public ArrayList<Block> blockList = new ArrayList<Block>();
 	private Icon blockIcon;
+	private String blockName;
 
 	public Block() {
 		if (blockList.contains(this)) {
@@ -27,5 +28,9 @@ public class Block {
 
 	public boolean isSideSolid(int side) {
 		return true;
+	}
+
+	public String getBlockName() {
+		return blockName;
 	}
 }

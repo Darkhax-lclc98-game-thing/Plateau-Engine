@@ -17,6 +17,6 @@ public interface IKeyboard {
 	String[] getName();
 
 	void onPressed(String getName, boolean isRepeated, boolean onPressed);
-	
+
 	void onKeyHeldDown(String getName, boolean isRepeated, boolean onPressed);
 }

@@ -4,9 +4,12 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import plateau.engine.input.InputHandler;
+import plateau.engine.renderer.FontRenderer;
 import plateau.engine.resource.ResourceLoader;
 import plateau.engine.scene.Scene;
 import plateau.engine.util.Logger;
+
+import java.awt.*;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -16,6 +19,7 @@ public abstract class PlateauDisplay implements Runnable {
 	private static int width;
 	private static int height;
 	public InputHandler input;
+	FontRenderer renderer;
 	private String title, icon;
 	private boolean vSync, fullscreen;
 	private DebugTitleInfo debugTitle = new DebugTitleInfo();
@@ -48,10 +52,31 @@ public abstract class PlateauDisplay implements Runnable {
 			input = new InputHandler();
 
 			this.init();
+			renderer = new FontRenderer(new Font("Serif", Font.PLAIN, 16), true);
 		} catch (LWJGLException e) {
 			Logger.log(e.getMessage(), Logger.LogLevel.FATAL);
 		}
 		return true;
+	}
+
+	private void set2D() {
+		glMatrixMode(GL_PROJECTION);
+		glPushMatrix();
+		glLoadIdentity();
+		glOrtho(0, width, 0, height, -1, 1);
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		glLoadIdentity();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_ONE, GL_ONE);
+	}
+
+	public void set3D() {
+		glMatrixMode(GL_PROJECTION);
+		glPopMatrix();
+		glMatrixMode(GL_MODELVIEW);
+		glPopMatrix();
+		glDisable(GL_BLEND);
 	}
 
 	/**
@@ -59,9 +84,14 @@ public abstract class PlateauDisplay implements Runnable {
 	 */
 	public void runLoop() {
 		//TODO Profiler needed
-		if(timer.tick())
+		if (timer.tick())
 			input.update();
-		debugTitle.updateDebugTitle();
+
+		set2D();
+
+		debugTitle.updateDebugTitle(renderer);
+
+		set3D();
 	}
 
 	@Override

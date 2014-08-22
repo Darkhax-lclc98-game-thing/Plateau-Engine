@@ -41,7 +41,6 @@ public class BlockRenderer {
 		float size = 1f;
 
 
-
 		ResourceLoader.bindTextures("stone.png");
 		Block block = world.getBlock(x, y, z);
 

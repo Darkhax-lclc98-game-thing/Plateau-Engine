@@ -13,7 +13,8 @@ public class GameRegistry {
 			worldList.add(world);
 		}
 	}
-	public static ArrayList<World> getWorldList(){
+
+	public static ArrayList<World> getWorldList() {
 		return worldList;
 	}
 

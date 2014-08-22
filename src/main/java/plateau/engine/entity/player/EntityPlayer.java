@@ -1,26 +1,34 @@
 package plateau.engine.entity.player;
 
-import static org.lwjgl.opengl.GL11.*;
-
 public class EntityPlayer {
 	private double x, y, z;
 	private float yaw, pitch, roll;
+	private double motionX, motionY, motionZ;
 
 	public EntityPlayer() {
 		y = 2;
 	}
 
 	public void update() {
-		glLoadIdentity();
-		glPushAttrib(GL_TRANSFORM_BIT);
-		glMatrixMode(GL_MODELVIEW);
+		this.setX(this.getX() + this.getMotionX());
+		this.setY(this.getY() + this.getMotionY());
+		this.setZ(this.getZ() + this.getMotionZ());
 
-		glRotatef(this.getPitch(), 1, 0, 0);
-		glRotatef(this.getYaw(), 0, 1, 0);
-		glRotatef(this.getRoll(), 0, 0, 1);
+		if (this.getMotionX() != 0) {
+			if (this.getMotionX() < 0.00001 && this.getMotionX() > -0.00001) {
+				this.setMotionX(0);
+			} else {
+				this.setMotionX(this.getMotionX() * 0.5f);
+			}
+		}
 
-		glTranslated(-this.getX(), -this.getY(), -this.getZ());
-		glPopAttrib();
+		if (this.getMotionZ() != 0) {
+			if (this.getMotionZ() < 0.00001 && this.getMotionZ() > -0.00001) {
+				this.setMotionZ(0);
+			} else {
+				this.setMotionZ(this.getMotionZ() * 0.5f);
+			}
+		}
 	}
 
 	public double getX() {
@@ -59,11 +67,39 @@ public class EntityPlayer {
 		return roll;
 	}
 
+	public void setRoll(float roll) {
+		this.roll = roll;
+	}
+
 	public float getPitch() {
 		return pitch;
 	}
 
 	public void setPitch(float pitch) {
 		this.pitch = pitch;
+	}
+
+	public double getMotionZ() {
+		return motionZ;
+	}
+
+	public void setMotionZ(double motionZ) {
+		this.motionZ = motionZ;
+	}
+
+	public double getMotionX() {
+		return motionX;
+	}
+
+	public void setMotionX(double motionX) {
+		this.motionX = motionX;
+	}
+
+	public double getMotionY() {
+		return motionY;
+	}
+
+	public void setMotionY(double motionY) {
+		this.motionY = motionY;
 	}
 }

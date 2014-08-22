@@ -10,12 +10,14 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.util.glu.GLU.gluPerspective;
 
 public class Scene {
+	PlayerRenderer playerRenderer;
 	BlockRenderer blockRenderer = new BlockRenderer();
 	private EntityPlayer player;
 
 
-	public Scene(){
+	public Scene() {
 		player = new EntityPlayer();
+		playerRenderer = new PlayerRenderer(player);
 		initCamera(PlateauDisplay.getWidth(), PlateauDisplay.getHeight());
 	}
 
@@ -44,6 +46,7 @@ public class Scene {
 
 		if (player != null) {
 			player.update();
+			playerRenderer.update();
 		}
 
 

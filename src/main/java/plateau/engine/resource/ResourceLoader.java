@@ -51,7 +51,11 @@ public class ResourceLoader {
 		}
 	}
 
-	private static int bindTexture(String file) {
+	/**
+	 * @param file
+	 * @return
+	 */
+	public static int bindTexture(String file) {
 		try {
 			BufferedImage image = ImageIO.read(PlateauDisplay.class.getResourceAsStream("../../" + file));
 			int[] pixels = new int[image.getWidth() * image.getHeight()];
