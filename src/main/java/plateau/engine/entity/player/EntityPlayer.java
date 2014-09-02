@@ -6,7 +6,7 @@ public class EntityPlayer {
 	private double motionX, motionY, motionZ;
 
 	public EntityPlayer() {
-		y = 2;
+		y = 18;
 	}
 
 	public void update() {

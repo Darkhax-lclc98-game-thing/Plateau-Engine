@@ -84,13 +84,12 @@ public abstract class PlateauDisplay implements Runnable {
 	 */
 	public void runLoop() {
 		//TODO Profiler needed
-		if (timer.tick())
-			input.update();
+		if (timer.tick()) input.update();
+
+		scene.update();
 
 		set2D();
-
 		debugTitle.updateDebugTitle(renderer);
-
 		set3D();
 	}
 
@@ -101,8 +100,6 @@ public abstract class PlateauDisplay implements Runnable {
 		while (true) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			runLoop();
-
-			scene.update();
 
 			if (Display.wasResized()) {
 				scene.initCamera(Display.getWidth(), Display.getHeight());
