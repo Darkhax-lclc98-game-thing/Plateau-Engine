@@ -16,53 +16,22 @@ public class FontRenderer {
 			ALIGN_LEFT = 0,
 			ALIGN_RIGHT = 1,
 			ALIGN_CENTER = 2;
-	/**
-	 * Array that holds necessary information about the font characters
-	 */
+
 	private IntObject[] charArray = new IntObject[256];
 
-	/**
-	 * Map of user defined font characters (Character <-> IntObject)
-	 */
 	private Map<Character, IntObject> customChars = new HashMap<Character, IntObject>();
 
-	/**
-	 * Boolean flag on whether AntiAliasing is enabled or not
-	 */
 	private boolean antiAlias;
 
-	/**
-	 * Font's size
-	 */
 	private int fontSize = 0;
-
-	/**
-	 * Font's height
-	 */
 	private int fontHeight = 0;
-
-	/**
-	 * Texture used to cache the font 0-255 characters
-	 */
 	private int fontTextureID;
-
-	/**
-	 * Default font texture width
-	 */
 	private int textureWidth = 512;
-
-	/**
-	 * Default font texture height
-	 */
 	private int textureHeight = 512;
+	private int correctL = 5;
+	private int correctR = 0;
 
-	/**
-	 * A reference to Java's AWT Font that we create our font texture from
-	 */
 	private Font font;
-
-
-	private int correctL = 5, correctR = 0;
 
 	public FontRenderer(Font font, boolean antiAlias, char[] additionalChars) {
 		this.font = font;
@@ -171,7 +140,6 @@ public class FontRenderer {
 		}
 
 		try {
-
 			BufferedImage imgTemp = new BufferedImage(textureWidth, textureHeight, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g = (Graphics2D) imgTemp.getGraphics();
 
@@ -185,10 +153,8 @@ public class FontRenderer {
 			int customCharsLength = (customCharsArray != null) ? customCharsArray.length : 0;
 
 			for (int i = 0; i < 256 + customCharsLength; i++) {
-
 				// get 0-255 characters and then custom characters
 				char ch = (i < 256) ? (char) i : customCharsArray[i - 256];
-
 				BufferedImage fontImage = getFontImage(ch);
 
 				IntObject newIntObject = new IntObject();
@@ -208,14 +174,12 @@ public class FontRenderer {
 				if (newIntObject.height > fontHeight) {
 					fontHeight = newIntObject.height;
 				}
-
 				if (newIntObject.height > rowHeight) {
 					rowHeight = newIntObject.height;
 				}
 
 				// Draw it here
 				g.drawImage(fontImage, positionX, positionY, null);
-
 				positionX += newIntObject.width;
 
 				if (i < 256) { // standard characters
@@ -223,7 +187,6 @@ public class FontRenderer {
 				} else { // custom characters
 					customChars.put(new Character(ch), newIntObject);
 				}
-
 			}
 
 			fontTextureID = loadImage(imgTemp);
@@ -239,10 +202,8 @@ public class FontRenderer {
 		float drawHeight = drawY2 - drawY;
 		float textureSrcX = srcX / textureWidth;
 		float textureSrcY = srcY / textureHeight;
-		float srcWidth = srcX2 - srcX;
-		float srcHeight = srcY2 - srcY;
-		float renderWidth = (srcWidth / textureWidth);
-		float renderHeight = (srcHeight / textureHeight);
+		float renderWidth = ((srcX2 - srcX) / textureWidth);
+		float renderHeight = ((srcY2 - srcY) / textureHeight);
 
 		glTexCoord2f(textureSrcX, textureSrcY);
 		glVertex2f(drawX, drawY);
@@ -282,6 +243,7 @@ public class FontRenderer {
 				for (int l = startIndex; l <= endIndex; l++) {
 					charCurrent = text.charAt(l);
 					if (charCurrent == '\n') break;
+
 					if (charCurrent < 256) {
 						intObject = charArray[charCurrent];
 					} else {
@@ -349,24 +311,9 @@ public class FontRenderer {
 
 
 	private class IntObject {
-		/**
-		 * Character's width
-		 */
 		public int width;
-
-		/**
-		 * Character's height
-		 */
 		public int height;
-
-		/**
-		 * Character's stored x position
-		 */
 		public int storedX;
-
-		/**
-		 * Character's stored y position
-		 */
 		public int storedY;
 	}
 }
