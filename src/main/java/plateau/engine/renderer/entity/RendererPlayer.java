@@ -1,13 +1,13 @@
-package plateau.engine.scene;
+package plateau.engine.renderer.entity;
 
 import plateau.engine.entity.player.EntityPlayer;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class PlayerRenderer {
+public class RendererPlayer {
 	private EntityPlayer player;
 
-	public PlayerRenderer(EntityPlayer player) {
+	public RendererPlayer(EntityPlayer player) {
 		this.player = player;
 	}
 

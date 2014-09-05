@@ -6,7 +6,7 @@ import org.lwjgl.opengl.DisplayMode;
 import plateau.engine.input.InputHandler;
 import plateau.engine.renderer.FontRenderer;
 import plateau.engine.resource.ResourceLoader;
-import plateau.engine.scene.Scene;
+import plateau.engine.renderer.RenderHandler;
 import plateau.engine.util.Logger;
 
 import java.awt.*;
@@ -15,7 +15,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 public abstract class PlateauDisplay implements Runnable {
 
-	public static Scene scene;
+	public static RenderHandler scene;
 	private static int width;
 	private static int height;
 	public InputHandler input;
@@ -48,7 +48,7 @@ public abstract class PlateauDisplay implements Runnable {
 			}
 
 			Display.create();
-			scene = new Scene();
+			scene = new RenderHandler();
 			input = new InputHandler();
 
 			this.init();

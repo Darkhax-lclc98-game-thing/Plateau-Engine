@@ -42,7 +42,6 @@ public class BlockRenderer {
 
 		Block block = world.getBlock(x, y, z);
 		ResourceLoader.bindTextures("stone.png");
-
 		// Front 0
 		if (world.isAirBlock(x + 1, y, z) &&block.isSideSolid(0) &&  !world.getBlock(x + 1, y, z).isSideSolid(1)) {
 			tessellator.addVertexWithUV(x + size, y, z, 1, 1);
