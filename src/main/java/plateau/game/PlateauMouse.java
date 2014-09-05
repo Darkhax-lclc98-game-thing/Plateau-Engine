@@ -12,7 +12,7 @@ public class PlateauMouse implements IMouse {
 
 	@Override
 	public void onMove(int x, int y) {
-		EntityPlayer player = Plateau.scene.getPlayer();
+		EntityPlayer player = Plateau.renderHandler.getPlayer();
 
 		float mouseDX = x * 0.16f;
 		float mouseDY = y * 0.16f;

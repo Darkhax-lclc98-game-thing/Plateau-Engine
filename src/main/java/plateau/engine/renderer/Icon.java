@@ -2,9 +2,7 @@ package plateau.engine.renderer;
 
 public class Icon {
 
-	// TODO
-
 	public String getIconName() {
-		return "";
+		return "Missing_Texture.png";
 	}
 }

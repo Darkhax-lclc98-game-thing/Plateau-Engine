@@ -4,6 +4,9 @@ public class EntityPlayer {
 	private double x, y, z;
 	private float yaw, pitch, roll;
 	private double motionX, motionY, motionZ;
+	public boolean is3rdPerson;
+	public float thirdPersonDistance = 4.0F;
+	public float thirdPersonDistanceTemp = 4.0F;
 
 	public EntityPlayer() {
 		y = 18;

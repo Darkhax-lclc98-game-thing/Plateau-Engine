@@ -8,18 +8,20 @@ import static java.lang.Math.*;
 
 public class PlateauKeyBoard implements IKeyboard {
 
+	private EntityPlayer entityPlayer;
 	@Override
 	public int[] getKey() {
-		return new int[]{Keyboard.KEY_W, Keyboard.KEY_S, Keyboard.KEY_A, Keyboard.KEY_D, Keyboard.KEY_ESCAPE};
+		return new int[]{Keyboard.KEY_W, Keyboard.KEY_S, Keyboard.KEY_A, Keyboard.KEY_D, Keyboard.KEY_ESCAPE, Keyboard.KEY_F5};
 	}
 
 	@Override
 	public String[] getName() {
-		return new String[]{"Forward", "Back", "Left", "Right", "Escape"};
+		return new String[]{"Forward", "Back", "Left", "Right", "Escape", "3rd_Person"};
 	}
 
 	@Override
 	public void onPressed(String name, boolean isRepeated, boolean onPressed) {
+		EntityPlayer player = getPlayer();
 		if (onPressed) {
 			float speed = 0.5f / 4f;
 			if (name.equalsIgnoreCase("Forward")) {
@@ -30,8 +32,11 @@ public class PlateauKeyBoard implements IKeyboard {
 				move(-speed, 0);
 			} else if (name.equalsIgnoreCase("Right")) {
 				move(speed, 0);
-			} else if (name.equalsIgnoreCase("Escape"))
+			} else if (name.equalsIgnoreCase("Escape")) {
 				Plateau.shutdown();
+			} else if (name.equalsIgnoreCase("3rd_Person") && !isRepeated)
+				player.is3rdPerson = !player.is3rdPerson;
+
 		}
 	}
 
@@ -40,7 +45,7 @@ public class PlateauKeyBoard implements IKeyboard {
 	}
 
 	private void move(float dx, float dy, float dz, boolean yMovement) {
-		EntityPlayer player = Plateau.scene.getPlayer();
+		EntityPlayer player = getPlayer();
 		float x = (float) (player.getMotionX() - dx * (float) sin(toRadians(player.getYaw() - 90)) + dz * sin(toRadians(-player.getYaw())));
 		float y = (float) player.getMotionY();
 		if (yMovement)
@@ -55,5 +60,13 @@ public class PlateauKeyBoard implements IKeyboard {
 	@Override
 	public void onKeyHeldDown(String name, boolean isRepeated, boolean onPressed) {
 		this.onPressed(name, isRepeated, onPressed);
+	}
+
+	public EntityPlayer getPlayer(){
+		if(entityPlayer == null){
+			entityPlayer = Plateau.renderHandler.getPlayer();
+
+		}
+		return entityPlayer;
 	}
 }

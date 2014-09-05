@@ -10,8 +10,8 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.util.glu.GLU.gluPerspective;
 
 public class RenderHandler {
-	RendererPlayer playerRenderer;
-	BlockRenderer blockRenderer = new BlockRenderer();
+	private RendererPlayer playerRenderer;
+	private BlockRenderer blockRenderer = new BlockRenderer();
 	private EntityPlayer player;
 
 

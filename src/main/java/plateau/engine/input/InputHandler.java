@@ -113,7 +113,7 @@ public class InputHandler {
 			if (keys.contains(key) && keyboardInput.containsKey(key) && nameList.containsKey(key)) {
 				Set<IKeyboard> keyboard = keyboardInput.get(key);
 				for (IKeyboard keyb : keyboard) {
-					keyb.onPressed(nameList.get(key), false, true);
+					keyb.onKeyHeldDown(nameList.get(key), false, true);
 				}
 			}
 		}

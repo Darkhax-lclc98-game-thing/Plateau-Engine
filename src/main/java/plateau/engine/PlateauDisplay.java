@@ -15,7 +15,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 public abstract class PlateauDisplay implements Runnable {
 
-	public static RenderHandler scene;
+	public static RenderHandler renderHandler;
 	private static int width;
 	private static int height;
 	public InputHandler input;
@@ -48,7 +48,7 @@ public abstract class PlateauDisplay implements Runnable {
 			}
 
 			Display.create();
-			scene = new RenderHandler();
+			renderHandler = new RenderHandler();
 			input = new InputHandler();
 
 			this.init();
@@ -86,7 +86,7 @@ public abstract class PlateauDisplay implements Runnable {
 		//TODO Profiler needed
 		if (timer.tick()) input.update();
 
-		scene.update();
+		renderHandler.update();
 
 		set2D();
 		debugTitle.updateDebugTitle(renderer);
@@ -102,7 +102,7 @@ public abstract class PlateauDisplay implements Runnable {
 			runLoop();
 
 			if (Display.wasResized()) {
-				scene.initCamera(Display.getWidth(), Display.getHeight());
+				renderHandler.initCamera(Display.getWidth(), Display.getHeight());
 			}
 
 			if (Display.isCloseRequested()) {

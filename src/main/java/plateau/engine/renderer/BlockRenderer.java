@@ -92,6 +92,6 @@ public class BlockRenderer {
 	}
 
 	public EntityPlayer getPlayer() {
-		return PlateauDisplay.scene.getPlayer();
+		return PlateauDisplay.renderHandler.getPlayer();
 	}
 }
