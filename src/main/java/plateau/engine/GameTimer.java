@@ -32,8 +32,7 @@ public class GameTimer {
 			}
 			timeSinceLastTick = 0;
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 }

@@ -9,6 +9,7 @@ import static java.lang.Math.*;
 public class PlateauKeyBoard implements IKeyboard {
 
 	private EntityPlayer entityPlayer;
+
 	@Override
 	public int[] getKey() {
 		return new int[]{Keyboard.KEY_W, Keyboard.KEY_S, Keyboard.KEY_A, Keyboard.KEY_D, Keyboard.KEY_ESCAPE, Keyboard.KEY_F5};
@@ -62,8 +63,8 @@ public class PlateauKeyBoard implements IKeyboard {
 		this.onPressed(name, isRepeated, onPressed);
 	}
 
-	public EntityPlayer getPlayer(){
-		if(entityPlayer == null){
+	public EntityPlayer getPlayer() {
+		if (entityPlayer == null) {
 			entityPlayer = Plateau.renderHandler.getPlayer();
 
 		}

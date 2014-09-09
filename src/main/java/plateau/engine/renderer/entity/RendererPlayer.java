@@ -18,7 +18,7 @@ public class RendererPlayer {
 
 		glRotatef(player.getRoll(), 0, 0, 1);
 
-		if(player.is3rdPerson) {
+		if (player.is3rdPerson) {
 			glTranslatef(0.0F, 0.0F, (-(player.thirdPersonDistanceTemp + (player.thirdPersonDistance - player.thirdPersonDistanceTemp))));
 		}
 

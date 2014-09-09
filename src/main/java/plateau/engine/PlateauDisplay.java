@@ -5,8 +5,8 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import plateau.engine.input.InputHandler;
 import plateau.engine.renderer.FontRenderer;
-import plateau.engine.resource.ResourceLoader;
 import plateau.engine.renderer.RenderHandler;
+import plateau.engine.resource.ResourceLoader;
 import plateau.engine.util.Logger;
 
 import java.awt.*;

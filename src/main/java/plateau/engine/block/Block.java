@@ -8,14 +8,12 @@ import java.util.ArrayList;
 public class Block {
 
 
-
-	public ArrayList<Block> blockList = new ArrayList<Block>();
-	private Icon blockIcon;
-	private String blockName;
-
 	public static Block air = new BlockAir();
 	public static Block stone = new BlockStone();
 	public static Block grass = new BlockGrass();
+	public ArrayList<Block> blockList = new ArrayList<Block>();
+	private Icon blockIcon;
+	private String blockName;
 
 	public Block() {
 		if (blockList.contains(this)) {

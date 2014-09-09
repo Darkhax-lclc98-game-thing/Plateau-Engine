@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static org.lwjgl.opengl.GL11.*;
 
-
+// TODO Rewrite
 public class FontRenderer {
 	public final static int
 			ALIGN_LEFT = 0,
@@ -42,7 +42,6 @@ public class FontRenderer {
 
 		fontHeight = 1;
 	}
-
 
 	public FontRenderer(Font font, boolean antiAlias) {
 		this(font, antiAlias, null);
