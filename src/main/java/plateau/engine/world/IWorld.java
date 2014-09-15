@@ -96,14 +96,14 @@ public abstract class IWorld {
 		if (showTerrain) {
 			for (int x = 0; x < 64; x++) {
 				for (int z = 0; z < 64; z++) {
-					glCallList(intArray[x * 15][z * 15]);
+					glCallList(intArray[x * getChunkSize()][z * getChunkSize()]);
 				}
 			}
 		} else {
 			for (int z = -5; z < 5; z++) {
 				for (int x = -5; x < 5; x++) {
-					int tempX = 15 * x;
-					int tempZ = 15 * z;
+					int tempX = getChunkSize() * x;
+					int tempZ = getChunkSize() * z;
 					if (player.getX() + tempX > 0 && player.getZ() + tempZ > 0 && player.getX() + tempX < 1024 && player.getZ() + tempZ < 1024) {
 						renderHeightmap.add(intArray[(int) (tempX + player.getX())][(int) (tempZ + player.getZ())]);
 					}
