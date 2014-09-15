@@ -19,6 +19,7 @@ public abstract class IWorld {
 	private float[][] data;
 	private int[][] intArray;
 	private EntityPlayer player;
+	public boolean showTerrain;
 
 	public IWorld() {
 		init();
@@ -26,6 +27,8 @@ public abstract class IWorld {
 	}
 
 	public abstract int getWorldID();
+
+	public abstract int getChunkSize();
 
 	public void init() {
 		try {
@@ -45,29 +48,35 @@ public abstract class IWorld {
 			int xTemp = 0;
 			int zTemp = 0;
 
-			for (int i = 0; i < image.getWidth() / 16 * image.getWidth() / 16; i++) {
+			for (int i = 0; i < image.getWidth() / getChunkSize() * image.getHeight() / getChunkSize(); i++) {
 				displayList = glGenLists(1);
 				glNewList(displayList, GL_COMPILE);
-				for (int z = zTemp; z < zTemp + 15; z++) {
-					glBegin(GL_QUAD_STRIP);
-					for (int x = xTemp; x < xTemp + 16; x++) {
 
+				if (zTemp + getChunkSize() > image.getWidth() - 1) {
+					zTemp = 0;
+					xTemp += getChunkSize();
+				}
+
+				if (xTemp > image.getHeight() - getChunkSize() - 1) {
+					glEndList();
+					break;
+				}
+
+				for (int z = zTemp; z < zTemp + getChunkSize(); z++) {
+					glBegin(GL_QUAD_STRIP);
+					for (int x = xTemp; x < xTemp + getChunkSize() + 1; x++) {
 						glTexCoord2f((float) x / image.getWidth(), (float) z / image.getHeight());
 						glVertex3f(x, data[x][z], z);
 						glVertex3f(x, data[x][z + 1], z + 1);
 						intArray[x][z] = displayList;
-
 					}
 					glEnd();
 				}
-				if (zTemp % 15 == 0) {
-					zTemp += 15;
-				}
-				if (zTemp > 1015 && xTemp % 15 == 0) {
-					zTemp = 0;
-					xTemp += 15;
 
+				if (zTemp % getChunkSize() == 0) {
+					zTemp += getChunkSize();
 				}
+
 				glEndList();
 			}
 		} catch (IOException e) {
@@ -84,17 +93,26 @@ public abstract class IWorld {
 
 		ResourceLoader.bindTextures(texture());
 
-		for (int z = -5; z < 5; z++) {
-			for (int x = -5; x < 5; x++) {
-				int tempX = 15 * x;
-				int tempZ = 15 * z;
-				if (player.getX() + tempX > 0 && player.getZ() + tempZ > 0 && player.getX() + tempX < 1024 && player.getZ() + tempZ < 1024) {
-					renderHeightmap.add(intArray[(int) (tempX + player.getX())][(int) (tempZ + player.getZ())]);
+		if (showTerrain) {
+			for (int x = 0; x < 64; x++) {
+				for (int z = 0; z < 64; z++) {
+					glCallList(intArray[x * 15][z * 15]);
 				}
 			}
-		}
-		for (int chunk : renderHeightmap) {
-			glCallList(chunk);
+		} else {
+			for (int z = -5; z < 5; z++) {
+				for (int x = -5; x < 5; x++) {
+					int tempX = 15 * x;
+					int tempZ = 15 * z;
+					if (player.getX() + tempX > 0 && player.getZ() + tempZ > 0 && player.getX() + tempX < 1024 && player.getZ() + tempZ < 1024) {
+						renderHeightmap.add(intArray[(int) (tempX + player.getX())][(int) (tempZ + player.getZ())]);
+					}
+				}
+			}
+			for (int chunk : renderHeightmap) {
+				glCallList(chunk);
+			}
+			renderHeightmap.clear();
 		}
 		renderHeightmap.clear();
 

@@ -14,7 +14,7 @@ public class EntityPlayer {
 	private int worldID;
 
 	public EntityPlayer() {
-		this.setY(18);
+		this.setY(250);
 		this.setWorldID(0);
 	}
 

@@ -2,7 +2,10 @@ package plateau.engine;
 
 
 import org.lwjgl.Sys;
+import plateau.engine.entity.player.EntityPlayer;
 import plateau.engine.renderer.FontRenderer;
+
+import java.text.DecimalFormat;
 
 public class DebugTitleInfo {
 	private long timerTicksPerSecond = Sys.getTimerResolution();
@@ -44,9 +47,12 @@ public class DebugTitleInfo {
 	}
 
 	public synchronized void updateDebugTitle(FontRenderer renderer) {
+		EntityPlayer player = Plateau.getPlayer();
 		fps();
 		memory();
 		renderer.drawString(10, 10, "FPS: " + this.currentFps + " Memory: " + this.usedMemory + "MB/" + this.maxMemory + "MB");
+		DecimalFormat df = new DecimalFormat("#.##");
+		renderer.drawString(100, 100, "X: " + df.format(player.getX()) + " Y" + df.format(player.getY()) + " Z:" + df.format(player.getZ()));
 		//Display.setTitle("FPS: " + this.currentFps + " Memory: " + this.usedMemory + "MB/" + this.maxMemory + "MB");
 	}
 }

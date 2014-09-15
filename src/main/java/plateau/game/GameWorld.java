@@ -9,6 +9,11 @@ public class GameWorld extends IWorld {
 	}
 
 	@Override
+	public int getChunkSize() {
+		return 32;
+	}
+
+	@Override
 	public String heightmap() {
 		return "surface.bmp";
 	}

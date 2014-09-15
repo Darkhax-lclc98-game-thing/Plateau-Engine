@@ -4,6 +4,8 @@ import org.lwjgl.input.Keyboard;
 import plateau.engine.Plateau;
 import plateau.engine.entity.player.EntityPlayer;
 import plateau.engine.input.IKeyboard;
+import plateau.engine.registery.GameRegistry;
+import plateau.engine.world.IWorld;
 
 import static java.lang.Math.*;
 
@@ -13,12 +15,12 @@ public class GameKeyboard implements IKeyboard {
 
 	@Override
 	public int[] getKey() {
-		return new int[]{Keyboard.KEY_W, Keyboard.KEY_S, Keyboard.KEY_A, Keyboard.KEY_D, Keyboard.KEY_ESCAPE, Keyboard.KEY_F5};
+		return new int[]{Keyboard.KEY_W, Keyboard.KEY_S, Keyboard.KEY_A, Keyboard.KEY_D, Keyboard.KEY_ESCAPE, Keyboard.KEY_F5, Keyboard.KEY_P};
 	}
 
 	@Override
 	public String[] getName() {
-		return new String[]{"Forward", "Back", "Left", "Right", "Escape", "3rd_Person"};
+		return new String[]{"Forward", "Back", "Left", "Right", "Escape", "3rd_Person", "showWorld"};
 	}
 
 	@Override
@@ -36,9 +38,12 @@ public class GameKeyboard implements IKeyboard {
 				move(speed, 0);
 			} else if (name.equalsIgnoreCase("Escape")) {
 				Game.shutdown();
-			} else if (name.equalsIgnoreCase("3rd_Person") && !isRepeated)
+			} else if (name.equalsIgnoreCase("3rd_Person") && !isRepeated) {
 				player.is3rdPerson = !player.is3rdPerson;
-
+			} else if (name.equalsIgnoreCase("showWorld")) {
+				IWorld world = GameRegistry.getWorld(player.getWorldID());
+				world.showTerrain = !world.showTerrain;
+			}
 		}
 	}
 
