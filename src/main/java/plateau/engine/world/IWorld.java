@@ -15,11 +15,11 @@ import static org.lwjgl.opengl.GL11.*;
 
 public abstract class IWorld {
 
+	public boolean showTerrain;
 	private ArrayList<Integer> renderHeightmap = new ArrayList<Integer>();
 	private float[][] data;
 	private int[][] intArray;
 	private EntityPlayer player;
-	public boolean showTerrain;
 
 	public IWorld() {
 		init();
