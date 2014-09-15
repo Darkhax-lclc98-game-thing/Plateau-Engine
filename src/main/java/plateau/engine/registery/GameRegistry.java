@@ -1,7 +1,6 @@
 package plateau.engine.registery;
 
 import plateau.engine.Plateau;
-import plateau.engine.block.Block;
 import plateau.engine.entity.player.EntityPlayer;
 import plateau.engine.input.IKeyboard;
 import plateau.engine.input.IMouse;
@@ -27,10 +26,6 @@ public class GameRegistry {
 		EntityPlayer player = Plateau.getPlayer();
 		player.setWorldID(0);
 		return getWorld(player.getWorldID());
-	}
-
-	public static void registerBlock(Block block) {
-		LanguageRegistry.register(block);
 	}
 
 	public static void registerInput(IKeyboard keyboard) {
