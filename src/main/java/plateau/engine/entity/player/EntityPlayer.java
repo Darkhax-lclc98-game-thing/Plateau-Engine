@@ -1,15 +1,21 @@
 package plateau.engine.entity.player;
 
+
 public class EntityPlayer {
 	public boolean is3rdPerson;
 	public float thirdPersonDistance = 4.0F;
 	public float thirdPersonDistanceTemp = 4.0F;
+
+
 	private double x, y, z;
 	private float yaw, pitch, roll;
 	private double motionX, motionY, motionZ;
 
+	private int worldID;
+
 	public EntityPlayer() {
-		y = 18;
+		this.setY(18);
+		this.setWorldID(0);
 	}
 
 	public void update() {
@@ -105,4 +111,14 @@ public class EntityPlayer {
 	public void setMotionY(double motionY) {
 		this.motionY = motionY;
 	}
+
+	public int getWorldID() {
+		return worldID;
+	}
+
+	public void setWorldID(int worldID) {
+		this.worldID = worldID;
+	}
+
+
 }

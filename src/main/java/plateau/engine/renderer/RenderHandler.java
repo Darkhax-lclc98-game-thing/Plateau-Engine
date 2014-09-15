@@ -4,16 +4,13 @@ import plateau.engine.PlateauDisplay;
 import plateau.engine.entity.player.EntityPlayer;
 import plateau.engine.registery.GameRegistry;
 import plateau.engine.renderer.entity.RendererPlayer;
-import plateau.engine.world.World;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.util.glu.GLU.gluPerspective;
 
 public class RenderHandler {
 	private RendererPlayer playerRenderer;
-	private BlockRenderer blockRenderer = new BlockRenderer();
 	private EntityPlayer player;
-
 
 	public RenderHandler() {
 		player = new EntityPlayer();
@@ -43,13 +40,15 @@ public class RenderHandler {
 
 
 	public void update() {
-		for (World world : GameRegistry.getWorldList()) {
-			blockRenderer.renderWorld(world);
-		}
 
 		if (player != null) {
 			player.update();
+
+			GameRegistry.getWorld(player.getWorldID()).render();
+
 			playerRenderer.update();
+
+
 		}
 
 	}

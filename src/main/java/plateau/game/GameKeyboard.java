@@ -1,12 +1,13 @@
 package plateau.game;
 
 import org.lwjgl.input.Keyboard;
+import plateau.engine.Plateau;
 import plateau.engine.entity.player.EntityPlayer;
 import plateau.engine.input.IKeyboard;
 
 import static java.lang.Math.*;
 
-public class PlateauKeyBoard implements IKeyboard {
+public class GameKeyboard implements IKeyboard {
 
 	private EntityPlayer entityPlayer;
 
@@ -34,7 +35,7 @@ public class PlateauKeyBoard implements IKeyboard {
 			} else if (name.equalsIgnoreCase("Right")) {
 				move(speed, 0);
 			} else if (name.equalsIgnoreCase("Escape")) {
-				Plateau.shutdown();
+				Game.shutdown();
 			} else if (name.equalsIgnoreCase("3rd_Person") && !isRepeated)
 				player.is3rdPerson = !player.is3rdPerson;
 
@@ -65,7 +66,7 @@ public class PlateauKeyBoard implements IKeyboard {
 
 	public EntityPlayer getPlayer() {
 		if (entityPlayer == null) {
-			entityPlayer = Plateau.renderHandler.getPlayer();
+			entityPlayer = Plateau.getPlayer();
 
 		}
 		return entityPlayer;

@@ -4,16 +4,16 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import plateau.engine.PlateauDisplay;
+import plateau.engine.registery.GameRegistry;
 import plateau.engine.security.PlateauSecurityManager;
-import plateau.engine.world.World;
 
-public class Plateau extends PlateauDisplay {
+public class Game extends PlateauDisplay {
 
 	private static int width = 854;
 	private static int height = 480;
 
 	public static void main(String[] args) {
-		new Plateau().createWindowDisplay("Test", width, height, null);
+		new Game().createWindowDisplay("Test", width, height, null);
 	}
 
 	public static void shutdown() {
@@ -25,11 +25,9 @@ public class Plateau extends PlateauDisplay {
 	public void init() {
 		Mouse.setGrabbed(true);
 		Keyboard.enableRepeatEvents(true);
-		input.registerInput(new PlateauKeyBoard());
-		input.registerInput(new PlateauMouse());
-
-		new World();
-
+		GameRegistry.registerInput(new GameKeyboard());
+		GameRegistry.registerInput(new GameMouse());
+		GameRegistry.registerWorld(new GameWorld());
 		System.setSecurityManager(new PlateauSecurityManager());
 	}
 
