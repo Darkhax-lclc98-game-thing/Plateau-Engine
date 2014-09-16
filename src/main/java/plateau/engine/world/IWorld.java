@@ -38,6 +38,7 @@ public abstract class IWorld {
 			height = image.getHeight();
 			data = new float[width][height];
 			intArray = new int[width][width];
+
 			int displayList;
 			int xTemp = 0;
 			int zTemp = 0;
@@ -51,7 +52,7 @@ public abstract class IWorld {
 			for (int i = 0; i < 5; i++) {
 				for (int x = 0; x < width; x++) {
 					for (int z = 0; z < data[x].length; z++) {
-						//smooth(x, z);
+						smooth(x, z);
 					}
 				}
 			}
