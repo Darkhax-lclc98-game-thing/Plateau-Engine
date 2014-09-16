@@ -1,6 +1,5 @@
 package plateau.engine.registery;
 
-import plateau.engine.block.Block;
 import plateau.engine.lang.Language;
 
 import java.io.File;
@@ -16,10 +15,6 @@ public class LanguageRegistry {
 
 	public static LanguageRegistry instance() {
 		return instance;
-	}
-
-	public static void register(Block block) {
-
 	}
 
 	public void setLanguage(Language lang) {
