@@ -24,7 +24,7 @@ public class RenderHandler {
 		glClearColor(0, 0.75f, 1, 1);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		gluPerspective(60, (float) width / height, 0.1f, 200);
+		gluPerspective(60, (float) width / height, 0.1f, 1000);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glDepthFunc(GL_LEQUAL);

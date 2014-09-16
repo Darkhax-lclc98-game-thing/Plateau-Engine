@@ -20,6 +20,7 @@ public abstract class IWorld {
 	private float[][] data;
 	private int[][] intArray;
 	private EntityPlayer player;
+	private int width, height;
 
 	public IWorld() {
 		init();
@@ -33,31 +34,39 @@ public abstract class IWorld {
 	public void init() {
 		try {
 			BufferedImage image = ImageIO.read(PlateauDisplay.class.getResourceAsStream("../../" + heightmap()));
+			width = image.getWidth();
+			height = image.getHeight();
+			data = new float[width][height];
+			intArray = new int[width][width];
+			int displayList;
+			int xTemp = 0;
+			int zTemp = 0;
 
-			data = new float[image.getWidth()][image.getHeight()];
-
-			for (int x = 0; x < data.length; x++) {
+			for (int x = 0; x < width; x++) {
 				for (int z = 0; z < data[x].length; z++) {
 					data[x][z] = new Color(image.getRGB(x, z)).getRed();
 				}
 			}
 
-			intArray = new int[image.getWidth()][image.getHeight()];
-			int displayList;
+			for (int i = 0; i < 5; i++) {
+				for (int x = 0; x < width; x++) {
+					for (int z = 0; z < data[x].length; z++) {
+						//smooth(x, z);
+					}
+				}
+			}
 
-			int xTemp = 0;
-			int zTemp = 0;
 
-			for (int i = 0; i < image.getWidth() / getChunkSize() * image.getHeight() / getChunkSize(); i++) {
+			for (int i = 0; i < width / getChunkSize() * height / getChunkSize(); i++) {
 				displayList = glGenLists(1);
 				glNewList(displayList, GL_COMPILE);
 
-				if (zTemp + getChunkSize() > image.getWidth() - 1) {
+				if (zTemp + getChunkSize() > height - 1) {
 					zTemp = 0;
 					xTemp += getChunkSize();
 				}
 
-				if (xTemp > image.getHeight() - getChunkSize() - 1) {
+				if (xTemp > width - getChunkSize() - 1) {
 					glEndList();
 					break;
 				}
@@ -94,8 +103,8 @@ public abstract class IWorld {
 		ResourceLoader.bindTextures(texture());
 
 		if (showTerrain) {
-			for (int x = 0; x < 64; x++) {
-				for (int z = 0; z < 64; z++) {
+			for (int x = 0; x < width / getChunkSize(); x++) {
+				for (int z = 0; z < height / getChunkSize(); z++) {
 					glCallList(intArray[x * getChunkSize()][z * getChunkSize()]);
 				}
 			}
@@ -104,7 +113,7 @@ public abstract class IWorld {
 				for (int x = -5; x < 5; x++) {
 					int tempX = getChunkSize() * x;
 					int tempZ = getChunkSize() * z;
-					if (player.getX() + tempX > 0 && player.getZ() + tempZ > 0 && player.getX() + tempX < 1024 && player.getZ() + tempZ < 1024) {
+					if (player.getX() + tempX > 0 && player.getZ() + tempZ > 0 && player.getX() + tempX < width && player.getZ() + tempZ < height) {
 						renderHeightmap.add(intArray[(int) (tempX + player.getX())][(int) (tempZ + player.getZ())]);
 					}
 				}
@@ -128,7 +137,7 @@ public abstract class IWorld {
 					int x1 = x + posX;
 					int z1 = z + posZ;
 					if (x1 > 0 && z1 > 0 && x1 < data.length && z1 < data[x].length) {
-						median = data[x1][z1];
+						median += data[x1][z1];
 						div++;
 					}
 				}
@@ -141,5 +150,21 @@ public abstract class IWorld {
 				return 0;
 			}
 		}
+	}
+
+	public void smooth(int posX, int posZ) {
+		float median = 0;
+		int div = 0;
+		for (int x = -5; x < 5; x++) {
+			for (int z = -5; z < 5; z++) {
+				int x1 = x + posX;
+				int z1 = z + posZ;
+				if (x1 > 0 && z1 > 0 && x1 < width && z1 < height) {
+					median += data[x1][z1];
+					div++;
+				}
+			}
+		}
+		data[posX][posZ] = median / div;
 	}
 }

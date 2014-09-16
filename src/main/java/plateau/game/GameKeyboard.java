@@ -27,7 +27,7 @@ public class GameKeyboard implements IKeyboard {
 	public void onPressed(String name, boolean isRepeated, boolean onPressed) {
 		EntityPlayer player = getPlayer();
 		if (onPressed) {
-			float speed = 0.5f / 4f;
+			float speed = 1.5f / 1f;
 			if (name.equalsIgnoreCase("Forward")) {
 				move(0, -speed);
 			} else if (name.equalsIgnoreCase("Back")) {

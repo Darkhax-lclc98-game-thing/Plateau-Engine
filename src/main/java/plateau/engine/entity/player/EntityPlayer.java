@@ -6,7 +6,6 @@ public class EntityPlayer {
 	public float thirdPersonDistance = 4.0F;
 	public float thirdPersonDistanceTemp = 4.0F;
 
-
 	private double x, y, z;
 	private float yaw, pitch, roll;
 	private double motionX, motionY, motionZ;
@@ -14,7 +13,9 @@ public class EntityPlayer {
 	private int worldID;
 
 	public EntityPlayer() {
+		this.setX(1);
 		this.setY(250);
+		this.setZ(1);
 		this.setWorldID(0);
 	}
 
