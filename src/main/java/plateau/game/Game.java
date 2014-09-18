@@ -6,29 +6,31 @@ import org.lwjgl.opengl.Display;
 import plateau.engine.PlateauDisplay;
 import plateau.engine.registery.GameRegistry;
 import plateau.engine.security.PlateauSecurityManager;
+import plateau.game.level.Level1;
 
 public class Game extends PlateauDisplay {
 
-	private static int width = 854;
-	private static int height = 480;
-
 	public static void main(String[] args) {
-		new Game().createWindowDisplay("Test", width, height, null);
+		new Game().createWindowDisplay("Game", 854, 480, null);
+	}
+
+
+
+	@Override
+	public void init() {
+		Mouse.setGrabbed(true);
+
+		Keyboard.enableRepeatEvents(true);
+		GameRegistry.registerInput(new GameKeyboard());
+		GameRegistry.registerInput(new GameMouse());
+		GameRegistry.registerWorld(new Level1());
+
+		System.setSecurityManager(new PlateauSecurityManager());
 	}
 
 	public static void shutdown() {
 		Display.destroy();
 		System.exit(0);
-	}
-
-	@Override
-	public void init() {
-		Mouse.setGrabbed(true);
-		Keyboard.enableRepeatEvents(true);
-		GameRegistry.registerInput(new GameKeyboard());
-		GameRegistry.registerInput(new GameMouse());
-		GameRegistry.registerWorld(new GameWorld());
-		System.setSecurityManager(new PlateauSecurityManager());
 	}
 
 	@Override

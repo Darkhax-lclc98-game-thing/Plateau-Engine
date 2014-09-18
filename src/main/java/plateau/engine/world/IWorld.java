@@ -92,6 +92,7 @@ public abstract class IWorld {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		data = null;
 	}
 
 	public abstract String heightmap();
@@ -124,7 +125,6 @@ public abstract class IWorld {
 			}
 			renderHeightmap.clear();
 		}
-		renderHeightmap.clear();
 
 		glDisable(GL_TEXTURE_2D);
 	}
@@ -137,7 +137,7 @@ public abstract class IWorld {
 				for (int z = -3; z < 3; z++) {
 					int x1 = x + posX;
 					int z1 = z + posZ;
-					if (x1 > 0 && z1 > 0 && x1 < data.length && z1 < data[x].length) {
+					if (x1 > 0 && z1 > 0 && x1 < width && z1 < height) {
 						median += data[x1][z1];
 						div++;
 					}

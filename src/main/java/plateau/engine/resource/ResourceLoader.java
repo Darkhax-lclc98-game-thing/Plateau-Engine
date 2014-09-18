@@ -2,6 +2,7 @@ package plateau.engine.resource;
 
 import org.lwjgl.BufferUtils;
 import plateau.engine.PlateauDisplay;
+import plateau.game.Game;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -55,9 +56,9 @@ public class ResourceLoader {
 	 * @param file
 	 * @return
 	 */
-	public static int bindTexture(String file) {
+	private static int bindTexture(String file) {
 		try {
-			BufferedImage image = ImageIO.read(PlateauDisplay.class.getResourceAsStream("../../" + file));
+			BufferedImage image = ImageIO.read(Game.class.getResourceAsStream("../../" + file));
 			int[] pixels = new int[image.getWidth() * image.getHeight()];
 			image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
 

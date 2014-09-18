@@ -61,6 +61,7 @@ public class Plateau implements Runnable {
 				break;
 			}
 			Display.update();
+			Display.sync(60);
 		}
 		Display.destroy();
 	}

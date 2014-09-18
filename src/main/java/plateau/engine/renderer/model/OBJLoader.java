@@ -1,4 +1,4 @@
-package plateau.engine.renderer;
+package plateau.engine.renderer.model;
 
 import org.lwjgl.opengl.GL11;
 import plateau.game.Game;
@@ -30,7 +30,7 @@ public class OBJLoader {
 	private int numpolys = 0;
 
 	public OBJLoader(String obj, boolean centerit) {
-		loadobject(new BufferedReader(new InputStreamReader(Game.class.getResourceAsStream(obj))));
+		loadobject(new BufferedReader(new InputStreamReader(Game.class.getResourceAsStream("../../" + obj))));
 		if (centerit) {
 			centerit();
 		}
