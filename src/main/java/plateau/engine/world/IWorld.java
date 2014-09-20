@@ -92,7 +92,6 @@ public abstract class IWorld {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		data = null;
 	}
 
 	public abstract String heightmap();

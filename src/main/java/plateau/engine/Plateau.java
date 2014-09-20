@@ -36,8 +36,10 @@ public class Plateau implements Runnable {
 	 */
 	public void runLoop() {
 		//TODO Profiler needed
-		if (timer.tick()) input.update();
-
+		if (timer.tick()) {
+			input.update();
+			timer.physics();
+		}
 		renderHandler.update();
 
 		set2D();

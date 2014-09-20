@@ -1,5 +1,6 @@
 package plateau.game.level;
 
+import plateau.engine.object.ObjectBuilding;
 import plateau.engine.renderer.model.OBJLoader;
 import plateau.engine.resource.ResourceLoader;
 import plateau.engine.world.IWorld;
@@ -8,7 +9,17 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Level1 extends IWorld {
 
-	OBJLoader loader = new OBJLoader("house.obj", false);
+	ObjectBuilding building = new ObjectBuilding(new OBJLoader("house.obj", true));
+
+	public Level1() {
+		building.setX(10);
+		building.setY(100);
+		building.setZ(10);
+
+		building.setSizeX(0.1f);
+		building.setSizeY(0.1f);
+		building.setSizeZ(0.1f);
+	}
 
 	@Override
 	public int getWorldID() {
@@ -33,15 +44,7 @@ public class Level1 extends IWorld {
 	@Override
 	public void render() {
 		// Calls the objects that need to be rendered on the map
-		glPushMatrix();
-		glEnable(GL_TEXTURE_2D);
-		glTranslated(10, 100, 10);
-		glScaled(0.1f, 0.1f, 0.1f);
-
-		ResourceLoader.bindTextures("surface.bmp");
-		loader.render();
-		glDisable(GL_TEXTURE_2D);
-		glPopMatrix();
+		building.render();
 
 		// calls the heightmap to be rendered
 		super.render();
