@@ -5,7 +5,7 @@ import plateau.engine.Plateau;
 import plateau.engine.entity.player.EntityPlayer;
 import plateau.engine.input.IKeyboard;
 import plateau.engine.registery.GameRegistry;
-import plateau.engine.world.IWorld;
+import plateau.engine.world.World;
 
 import static java.lang.Math.*;
 
@@ -41,7 +41,7 @@ public class GameKeyboard implements IKeyboard {
 			} else if (name.equalsIgnoreCase("3rd_Person") && !isRepeated) {
 				player.is3rdPerson = !player.is3rdPerson;
 			} else if (name.equalsIgnoreCase("showWorld")) {
-				IWorld world = GameRegistry.getWorld(player.getWorldID());
+				World world = player.getWorld();
 				world.showTerrain = !world.showTerrain;
 			}
 		}

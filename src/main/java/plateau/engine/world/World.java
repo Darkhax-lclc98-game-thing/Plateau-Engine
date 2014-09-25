@@ -2,7 +2,10 @@ package plateau.engine.world;
 
 import plateau.engine.Plateau;
 import plateau.engine.PlateauDisplay;
+import plateau.engine.entity.Entity;
 import plateau.engine.entity.player.EntityPlayer;
+import plateau.engine.object.ObjectBuilding;
+import plateau.engine.registery.GameRegistry;
 import plateau.engine.resource.ResourceLoader;
 
 import javax.imageio.ImageIO;
@@ -13,21 +16,19 @@ import java.util.ArrayList;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public abstract class IWorld {
+public abstract class World {
 
 	public boolean showTerrain;
+	public ArrayList<ObjectBuilding> buildingList = new ArrayList<ObjectBuilding>();
 	private ArrayList<Integer> renderHeightmap = new ArrayList<Integer>();
 	private float[][] data;
 	private int[][] intArray;
-	private EntityPlayer player;
 	private int width, height;
+	public ArrayList<Entity> entityList = new ArrayList<Entity>();
 
-	public IWorld() {
+	public World() {
 		init();
-		this.player = Plateau.getPlayer();
 	}
-
-	public abstract int getWorldID();
 
 	public abstract int getChunkSize();
 
@@ -98,7 +99,23 @@ public abstract class IWorld {
 
 	public abstract String texture();
 
-	public void render() {
+	public void update() {
+		for (Entity entity : entityList) {
+			glPushMatrix();
+			renderEntity(entity);
+			glPopMatrix();
+		}
+		glPushMatrix();
+		render();
+		glPopMatrix();
+	}
+
+	private void renderEntity(Entity entity) {
+		GameRegistry.getRender(entity).render(entity, entity.getX(), entity.getY(), entity.getZ());
+	}
+
+	private void render() {
+		EntityPlayer player = Plateau.getPlayer();
 		glEnable(GL_TEXTURE_2D);
 
 		ResourceLoader.bindTextures(texture());

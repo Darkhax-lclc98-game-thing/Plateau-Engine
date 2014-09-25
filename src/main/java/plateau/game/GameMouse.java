@@ -1,5 +1,6 @@
 package plateau.game;
 
+import org.lwjgl.opengl.Display;
 import plateau.engine.Plateau;
 import plateau.engine.entity.player.EntityPlayer;
 import plateau.engine.input.IMouse;
@@ -7,8 +8,15 @@ import plateau.engine.input.IMouse;
 public class GameMouse implements IMouse {
 
 	@Override
-	public void onPress(int eventButton) {
+	public void onPress(int button, int x, int y) {
+		EntityPlayer player = Plateau.getPlayer();
+		if (button == 1) {
+			float x1 = (float) player.getX();
+			float y1 = (float) player.getY();
+			float z1 = (float) player.getZ();
 
+
+		}
 	}
 
 	@Override

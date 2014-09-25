@@ -3,19 +3,18 @@ package plateau.engine;
 import org.lwjgl.Sys;
 import plateau.engine.entity.player.EntityPlayer;
 import plateau.engine.registery.GameRegistry;
-import plateau.engine.world.IWorld;
+import plateau.engine.world.World;
 
 public class GameTimer {
 	private static final long numTicksPerSecond = 50;
 	private static final long DT_PER_TICK = (1000 / numTicksPerSecond);
+	int falling;
 	private long timerTicksPerSecond = Sys.getTimerResolution();
 	private long lastLoopTime = getTime();
 	private long timeSinceLastTick = 0;
 	private long numTicks = 0;
 	private long startTime = getTime();
 	private long endTime;
-
-	int falling;
 
 	private synchronized long getTime() {
 		return (Sys.getTime() * 1000) / this.timerTicksPerSecond;
@@ -44,7 +43,7 @@ public class GameTimer {
 
 	public void physics() {
 		EntityPlayer player = Plateau.getPlayer();
-		IWorld world = GameRegistry.getWorld(player.getWorldID());
+		World world = player.getWorld();
 
 		if (player.getY() <= world.getHeightAt((int) player.getX(), (int) player.getZ()) + 10) {
 			player.setMotionY(0);
@@ -52,7 +51,7 @@ public class GameTimer {
 			falling = 0;
 		} else {
 			falling++;
-			player.setMotionY(-((9.8f / DT_PER_TICK )* (0.001 * falling)));
+			player.setMotionY((float) -((9.8f / DT_PER_TICK) * (0.001 * falling)));
 		}
 	}
 }

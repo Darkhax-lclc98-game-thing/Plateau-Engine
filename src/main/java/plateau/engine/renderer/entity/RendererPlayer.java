@@ -4,7 +4,7 @@ import plateau.engine.entity.player.EntityPlayer;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class RendererPlayer {
+public class RendererPlayer extends RenderEntity {
 	private EntityPlayer player;
 
 	public RendererPlayer(EntityPlayer player) {
@@ -12,6 +12,7 @@ public class RendererPlayer {
 	}
 
 	public void update() {
+
 		glLoadIdentity();
 		glPushAttrib(GL_TRANSFORM_BIT);
 		glMatrixMode(GL_MODELVIEW);
@@ -19,7 +20,7 @@ public class RendererPlayer {
 		glRotatef(player.getRoll(), 0, 0, 1);
 
 		if (player.is3rdPerson) {
-			glTranslatef(0.0F, 0.0F, (-(player.thirdPersonDistanceTemp + (player.thirdPersonDistance - player.thirdPersonDistanceTemp))));
+			glTranslatef(0.0F, 0.0F, -player.thirdPersonDistance);
 		}
 
 		glRotatef(player.getPitch(), 1, 0, 0);
@@ -27,5 +28,7 @@ public class RendererPlayer {
 
 		glTranslated(-player.getX(), -player.getY(), -player.getZ());
 		glPopAttrib();
+
+		//super.update(player, player.getX(), player.getY(), player.getZ());
 	}
 }

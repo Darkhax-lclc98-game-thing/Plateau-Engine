@@ -2,33 +2,29 @@ package plateau.game.level;
 
 import plateau.engine.object.ObjectBuilding;
 import plateau.engine.renderer.model.OBJLoader;
-import plateau.engine.resource.ResourceLoader;
-import plateau.engine.world.IWorld;
+import plateau.engine.world.World;
+import plateau.game.entity.EntityMother;
 
-import static org.lwjgl.opengl.GL11.*;
-
-public class Level1 extends IWorld {
-
-	ObjectBuilding building = new ObjectBuilding(new OBJLoader("house.obj", true));
+public class Level1 extends World {
 
 	public Level1() {
-		building.setX(10);
-		building.setY(100);
-		building.setZ(10);
+		ObjectBuilding building = new ObjectBuilding(new OBJLoader("house.obj", true));
+		building.setX(1000);
+		building.setY(225);
+		building.setZ(370);
 
 		building.setSizeX(0.1f);
 		building.setSizeY(0.1f);
 		building.setSizeZ(0.1f);
-	}
+		building.setRoll(0.1f);
+		buildingList.add(building);
 
-	@Override
-	public int getWorldID() {
-		return 0;
+        entityList.add(new EntityMother());
 	}
 
 	@Override
 	public int getChunkSize() {
-		return 64;
+		return 128;
 	}
 
 	@Override
@@ -42,11 +38,13 @@ public class Level1 extends IWorld {
 	}
 
 	@Override
-	public void render() {
+	public void update() {
 		// Calls the objects that need to be rendered on the map
-		building.render();
+		for (ObjectBuilding building : buildingList) {
+			building.render();
+		}
 
 		// calls the heightmap to be rendered
-		super.render();
+		super.update();
 	}
 }

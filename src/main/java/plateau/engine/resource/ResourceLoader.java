@@ -1,7 +1,6 @@
 package plateau.engine.resource;
 
 import org.lwjgl.BufferUtils;
-import plateau.engine.PlateauDisplay;
 import plateau.game.Game;
 
 import javax.imageio.ImageIO;

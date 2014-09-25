@@ -2,7 +2,6 @@ package plateau.engine.renderer;
 
 import plateau.engine.PlateauDisplay;
 import plateau.engine.entity.player.EntityPlayer;
-import plateau.engine.registery.GameRegistry;
 import plateau.engine.renderer.entity.RendererPlayer;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -39,12 +38,9 @@ public class RenderHandler {
 	}
 
 	public void update() {
-
 		if (player != null) {
 			player.update();
-
-			GameRegistry.getWorld(player.getWorldID()).render();
-
+			player.getWorld().update();
 			playerRenderer.update();
 		}
 	}

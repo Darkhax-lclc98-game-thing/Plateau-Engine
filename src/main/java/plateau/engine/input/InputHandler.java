@@ -91,7 +91,7 @@ public class InputHandler {
 			for (IMouse mouseInp : mouseInput) {
 				mouseInp.onMove(Mouse.getDX(), Mouse.getDY());
 				if (mouse.contains(mouseKey)) {
-					mouseInp.onPress(mouseKey);
+					mouseInp.onPress(mouseKey, Mouse.getX(), Mouse.getY());
 				}
 			}
 		}

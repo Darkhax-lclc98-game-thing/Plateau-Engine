@@ -15,9 +15,9 @@ public class Plateau implements Runnable {
 	public static InputHandler input;
 	private DebugTitleInfo debugTitle = new DebugTitleInfo();
 	private GameTimer timer = new GameTimer();
-	private FontRenderer renderer;
+	private FontRenderer textRenderer;
 	private PlateauDisplay display;
-
+	public static boolean debug = true;
 
 	public Plateau(PlateauDisplay display) {
 		this.display = display;
@@ -43,7 +43,7 @@ public class Plateau implements Runnable {
 		renderHandler.update();
 
 		set2D();
-		debugTitle.updateDebugTitle(renderer);
+		debugTitle.updateDebugTitle(textRenderer);
 		set3D();
 	}
 
@@ -63,18 +63,19 @@ public class Plateau implements Runnable {
 				break;
 			}
 			Display.update();
-			Display.sync(60);
+			//Display.sync(60);
 		}
 		Display.destroy();
 	}
 
 	private boolean initThread() {
 		display.initThread();
-		renderHandler = new RenderHandler();
 		input = new InputHandler();
 
 		display.init();
-		renderer = new FontRenderer(new Font("Serif", Font.PLAIN, 16), true);
+		renderHandler = new RenderHandler();
+
+		textRenderer = new FontRenderer(new Font("Serif", Font.PLAIN, 16), true);
 
 		return true;
 	}
