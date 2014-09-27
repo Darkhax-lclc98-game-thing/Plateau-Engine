@@ -1,8 +1,12 @@
-language: java
+language: cpp
 notifications:
   email: false
-install: true
-matrix:
-  include:
-  - jdk: openjdk6
-    script: mvn test
+install: make get-deps
+compiler:
+  - gcc
+  - clang
+branches:
+  only:
+    - cpp
+
+script: mkdir build && cd build && cmake ../ && make

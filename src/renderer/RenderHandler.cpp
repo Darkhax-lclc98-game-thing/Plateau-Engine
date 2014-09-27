@@ -1,7 +1,8 @@
 #include "RenderHandler.h"
 
 RenderHandler::RenderHandler() {
-//    initCamera(Plateau::getWidth(), 0);
+    initCamera(CLIENT_WIDTH, CLIENT_HEIGHT);
+
 }
 
 void RenderHandler::initCamera(int width, int height) {
@@ -18,4 +19,11 @@ void RenderHandler::initCamera(int width, int height) {
 
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
+}
+
+void RenderHandler::update() {
+    // check if player is null
+    // update player
+    // update players world
+    // update players render
 }
