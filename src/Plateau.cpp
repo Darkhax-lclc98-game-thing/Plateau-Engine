@@ -1,3 +1,4 @@
+#include <world/World.h>
 #include "Plateau.h"
 
 RenderHandler *renderHandler;
@@ -9,6 +10,9 @@ void Plateau::initThread() {
     // handles core engine information
     renderHandler = new RenderHandler();
     renderHandler->update();
+
+    World* world = new World();
+   // world->update();
 }
 
 void set2D() {

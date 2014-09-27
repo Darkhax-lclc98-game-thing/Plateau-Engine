@@ -4,7 +4,7 @@ project(Gamesss)
 file(GLOB_RECURSE SOURCE_FILES "src/*.cpp")
 file(GLOB_RECURSE HEADERS_FILES "src/*.h")
 
-set (Foo_INCLUDE_DIRS "")
+set (INCLUDE_DIRS "")
 foreach (_headerFile ${HEADERS_FILES})
     get_filename_component(_dir ${_headerFile} PATH)
     list (APPEND INCLUDE_DIRS ${_dir})

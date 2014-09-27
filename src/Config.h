@@ -1,3 +1,3 @@
 #pragma once
-const int CLIENT_WIDTH = 800;
-const int CLIENT_HEIGHT = 450;
+const int CLIENT_WIDTH = 854;
+const int CLIENT_HEIGHT = 480;
