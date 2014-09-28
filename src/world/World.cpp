@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "World.h"
 
 World::World() {
@@ -18,6 +17,19 @@ void World::init() {
         for (int hMapZ = 0; hMapZ < hHeight; hMapZ++) {
             printf("%d, %d, %d\n", hMapX, hMapZ, data[hMapX][hMapZ]);
         }
+    }
+
+    // smooth terrain
+
+    // setup render
+    int xTemp = 0;
+    int zTemp = 0;
+    int displayList = -1;
+
+    for (int i = 0; i < hWidth / chunkSize * hHeight / chunkSize; i++) {
+        displayList = glGenList(1);
+        glNewList(displayList, GL_COMPILE);
+        
     }
 }
 
