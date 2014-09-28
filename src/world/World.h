@@ -2,8 +2,8 @@
 #include <vector>
 #include "Opengl.h"
 
-const int hWidth = 1000;
-const int hHeight = 1000;
+const int hWidth = 4096;
+const int hHeight = 4096;
 
 class World {
 public:

@@ -16,7 +16,15 @@ void World::init() {
 
     for (int hMapX = 0; hMapX < hWidth; hMapX++) {
         for (int hMapZ = 0; hMapZ < hHeight; hMapZ++) {
-            //printf("%d, %d, %d\n", hMapX, hMapZ, data[hMapX][hMapZ]);
+            printf("%d, %d, %d\n", hMapX, hMapZ, data[hMapX][hMapZ]);
         }
     }
+}
+
+void World::update() {
+
+}
+
+void World::render() {
+
 }

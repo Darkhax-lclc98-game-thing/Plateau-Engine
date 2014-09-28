@@ -12,7 +12,7 @@ void Plateau::initThread() {
     renderHandler->update();
 
     World* world = new World();
-   // world->update();
+    world->update();
 }
 
 void set2D() {
