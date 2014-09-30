@@ -1,6 +1,6 @@
 #pragma once
-#include "Opengl.h"
-#include "Config.h"
+#include "../Opengl.h"
+#include "../Config.h"
 
 class RenderHandler {
 public:

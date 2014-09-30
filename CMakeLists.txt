@@ -13,4 +13,4 @@ list(REMOVE_DUPLICATES INCLUDE_DIRS)
 
 include_directories(${INCLUDE_DIRS})
 
-add_executable(Gamesss ${SOURCE_FILES})
+add_executable(Gamesss ${SOURCE_FILES} )

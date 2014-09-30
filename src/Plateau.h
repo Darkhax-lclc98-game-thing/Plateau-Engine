@@ -1,7 +1,8 @@
 #pragma once
 #include "Opengl.h"
 #include "Config.h"
-#include "RenderHandler.h"
+#include "renderer/RenderHandler.h"
+#include "world/World.h"
 
 class Plateau {
 public:

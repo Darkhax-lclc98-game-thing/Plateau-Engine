@@ -1,4 +1,4 @@
-#include <world/World.h>
+#include <entity/player/EntityPlayer.h>
 #include "Plateau.h"
 
 RenderHandler *renderHandler;
@@ -11,7 +11,7 @@ void Plateau::initThread() {
     renderHandler = new RenderHandler();
     renderHandler->update();
 
-    World* world = new World();
+    World *world = new World();
     world->update();
 }
 
@@ -36,6 +36,7 @@ void set3D() {
 }
 
 void renderWorld() {
+    glClearColor(0, 0.75f, 1, 1);
     glClear(GL_COLOR_BUFFER_BIT || GL_DEPTH_BUFFER_BIT);
     // checks timer to see if ticked
     // update physics
@@ -58,6 +59,38 @@ void resizeHandler(int w, int h) {
     renderHandler->initCamera(w, h);
 }
 
+void keyboard(unsigned char key, int x, int y) {
+    switch (key) {
+        default:
+            printf("%d\n", key);
+            break;
+    }
+    glutPostRedisplay();
+}
+
+void mouse(int button, int state, int x, int y) {
+    EntityPlayer player;// = Plateau.getPlayer();
+
+    float mouseDX = x * 0.16f;
+    float mouseDY = y * 0.16f;
+    if (player.getYaw() + mouseDX >= 360) {
+        player.setYaw(player.getYaw() + mouseDX - 360);
+    } else if (player.getYaw() + mouseDX < 0) {
+        player.setYaw(360 - player.getYaw() + mouseDX);
+    } else {
+        player.setYaw(player.getYaw() + mouseDX);
+    }
+    int maxLookDown = -80;
+    int maxLookUp = 80;
+    if (player.getPitch() - mouseDY >= maxLookDown && player.getPitch() - mouseDY <= maxLookUp) {
+        player.setPitch(player.getPitch() + -mouseDY);
+    } else if (player.getPitch() - mouseDY < maxLookDown) {
+        player.setPitch(maxLookDown);
+    } else if (player.getPitch() - mouseDY > maxLookUp) {
+        player.setPitch(maxLookUp);
+    }
+}
+
 void Plateau::init(int argc, char **argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
@@ -69,5 +102,7 @@ void Plateau::init(int argc, char **argv) {
     glutReshapeFunc(resizeHandler);
     glutDisplayFunc(renderWorld);
     glutIdleFunc(renderWorld);
+    glutKeyboardFunc(keyboard);
+    glutMouseFunc(mouse);
     glutMainLoop();
 }

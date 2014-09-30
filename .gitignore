@@ -38,7 +38,9 @@ local.properties
 /out/
 /.idea/
 /target/
-
+*.cbp
+*.depend
+*.layout
 #################
 ## Visual Studio
 #################

@@ -2,7 +2,6 @@
 
 RenderHandler::RenderHandler() {
     initCamera(CLIENT_WIDTH, CLIENT_HEIGHT);
-
 }
 
 void RenderHandler::initCamera(int width, int height) {
