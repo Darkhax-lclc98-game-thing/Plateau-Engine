@@ -16,7 +16,7 @@ public:
     bool showTerrain;
 
 //    std::vector buildingList;
-//    std::vector heightmapList;
+    std::vector<int> heightmapList;
 
     float data[hWidth][hHeight];
     int intArray[hWidth][hHeight];

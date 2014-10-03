@@ -10,75 +10,27 @@ public:
 
     void update();
 
-    float getX() {
-        return x;
-    }
+    float getX();
+    float getY() ;
+    float getZ() ;
 
-    float getY() {
-        return y;
-    }
+    float getYaw();
+    float getPitch();
+    float getRoll();
 
-    float getZ() {
-        return z;
-    }
+    float getMotionX();
+    float getMotionY() ;
+    float getMotionZ();
 
-    float getYaw() {
-        return yaw;
-    }
+    void setX(float x1);
+    void setY(float y1);
+    void setZ(float z1);
 
-    float getPitch() {
-        return pitch;
-    }
+    void setYaw(float yaw1);
+    void setPitch(float pitch1);
+    void setRoll(float roll1);
 
-    float getRoll() {
-        return roll;
-    }
-
-    float getMotionX() {
-        return motionX;
-    }
-
-    float getMotionY() {
-        return motionY;
-    }
-
-    float getMotionZ() {
-        return motionZ;
-    }
-
-    void setX(float x1) {
-        x = x1;
-    }
-
-    void setY(float y1) {
-        y = y1;
-    }
-
-    void setZ(float z1) {
-        z = z1;
-    }
-
-    void setYaw(float yaw1) {
-        yaw = yaw1;
-    }
-
-    void setPitch(float pitch1) {
-        pitch = pitch1;
-    }
-
-    void setRoll(float roll1) {
-        roll = roll1;
-    }
-
-    void setMotionX(float motionX1) {
-        motionX = motionX1;
-    }
-
-    void setMotionY(float motionY1) {
-        motionY = motionY1;
-    }
-
-    void setMotionZ(float motionZ1) {
-        motionZ = motionZ1;
-    }
+    void setMotionX(float motionX1);
+    void setMotionY(float motionY1);
+    void setMotionZ(float motionZ1);
 };

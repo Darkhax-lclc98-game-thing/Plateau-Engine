@@ -1,18 +1,17 @@
-#include <entity/player/EntityPlayer.h>
 #include "Plateau.h"
 
 RenderHandler *renderHandler;
+World *world;
 
 void Plateau::initThread() {
     // handles the game registering information
-
 
     // handles core engine information
     renderHandler = new RenderHandler();
     renderHandler->update();
 
-    World *world = new World();
-    world->update();
+    world = new World();
+
 }
 
 void set2D() {
@@ -36,17 +35,17 @@ void set3D() {
 }
 
 void renderWorld() {
-    glClearColor(0, 0.75f, 1, 1);
     glClear(GL_COLOR_BUFFER_BIT || GL_DEPTH_BUFFER_BIT);
     // checks timer to see if ticked
     // update physics
 
     // update heightmap and world render
     renderHandler->update();
+    world->update();
 
-    set2D();
+    //set2D();
     // render debug text
-    set3D();
+    //set3D();
 
     glutSwapBuffers();
 }
@@ -68,27 +67,29 @@ void keyboard(unsigned char key, int x, int y) {
     glutPostRedisplay();
 }
 
-void mouse(int button, int state, int x, int y) {
-    EntityPlayer player;// = Plateau.getPlayer();
-
+void mouseMove(int x, int y) {
     float mouseDX = x * 0.16f;
     float mouseDY = y * 0.16f;
-    if (player.getYaw() + mouseDX >= 360) {
-        player.setYaw(player.getYaw() + mouseDX - 360);
-    } else if (player.getYaw() + mouseDX < 0) {
-        player.setYaw(360 - player.getYaw() + mouseDX);
+    if (player->getYaw() + mouseDX >= 360) {
+        player->setYaw(player->getYaw() + mouseDX - 360);
+    } else if (player->getYaw() + mouseDX < 0) {
+        player->setYaw(360 - player->getYaw() + mouseDX);
     } else {
-        player.setYaw(player.getYaw() + mouseDX);
+        player->setYaw(player->getYaw() + mouseDX);
     }
+
     int maxLookDown = -80;
     int maxLookUp = 80;
-    if (player.getPitch() - mouseDY >= maxLookDown && player.getPitch() - mouseDY <= maxLookUp) {
-        player.setPitch(player.getPitch() + -mouseDY);
-    } else if (player.getPitch() - mouseDY < maxLookDown) {
-        player.setPitch(maxLookDown);
-    } else if (player.getPitch() - mouseDY > maxLookUp) {
-        player.setPitch(maxLookUp);
+
+    if (player->getPitch() - mouseDY >= maxLookDown && player->getPitch() - mouseDY <= maxLookUp) {
+        player->setPitch(player->getPitch() + -mouseDY);
+    } else if (player->getPitch() - mouseDY < maxLookDown) {
+        player->setPitch(maxLookDown);
+    } else if (player->getPitch() - mouseDY > maxLookUp) {
+        player->setPitch(maxLookUp);
     }
+
+    //printf(player->getYaw() + "\n");
 }
 
 void Plateau::init(int argc, char **argv) {
@@ -98,11 +99,12 @@ void Plateau::init(int argc, char **argv) {
     glutInitWindowPosition(100, 100);
     glutCreateWindow("Game");
     initThread();
+    glutSetCursor(GLUT_CURSOR_NONE);
 
     glutReshapeFunc(resizeHandler);
     glutDisplayFunc(renderWorld);
     glutIdleFunc(renderWorld);
     glutKeyboardFunc(keyboard);
-    glutMouseFunc(mouse);
+    glutPassiveMotionFunc(mouseMove);
     glutMainLoop();
 }

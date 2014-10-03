@@ -62,9 +62,42 @@ void World::init() {
 }
 
 void World::update() {
-
+    glPushMatrix();
+    render();
+    glPopMatrix();
 }
 
 void World::render() {
+    //EntityPlayer player;
+    // = Plateau.getPlayer();
+    glEnable(GL_TEXTURE_2D);
 
+    // ResourceLoader.bindTextures(texture());
+
+    if (true) {//showTerrain) {
+        for (int x = 0; x < hWidth / chunkSize; x++) {
+            for (int z = 0; z < hHeight / chunkSize; z++) {
+                glCallList(intArray[x * chunkSize][z * chunkSize]);
+            }
+        }
+    } else {
+        /*
+        for (int z = -5; z < 5; z++) {
+
+            for (int x = -5; x < 5; x++) {
+                int tempX = chunkSize * x;
+                int tempZ = chunkSize * z;
+                if (player.getX() + tempX > 0 && player.getZ() + tempZ > 0 && player.getX() + tempX < hWidth && player.getZ() + tempZ < hHeight) {
+                    //heightmapList.insert(1, intArray[(int) (tempX + player.getX())][(int) (tempZ + player.getZ())]);
+                }
+            }
+        }
+        for (int chunk : heightmapList) {
+            glCallList(chunk);
+        }
+        heightmapList.clear();
+        */
+    }
+
+    glDisable(GL_TEXTURE_2D);
 }
