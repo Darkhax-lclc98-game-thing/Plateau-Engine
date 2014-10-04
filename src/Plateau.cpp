@@ -43,11 +43,59 @@ void renderWorld() {
     renderHandler->update();
     world->update();
 
+    glPushMatrix();
+    glBegin(GL_POLYGON);
+    glColor3f(1.0, 1.0, 1.0);
+    glVertex3f(0.5, -0.5, 0.5);
+    glVertex3f(0.5, 0.5, 0.5);
+    glVertex3f(-0.5, 0.5, 0.5);
+    glVertex3f(-0.5, -0.5, 0.5);
+    glEnd();
+
+// Purple side - RIGHT
+    glBegin(GL_POLYGON);
+    glColor3f(1.0, 0.0, 1.0);
+    glVertex3f(0.5, -0.5, -0.5);
+    glVertex3f(0.5, 0.5, -0.5);
+    glVertex3f(0.5, 0.5, 0.5);
+    glVertex3f(0.5, -0.5, 0.5);
+    glEnd();
+
+// Green side - LEFT
+    glBegin(GL_POLYGON);
+    glColor3f(0.0, 1.0, 0.0);
+    glVertex3f(-0.5, -0.5, 0.5);
+    glVertex3f(-0.5, 0.5, 0.5);
+    glVertex3f(-0.5, 0.5, -0.5);
+    glVertex3f(-0.5, -0.5, -0.5);
+    glEnd();
+
+// Blue side - TOP
+    glBegin(GL_POLYGON);
+    glColor3f(0.0, 0.0, 1.0);
+    glVertex3f(0.5, 0.5, 0.5);
+    glVertex3f(0.5, 0.5, -0.5);
+    glVertex3f(-0.5, 0.5, -0.5);
+    glVertex3f(-0.5, 0.5, 0.5);
+    glEnd();
+
+// Red side - BOTTOM
+    glBegin(GL_POLYGON);
+    glColor3f(1.0, 0.0, 0.0);
+    glVertex3f(0.5, -0.5, -0.5);
+    glVertex3f(0.5, -0.5, 0.5);
+    glVertex3f(-0.5, -0.5, 0.5);
+    glVertex3f(-0.5, -0.5, -0.5);
+    glEnd();
+    glPopMatrix();
+    glFlush();
+
     //set2D();
     // render debug text
     //set3D();
 
     glutSwapBuffers();
+
 }
 
 void resizeHandler(int w, int h) {
@@ -67,9 +115,13 @@ void keyboard(unsigned char key, int x, int y) {
     glutPostRedisplay();
 }
 
+int old_x=0;
+int old_y=0;
+
 void mouseMove(int x, int y) {
-    float mouseDX = x * 0.16f;
-    float mouseDY = y * 0.16f;
+    float mouseDX = (old_x - x) * 0.16f;
+    float mouseDY = (old_y - y) * 0.16f;
+
     if (player->getYaw() + mouseDX >= 360) {
         player->setYaw(player->getYaw() + mouseDX - 360);
     } else if (player->getYaw() + mouseDX < 0) {
@@ -89,22 +141,36 @@ void mouseMove(int x, int y) {
         player->setPitch(maxLookUp);
     }
 
+    old_x = x;
+    old_y = y;
+
+   // glutWarpPointer(CLIENT_WIDTH/2, CLIENT_HEIGHT/2);
+    glutPostRedisplay();
     //printf(player->getYaw() + "\n");
+}
+void update(int value) {
+    glutPostRedisplay();
+    glutTimerFunc(25, update, 0);
 }
 
 void Plateau::init(int argc, char **argv) {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(CLIENT_WIDTH, CLIENT_HEIGHT);
     glutInitWindowPosition(100, 100);
     glutCreateWindow("Game");
     initThread();
+
     glutSetCursor(GLUT_CURSOR_NONE);
 
     glutReshapeFunc(resizeHandler);
     glutDisplayFunc(renderWorld);
     glutIdleFunc(renderWorld);
+
     glutKeyboardFunc(keyboard);
     glutPassiveMotionFunc(mouseMove);
+
+    glutTimerFunc(25, update, 0);
+
     glutMainLoop();
 }

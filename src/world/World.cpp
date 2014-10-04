@@ -62,9 +62,9 @@ void World::init() {
 }
 
 void World::update() {
-    glPushMatrix();
-    render();
-    glPopMatrix();
+    //glPushMatrix();
+    //render();
+    //glPopMatrix();
 }
 
 void World::render() {

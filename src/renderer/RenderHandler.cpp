@@ -16,11 +16,11 @@ void RenderHandler::initCamera(int width, int height) {
     gluPerspective(60, (float) width / height, 0.1f, 1000);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glDepthFunc(GL_LEQUAL);
-    glEnable(GL_DEPTH_TEST);
+   // glDepthFunc(GL_LEQUAL);
+   // glEnable(GL_DEPTH_TEST);
 
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
+   // glEnable(GL_CULL_FACE);
+   // glCullFace(GL_BACK);
 }
 
 void RenderHandler::update() {
