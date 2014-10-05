@@ -3,6 +3,10 @@
 RenderHandler *renderHandler;
 World *world;
 
+int fps = 0;
+int old_x = 0;
+int old_y = 0;
+
 void Plateau::initThread() {
     // handles the game registering information
 
@@ -35,6 +39,8 @@ void set3D() {
 }
 
 void renderWorld() {
+    fps++;
+
     glClear(GL_COLOR_BUFFER_BIT || GL_DEPTH_BUFFER_BIT);
     // checks timer to see if ticked
     // update physics
@@ -44,6 +50,21 @@ void renderWorld() {
     world->update();
 
     glPushMatrix();
+
+    glBegin(GL_POLYGON);
+
+    glColor3f(1.0, 0.0, 0.0);
+    glVertex3f(0.5, -0.5, -0.5);      // P1 is red
+    glColor3f(0.0, 1.0, 0.0);
+    glVertex3f(0.5, 0.5, -0.5);      // P2 is green
+    glColor3f(0.0, 0.0, 1.0);
+    glVertex3f(-0.5, 0.5, -0.5);      // P3 is blue
+    glColor3f(1.0, 0.0, 1.0);
+    glVertex3f(-0.5, -0.5, -0.5);      // P4 is purple
+
+    glEnd();
+
+    // White side - BACK
     glBegin(GL_POLYGON);
     glColor3f(1.0, 1.0, 1.0);
     glVertex3f(0.5, -0.5, 0.5);
@@ -52,7 +73,7 @@ void renderWorld() {
     glVertex3f(-0.5, -0.5, 0.5);
     glEnd();
 
-// Purple side - RIGHT
+    // Purple side - RIGHT
     glBegin(GL_POLYGON);
     glColor3f(1.0, 0.0, 1.0);
     glVertex3f(0.5, -0.5, -0.5);
@@ -61,7 +82,7 @@ void renderWorld() {
     glVertex3f(0.5, -0.5, 0.5);
     glEnd();
 
-// Green side - LEFT
+    // Green side - LEFT
     glBegin(GL_POLYGON);
     glColor3f(0.0, 1.0, 0.0);
     glVertex3f(-0.5, -0.5, 0.5);
@@ -70,7 +91,7 @@ void renderWorld() {
     glVertex3f(-0.5, -0.5, -0.5);
     glEnd();
 
-// Blue side - TOP
+    // Blue side - TOP
     glBegin(GL_POLYGON);
     glColor3f(0.0, 0.0, 1.0);
     glVertex3f(0.5, 0.5, 0.5);
@@ -79,7 +100,7 @@ void renderWorld() {
     glVertex3f(-0.5, 0.5, 0.5);
     glEnd();
 
-// Red side - BOTTOM
+    // Red side - BOTTOM
     glBegin(GL_POLYGON);
     glColor3f(1.0, 0.0, 0.0);
     glVertex3f(0.5, -0.5, -0.5);
@@ -87,7 +108,10 @@ void renderWorld() {
     glVertex3f(-0.5, -0.5, 0.5);
     glVertex3f(-0.5, -0.5, -0.5);
     glEnd();
+
     glPopMatrix();
+
+
     glFlush();
 
     //set2D();
@@ -115,9 +139,6 @@ void keyboard(unsigned char key, int x, int y) {
     glutPostRedisplay();
 }
 
-int old_x=0;
-int old_y=0;
-
 void mouseMove(int x, int y) {
     float mouseDX = (old_x - x) * 0.16f;
     float mouseDY = (old_y - y) * 0.16f;
@@ -144,13 +165,15 @@ void mouseMove(int x, int y) {
     old_x = x;
     old_y = y;
 
-   // glutWarpPointer(CLIENT_WIDTH/2, CLIENT_HEIGHT/2);
     glutPostRedisplay();
-    //printf(player->getYaw() + "\n");
 }
-void update(int value) {
+
+void fpsCounter(int value) {
+    std::cout << "FPS: " << fps << std::endl;
+    fps = 0;
+
     glutPostRedisplay();
-    glutTimerFunc(25, update, 0);
+    glutTimerFunc(1000, fpsCounter, 0);
 }
 
 void Plateau::init(int argc, char **argv) {
@@ -170,7 +193,7 @@ void Plateau::init(int argc, char **argv) {
     glutKeyboardFunc(keyboard);
     glutPassiveMotionFunc(mouseMove);
 
-    glutTimerFunc(25, update, 0);
+    glutTimerFunc(1000, fpsCounter, 0);
 
     glutMainLoop();
 }
