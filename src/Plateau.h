@@ -1,5 +1,7 @@
 #include "renderer/RenderHandler.h"
 #include "world/World.h"
+#include <math.h>
+//#include "input/InputHandler.cpp"
 
 extern EntityPlayer *player;
 class Plateau {

@@ -4,18 +4,15 @@ RenderHandler *renderHandler;
 World *world;
 
 int fps = 0;
-int old_x = 0;
-int old_y = 0;
+
 
 void Plateau::initThread() {
     // handles the game registering information
 
     // handles core engine information
     renderHandler = new RenderHandler();
-    renderHandler->update();
 
     world = new World();
-
 }
 
 void set2D() {
@@ -41,16 +38,15 @@ void set3D() {
 void renderWorld() {
     fps++;
 
-    glClear(GL_COLOR_BUFFER_BIT || GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     // checks timer to see if ticked
     // update physics
 
     // update heightmap and world render
     renderHandler->update();
-    world->update();
+    //world->update();
 
     glPushMatrix();
-
     glBegin(GL_POLYGON);
 
     glColor3f(1.0, 0.0, 0.0);
@@ -112,7 +108,7 @@ void renderWorld() {
     glPopMatrix();
 
 
-    glFlush();
+    //glFlush();
 
     //set2D();
     // render debug text
@@ -130,13 +126,89 @@ void resizeHandler(int w, int h) {
     renderHandler->initCamera(w, h);
 }
 
-void keyboard(unsigned char key, int x, int y) {
+void fpsCounter(int value) {
+    std::cout << "FPS: " << fps << std::endl;
+    fps = 0;
+
+    //glutPostRedisplay();
+    glutTimerFunc(1000, fpsCounter, 0);
+}
+
+// TODO Move
+int old_x = 0;
+int old_y = 0;
+
+void processSpecialKeys(int key, int x, int y) {
+    float mouseDX = 0;
+    float mouseDY = 0;
+
     switch (key) {
-        default:
-            printf("%d\n", key);
+        case GLUT_KEY_LEFT :
+            mouseDX = 10 * 0.16;
+            break;
+        case GLUT_KEY_RIGHT         :
+            mouseDX = -10 * 0.16;
+            break;
+        case GLUT_KEY_UP         :
+            mouseDY = 10 * 0.16;
+            break;
+        case GLUT_KEY_DOWN         :
+            mouseDY = -10 * 0.16;
             break;
     }
-    glutPostRedisplay();
+
+    if (player->getYaw() + mouseDX >= 360) {
+        player->setYaw(player->getYaw() + mouseDX - 360);
+    } else if (player->getYaw() + mouseDX < 0) {
+        player->setYaw(360 - player->getYaw() + mouseDX);
+    } else {
+        player->setYaw(player->getYaw() + mouseDX);
+    }
+
+    int maxLookDown = -80;
+    int maxLookUp = 80;
+
+    if (player->getPitch() - mouseDY >= maxLookDown && player->getPitch() - mouseDY <= maxLookUp) {
+        player->setPitch(player->getPitch() + -mouseDY);
+    } else if (player->getPitch() - mouseDY < maxLookDown) {
+        player->setPitch(maxLookDown);
+    } else if (player->getPitch() - mouseDY > maxLookUp) {
+        player->setPitch(maxLookUp);
+    }
+}
+
+float toRadians(float degree) {
+    return degree * (M_PI / 180);
+}
+
+void move(int dx, int dz) {
+    float x = (float) (player->getMotionX() - dx * (float) sin(toRadians(player->getYaw() - 90)) + dz * sin(toRadians(-player->getYaw())));
+    float z = (float) (player->getMotionZ() + dx * (float) cos(toRadians(player->getYaw() - 90)) + dz * cos(toRadians(-player->getYaw())));
+
+    player->setMotionX(x);
+    player->setMotionZ(z);
+}
+
+float speed = 1.5 ;
+
+void processNormalKeys(unsigned char key, int x, int y) {
+    switch (key) {
+        case 'w':
+            move(0, -speed);
+            break;
+        case 's':
+            move(0, speed);
+            break;
+        case 'a':
+            move(-speed, 0);
+            break;
+        case 'd':
+            move(speed, 0);
+            break;
+    }
+    //printf("%d\n", key);
+
+   // glutPostRedisplay();
 }
 
 void mouseMove(int x, int y) {
@@ -164,16 +236,6 @@ void mouseMove(int x, int y) {
 
     old_x = x;
     old_y = y;
-
-    glutPostRedisplay();
-}
-
-void fpsCounter(int value) {
-    std::cout << "FPS: " << fps << std::endl;
-    fps = 0;
-
-    glutPostRedisplay();
-    glutTimerFunc(1000, fpsCounter, 0);
 }
 
 void Plateau::init(int argc, char **argv) {
@@ -185,15 +247,16 @@ void Plateau::init(int argc, char **argv) {
     initThread();
 
     glutSetCursor(GLUT_CURSOR_NONE);
-
     glutReshapeFunc(resizeHandler);
     glutDisplayFunc(renderWorld);
     glutIdleFunc(renderWorld);
 
-    glutKeyboardFunc(keyboard);
+    glutKeyboardFunc(processNormalKeys);
+    glutSpecialFunc(processSpecialKeys);
     glutPassiveMotionFunc(mouseMove);
 
     glutTimerFunc(1000, fpsCounter, 0);
 
     glutMainLoop();
 }
+

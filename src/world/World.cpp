@@ -1,7 +1,7 @@
 #include "World.h"
 
 World::World() {
-    init();
+    //init();
 }
 
 void World::init() {

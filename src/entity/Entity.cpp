@@ -18,6 +18,24 @@ Entity::~Entity() {
 
 void Entity::update() {
     setX(getX() + getMotionX());
+    setY(getY() + getMotionY());
+    setZ(getZ() + getMotionZ());
+
+    if (getMotionX() != 0) {
+        if (getMotionX() < 0.00001 && getMotionX() > -0.00001) {
+            setMotionX(0);
+        } else {
+            setMotionX(getMotionX() * 0.5f);
+        }
+    }
+
+    if (getMotionZ() != 0) {
+        if (getMotionZ() < 0.00001 && getMotionZ() > -0.00001) {
+            setMotionZ(0);
+        } else {
+            setMotionZ(getMotionZ() * 0.5f);
+        }
+    }
 }
 
 float Entity::getX() {
