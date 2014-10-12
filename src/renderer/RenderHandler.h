@@ -1,6 +1,9 @@
-#include "../Opengl.h"
-#include "../Config.h"
-#include "entity/player/EntityPlayer.h"
+#pragma once
+
+#include "Opengl.h"
+#include "Config.h"
+#include "EntityPlayer.h"
+
 
 class RenderHandler {
 public:

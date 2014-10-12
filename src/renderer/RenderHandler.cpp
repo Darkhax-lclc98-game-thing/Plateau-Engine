@@ -38,7 +38,7 @@ void RenderHandler::update() {
     //}
 
     glRotatef(player->getPitch(), 1, 0, 0);
-    glRotatef(-player->getYaw(), 0, 1, 0);
+    glRotatef(player->getYaw(), 0, 1, 0);
 
     glTranslated(-player->getX(), -player->getY(), -player->getZ());
     glPopAttrib();

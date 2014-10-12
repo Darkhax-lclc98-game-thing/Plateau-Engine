@@ -1,9 +1,16 @@
-#include "renderer/RenderHandler.h"
-#include "world/World.h"
+#pragma once
+
+#include "RenderHandler.h"
+#include "World.h"
+#include "InputHandler.h"
+#include "Display.h"
+
 #include <math.h>
-//#include "input/InputHandler.cpp"
 
 extern EntityPlayer *player;
+
+
+
 class Plateau {
 public:
     void initThread();
