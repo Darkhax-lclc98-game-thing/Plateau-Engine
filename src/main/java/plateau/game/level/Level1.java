@@ -8,14 +8,15 @@ import plateau.game.entity.EntityMother;
 public class Level1 extends World {
 
 	public Level1() {
-		ObjectBuilding building = new ObjectBuilding(new OBJLoader("house.obj", true));
+		ObjectBuilding building = new ObjectBuilding(new OBJLoader("House.obj", true));
 		building.setX(1000);
 		building.setY(225);
 		building.setZ(370);
 
-		building.setSizeX(0.1f);
-		building.setSizeY(0.1f);
-		building.setSizeZ(0.1f);
+		building.setSizeX(0.5f);
+		building.setSizeY(0.5f);
+		building.setSizeZ(0.5f);
+
 		building.setRoll(0.1f);
 		buildingList.add(building);
 

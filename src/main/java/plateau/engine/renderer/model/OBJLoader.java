@@ -30,6 +30,7 @@ public class OBJLoader {
 	private int numpolys = 0;
 
 	public OBJLoader(String obj, boolean centerit) {
+        System.out.println(obj);
 		loadobject(new BufferedReader(new InputStreamReader(Game.class.getResourceAsStream("../../" + obj))));
 		if (centerit) {
 			centerit();
