@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Plateau.h"
+#include "../Plateau.h"
 
 extern EntityPlayer *player;
 

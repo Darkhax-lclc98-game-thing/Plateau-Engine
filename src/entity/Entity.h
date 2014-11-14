@@ -1,4 +1,4 @@
-#include "Opengl.h"
+#include "../Opengl.h"
 
 class Entity {
 public:

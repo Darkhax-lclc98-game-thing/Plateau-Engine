@@ -1,9 +1,9 @@
 #pragma once
 
-#include "RenderHandler.h"
-#include "World.h"
-#include "InputHandler.h"
-#include "Display.h"
+#include "renderer/RenderHandler.h"
+#include "world/World.h"
+#include "input/InputHandler.h"
+#include "renderer/Display.h"
 
 #include <math.h>
 
