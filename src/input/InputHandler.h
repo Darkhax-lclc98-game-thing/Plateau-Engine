@@ -1,19 +1,11 @@
-#pragma once
-
-#include "../Plateau.h"
-
-extern EntityPlayer *player;
+#include <GLFW/glfw3.h>
 
 class InputHandler {
 public:
 
-    static void mouseMove(int x, int y);
+    static void mouseMove(GLFWwindow *window, double x, double y);
 
-    static void processNormalKeys(unsigned char key, int x, int y);
+    static void keyPressed(GLFWwindow *window, int key, int scancode, int action, int mods);
 
-    static void move(int dx, int dz);
-
-    static float toRadians(float degree);
-
-    static void processSpecialKeys(int key, int x, int y);
+    static void mousePressed(GLFWwindow *window, int button, int action, int mods);
 };

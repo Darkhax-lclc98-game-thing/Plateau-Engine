@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.4)
-project(Gamesss)
+project(Game)
 
 file(GLOB_RECURSE SOURCE_FILES "src/*.cpp")
 file(GLOB_RECURSE HEADERS_FILES "src/*.h")
@@ -13,4 +13,4 @@ list(REMOVE_DUPLICATES INCLUDE_DIRS)
 
 include_directories(${INCLUDE_DIRS})
 
-add_executable(Gamesss ${SOURCE_FILES} )
+add_executable(Game ${SOURCE_FILES} )

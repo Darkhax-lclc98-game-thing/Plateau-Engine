@@ -1,5 +1,3 @@
-#include "../Opengl.h"
-
 class Entity {
 public:
     Entity();
