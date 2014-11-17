@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.4)
+cmake_minimum_required(VERSION 2.8.12.2)
 project(Game)
 
 file(GLOB_RECURSE SOURCE_FILES "src/*.cpp")
@@ -13,4 +13,6 @@ list(REMOVE_DUPLICATES INCLUDE_DIRS)
 
 include_directories(${INCLUDE_DIRS})
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${Game_SOURCE_DIR}/bin")
+set(CMAKE_CXX_STANDARD_LIBRARIES "${CMAKE_CXX_STANDARD_LIBRARIES} -lopengl32 -lglu32 -lglfw3 -lwinmm")
 add_executable(Game ${SOURCE_FILES} )
