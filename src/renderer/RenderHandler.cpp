@@ -22,6 +22,11 @@ void RenderHandler::initCamera()
     perspectiveGL(60, (float) CLIENT_WIDTH / CLIENT_HEIGHT, 0.1f, 1000);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+
+    glEnable(GL_DEPTH_TEST); // Depth Testing
+    glDepthFunc(GL_LEQUAL);
+    glDisable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
 }
 
 void RenderHandler::update()
