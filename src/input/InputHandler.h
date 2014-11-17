@@ -1,5 +1,7 @@
 #include <GLFW/glfw3.h>
+#include "../renderer/RenderHandler.h"
 
+extern EntityPlayer player;
 class InputHandler {
 public:
 

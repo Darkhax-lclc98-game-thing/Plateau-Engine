@@ -1,77 +1,65 @@
 #include "Main.h"
 
-void updateSomething()
+RenderHandler handler;
+
+void update()
 {
     glfwPollEvents();
-    rot = glfwGetTime() * 100.f;
 }
 
-void updateRender()
-{
-    float ratio;
-    int width, height;
-    glfwGetFramebufferSize(window, &width, &height);
-    ratio = width / (float) height;
-    glViewport(0, 0, width, height);
-    glClear(GL_COLOR_BUFFER_BIT);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(-ratio, ratio, -1.f, 1.f, 1.f, -1.f);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    glRotatef(rot, 0.f, 0.f, 1.f);
-    glBegin(GL_TRIANGLES);
-    glColor3f(1.f, 0.f, 0.f);
-    glVertex3f(-0.6f, -0.4f, 0.f);
-    glColor3f(0.f, 1.f, 0.f);
-    glVertex3f(0.6f, -0.4f, 0.f);
-    glColor3f(0.f, 0.f, 1.f);
-    glVertex3f(0.f, 0.6f, 0.f);
-    glEnd();
-    glfwSwapBuffers(window);
-}
+//int fps()
+//{
+//    lastFpsTime += (timeDiff + sleepTime);
+//    fpsTime++;
+//    if (lastFpsTime >= 1000) {
+//        currentFps = fpsTime;
+//        lastFpsTime = 0;
+//        fpsTime = 0;
+//    }
+//    return currentFps;
+//}
 
 
-int fps()
-{
-    lastFpsTime += (timeDiff + sleepTime);
-    fpsTime++;
-    if (lastFpsTime >= 1000) {
-        currentFps = fpsTime;
-        lastFpsTime = 0;
-        fpsTime = 0;
-    }
-    return currentFps;
-}
 
 void loop()
 {
     while (!glfwWindowShouldClose(window)) {
-        beginTime = time_ms();
+
+
+        int startTime = time_ms();
+        long delta = startTime - lastLoopTime;
+        lastLoopTime = startTime;
+        lastFpsTime += delta;
         framesSkipped = 0;
+        fps++;
 
-        updateSomething();
-        updateRender();
+        if (lastFpsTime >= 1000) {
+            std::cout << fps << std::endl;
+            lastFpsTime = 0;
+            fps = 0;
+        }
 
-        timeDiff = time_ms() - beginTime;
-        sleepTime = (FRAME_PERIOD - timeDiff);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        update();
+        handler.update();
+        glfwSwapBuffers(window);
 
-        std::cout << fps() << std::endl;
+        sleepTime = (FRAME_PERIOD - delta);
 
         if (sleepTime > 0) {
             // sleep
-            usleep(sleepTime);
+            usleep(sleepTime * 2000);
         }
         while (sleepTime < 0 && framesSkipped < MAX_FRAME_SKIPS) {
             // update stuff
-            updateSomething();
+            update();
             sleepTime += FRAME_PERIOD;
             framesSkipped++;
         }
     }
 }
 
-int main(void)
+void init()
 {
     glfwSetErrorCallback(ErrorHandler::error_callback);
     if (!glfwInit())
@@ -90,7 +78,14 @@ int main(void)
     glfwSetKeyCallback(window, InputHandler::keyPressed);
     glfwSetCursorPosCallback(window, InputHandler::mouseMove);
     glfwSetMouseButtonCallback(window, InputHandler::mousePressed);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    handler.initCamera();
+}
 
+int main(void)
+{
+
+    init();
     loop();
 
     glfwDestroyWindow(window);

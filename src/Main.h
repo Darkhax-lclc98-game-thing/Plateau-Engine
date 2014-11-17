@@ -3,20 +3,14 @@
 #include "ErrorHandler.h"
 #include <iostream>
 #include "input/InputHandler.h"
+#include "renderer/RenderHandler.h"
 #include <unistd.h>
-
-// Used to measure intervals and absolute times
-typedef int64_t msec_t;
-
-// Get current time in milliseconds from the Epoch (Unix)
-// or the time the system started (Windows).
-msec_t time_ms(void);
 
 #if defined(__WIN32__)
 
 #include <windows.h>
 
-msec_t time_ms(void)
+long time_ms(void)
 {
     return timeGetTime();
 }
@@ -25,7 +19,7 @@ msec_t time_ms(void)
 
 #include <sys/time.h>
 
-msec_t time_ms(void)
+long time_ms(void)
 {
     struct timeval tv;
     gettimeofday(&tv, NULL);
@@ -38,14 +32,11 @@ int MAX_FPS = 60;
 int MAX_FRAME_SKIPS = 5;
 int FRAME_PERIOD = 1000 / MAX_FPS;
 
-long beginTime;
-long timeDiff;
 int sleepTime;
 int framesSkipped;
 
-int lastFpsTime = 0;
-int fpsTime = 0;
-int currentFps = 0;
+int lastLoopTime = time_ms();
+int fps;
+int lastFpsTime;
 
-float rot = 0;
 GLFWwindow *window;
