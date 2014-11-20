@@ -1,5 +1,6 @@
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${Game_SOURCE_DIR}/bin")
-set(CMAKE_CXX_STANDARD_LIBRARIES "${CMAKE_CXX_STANDARD_LIBRARIES} -lopengl32 -lglu32 -lglfw3 -lwinmm")
+set(CMAKE_CXX_FLAGS -DGLEW_STATIC -std=c++11 )
+set(CMAKE_CXX_STANDARD_LIBRARIES "${CMAKE_CXX_STANDARD_LIBRARIES} -lglew32s -lglfw3 -lopengl32 -lglu32  -lwinmm ")
 
 cmake_minimum_required(VERSION 2.8.12.2)
 

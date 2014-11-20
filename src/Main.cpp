@@ -63,17 +63,19 @@ void init()
 {
 
     glfwSetErrorCallback(ErrorHandler::error_callback);
+
     if (!glfwInit())
         exit(EXIT_FAILURE);
 
     glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // We want OpenGL 3.3
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL
 
     // creates gui
     window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
+
     if (!window) {
         glfwTerminate();
         exit(EXIT_FAILURE);
@@ -81,12 +83,21 @@ void init()
 
     glfwMakeContextCurrent(window);
 
+    glewExperimental = true; // Needed in core profile
+
+    if (glewInit() != GLEW_OK) {
+        fprintf(stderr, "Failed to initialize GLEW\n");
+        exit(EXIT_FAILURE);
+    }
+
+    printf("OpenGL version supported by this platform (%s): \n", glGetString(GL_VERSION));
     // handle input
     glfwSetKeyCallback(window, InputHandler::keyPressed);
     glfwSetCursorPosCallback(window, InputHandler::mouseMove);
     glfwSetMouseButtonCallback(window, InputHandler::mousePressed);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     handler.initCamera();
+
 }
 
 int main(void)

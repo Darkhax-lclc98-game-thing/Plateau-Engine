@@ -1,6 +1,10 @@
+#ifndef MAIN_H
+#define MAIN_H
+
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <stdlib.h>
-#include "ErrorHandler.h"
+#include "handlers/ErrorHandler.h"
 #include <iostream>
 #include "input/InputHandler.h"
 #include "renderer/RenderHandler.h"
@@ -40,3 +44,5 @@ int fps;
 int lastFpsTime;
 
 GLFWwindow *window;
+
+#endif
