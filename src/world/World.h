@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <GL/glew.h>
+#include <ostream>
 
 class Vert
 {
@@ -8,13 +9,6 @@ public:
     float x;
     float y;
     float z;
-};
-
-class TexCoord
-{
-public:
-    float u;
-    float v;
 };
 
 class World
@@ -25,19 +19,15 @@ private:
 
     int vhVertexCount;
     Vert *vhVertices;
-    TexCoord *vhTexCoords;
 
     unsigned int vhVBOVertices;
-    unsigned int vhVBOTexCoords;
 
-    unsigned int tID[2];
-
-    bool init(void);
+    bool init();
 
 public:
     bool create(char *hFileName, const int hWidth, const int hHeight);
 
-    void render(void);
+    void render();
 
     int hLOD;
 

@@ -4,9 +4,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <stdlib.h>
-#include "handlers/ErrorHandler.h"
 #include <iostream>
 #include "input/InputHandler.h"
+#include "handlers/ErrorHandler.h"
 #include "renderer/RenderHandler.h"
 #include <unistd.h>
 

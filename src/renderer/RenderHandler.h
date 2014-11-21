@@ -3,10 +3,11 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "../Config.h"
 #include <math.h>
+#include <iostream>
+#include "../Config.h"
+#include "../world/World.h"
 #include "../entity/player/EntityPlayer.h"
-
 
 class RenderHandler
 {

@@ -1,6 +1,4 @@
-#include <iostream>
 #include "RenderHandler.h"
-#include "../world/World.h"
 
 EntityPlayer player;
 World world;
@@ -29,24 +27,17 @@ void RenderHandler::initCamera()
 
     glEnable(GL_DEPTH_TEST); // Depth Testing
     glDepthFunc(GL_LEQUAL);
+    glDisable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
 
-
+    player.setY(25);
     world.hLOD = 8;
-    world.create("surface.bmp", 1024, 1024);
-
-    player.setX(0);
-    player.setY(50);
-    player.setZ(0);
-
+    world.create("heightField.raw", 1024, 1024);
 }
 
 void RenderHandler::update()
 {
     player.update();
-    glPushMatrix();
-
-    world.render();
-    glPopMatrix();
 
     glLoadIdentity();
     glPushAttrib(GL_TRANSFORM_BIT);
@@ -65,5 +56,42 @@ void RenderHandler::update()
     std::cout << player.getX() << " " << player.getY() << " " << player.getZ() << std::endl;
     glPopAttrib();
 
+    glPushMatrix();
+    GLfloat vertices[] =
+            {
+                    -1, -1, -1, -1, -1, 1, -1, 1, 1, -1, 1, -1,
+                    1, -1, -1, 1, -1, 1, 1, 1, 1, 1, 1, -1,
+                    -1, -1, -1, -1, -1, 1, 1, -1, 1, 1, -1, -1,
+                    -1, 1, -1, -1, 1, 1, 1, 1, 1, 1, 1, -1,
+                    -1, -1, -1, -1, 1, -1, 1, 1, -1, 1, -1, -1,
+                    -1, -1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1
+            };
 
+    GLfloat colors[] =
+            {
+                    0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0,
+                    1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0,
+                    0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0,
+                    0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0,
+                    0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0,
+                    0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1
+            };
+
+    /* We have a color array and a vertex array */
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, vertices);
+    glColorPointer(3, GL_FLOAT, 0, colors);
+
+    /* Send data : 24 vertices */
+    glDrawArrays(GL_QUADS, 0, 24);
+
+    /* Cleanup states */
+    glDisableClientState(GL_COLOR_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glPopMatrix();
+
+    glPushMatrix();
+    world.render();
+    glPopMatrix();
 }

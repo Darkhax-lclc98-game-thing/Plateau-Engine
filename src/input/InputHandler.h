@@ -1,5 +1,3 @@
-#ifndef INPUTHANDLER_H
-#define INPUTHANDLER_H
 #include "../renderer/RenderHandler.h"
 
 extern EntityPlayer player;
@@ -12,5 +10,3 @@ public:
 
     static void mousePressed(GLFWwindow *window, int button, int action, int mods);
 };
-
-#endif
