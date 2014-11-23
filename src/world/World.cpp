@@ -56,7 +56,7 @@ bool World::create(char *hFileName, const int hWidth, const int hHeight)
         }
     }
 
-    SwiftTextureJpeg(tID, "texture.jpg", 0);
+//    SwiftTextureJpeg(tID, "texture.jpg", 0);
 
     init();
 
