@@ -62,16 +62,13 @@ void InputHandler::keyPressed(GLFWwindow *window, int key, int scancode, int act
 {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);
-    if (key == GLFW_KEY_W) {
+    else if (key == GLFW_KEY_W) {
         move(0, -speed);
-    }
-    if (key == GLFW_KEY_S) {
+    } else if (key == GLFW_KEY_S) {
         move(0, speed);
-    }
-    if (key == GLFW_KEY_A) {
+    } else if (key == GLFW_KEY_A) {
         move(-speed, 0);
-    }
-    if (key == GLFW_KEY_D) {
+    } else if (key == GLFW_KEY_D) {
         move(speed, 0);
     }
 
