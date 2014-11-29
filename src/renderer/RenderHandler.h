@@ -13,7 +13,7 @@ class RenderHandler
 {
 public:
 
-    void initCamera();
+    void initCamera(int width, int height);
 
     void update();
 };

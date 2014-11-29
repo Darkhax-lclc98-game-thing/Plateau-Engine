@@ -77,9 +77,10 @@ void init()
 
 
     // load the config, if not their, make one
-    config.readConfig();
-
     const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    config.readConfig(mode);
+
+
     // creates gui
     window = glfwCreateWindow(mode->width, mode->height, "Simple example", glfwGetPrimaryMonitor(), NULL);
 
@@ -103,7 +104,7 @@ void init()
     glfwSetCursorPosCallback(window, InputHandler::mouseMove);
     glfwSetMouseButtonCallback(window, InputHandler::mousePressed);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    handler.initCamera();
+    handler.initCamera(mode->width, mode->height);
 
 }
 

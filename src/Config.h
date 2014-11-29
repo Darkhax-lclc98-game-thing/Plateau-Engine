@@ -18,12 +18,14 @@ public:
     int KEY_BACKWARDS;
     int KEY_LEFT;
     int KEY_RIGHT;
+    int KEY_PAUSE;
+
     int WINDOW_WIDTH;
     int WINDOW_HEIGHT;
 
     float MOUSE_ACCELERATION;
 
-    void readConfig();
+    void readConfig(GLFWvidmode const *pConst);
 };
 
 #endif

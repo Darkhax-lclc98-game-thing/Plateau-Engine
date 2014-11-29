@@ -6,18 +6,15 @@ extern Config config;
 
 void perspectiveGL(GLdouble fovY, GLdouble aspect, GLdouble zNear, GLdouble zFar)
 {
-    const GLdouble pi = 3.1415926535897932384626433832795;
-
     GLdouble fW, fH;
-    fH = tan((fovY / 2) / 180 * pi) * zNear;
-    fH = tan(fovY / 360 * pi) * zNear;
+    fH = tan(fovY / 360 * 3.1415926535897932384626433832795) * zNear;
     fW = fH * aspect;
     glFrustum(-fW, fW, -fH, fH, zNear, zFar);
 }
 
-void RenderHandler::initCamera()
+void RenderHandler::initCamera(int width, int height)
 {
-    glViewport(0, 0, config.WINDOW_WIDTH, config.WINDOW_HEIGHT);
+    glViewport(0, 0, width, height);
 
     glClearColor(0, 0.75f, 1, 1);
     glMatrixMode(GL_PROJECTION);

@@ -6,6 +6,8 @@ int old_x = 0;
 int old_y = 0;
 float speed = 0.75;
 
+extern Config config;
+
 void InputHandler::mouseMove(GLFWwindow *window, double x, double y)
 {
     float mouseDX = (x - old_x) * 0.16f;
@@ -60,15 +62,15 @@ void move(float dx, float dz)
 
 void InputHandler::keyPressed(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    if (key == config.KEY_PAUSE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);
-    else if (key == GLFW_KEY_W) {
+    else if (key == config.KEY_FORWARD) {
         move(0, -speed);
-    } else if (key == GLFW_KEY_S) {
+    } else if (key == config.KEY_BACKWARDS) {
         move(0, speed);
-    } else if (key == GLFW_KEY_A) {
+    } else if (key == config.KEY_LEFT) {
         move(-speed, 0);
-    } else if (key == GLFW_KEY_D) {
+    } else if (key == config.KEY_RIGHT) {
         move(speed, 0);
     }
 

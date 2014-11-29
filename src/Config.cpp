@@ -1,31 +1,35 @@
 #include "Config.h"
 
-void generateDefaultJson()
+void generateDefaultJson(GLFWvidmode const *mode)
 {
-    const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     JsonBox::Object o;
 
     // options
-    o["options"]["mouse"]["mouse acceleration"] = JsonBox::Value(true);
-    o["options"]["mouse"]["acceleration"] = JsonBox::Value(0);
-    o["options"]["mouse"]["invert look"] = JsonBox::Value(false);
-    o["options"]["mouse"]["look sensitivity"] = JsonBox::Value(50);
+    o["general"]["language"] = JsonBox::Value("en_us");
 
-    o["options"]["interface"]["subtitles"] = JsonBox::Value(true);
-    o["options"]["interface"]["subtitles language"] = JsonBox::Value("en_us");
+    o["mouse"]["mouse acceleration"] = JsonBox::Value(true);
+    o["mouse"]["acceleration"] = JsonBox::Value(0);
+    o["mouse"]["invert"] = JsonBox::Value(false);
+    o["mouse"]["sensitivity"] = JsonBox::Value(50);
 
-    o["options"]["video"]["width"] = JsonBox::Value(mode->width);
-    o["options"]["video"]["height"] = JsonBox::Value(mode->height);
-    o["options"]["video"]["vsync"] = JsonBox::Value(false);
+    o["interface"]["subtitles"] = JsonBox::Value(true);
+    o["interface"]["subtitles language"] = JsonBox::Value("en_us");
 
-    // mapping
-    o["options"]["keyboard"]["forward"] = JsonBox::Value(87);
-    o["options"]["keyboard"]["backwards"] = JsonBox::Value(83);
-    o["options"]["keyboard"]["left"] = JsonBox::Value(65);
-    o["options"]["keyboard"]["right"] = JsonBox::Value(68);
-    o["options"]["keyboard"]["pause"] = JsonBox::Value(256);
+    o["video"]["width"] = JsonBox::Value(mode->width);
+    o["video"]["refresh"] = JsonBox::Value(mode->refreshRate);
+    o["video"]["height"] = JsonBox::Value(mode->height);
+    o["video"]["vsync"] = JsonBox::Value(false);
+    o["video"]["fov"] = JsonBox::Value(50);
+    o["video"]["popin"] = JsonBox::Value(50);
 
-    o["options"]["mouse"]["attack"] = JsonBox::Value(0);
+    // keyboard/mouse or gamepad mapping
+    o["mapping"]["forward"] = JsonBox::Value(87);
+    o["mapping"]["backwards"] = JsonBox::Value(83);
+    o["mapping"]["left"] = JsonBox::Value(65);
+    o["mapping"]["right"] = JsonBox::Value(68);
+    o["mapping"]["pause"] = JsonBox::Value(256);
+
+    o["mapping"]["attack"] = JsonBox::Value(0);
 
 
     std::cout << o << std::endl;
@@ -34,21 +38,25 @@ void generateDefaultJson()
 
 }
 
-void Config::readConfig()
+void Config::readConfig(GLFWvidmode const *pConst)
 {
     WINDOW_WIDTH = 860;
     WINDOW_HEIGHT = 480;
     std::ifstream myfile("config.json");
-   // if (!myfile.good()) {
-        generateDefaultJson();
-    //}
+    if (!myfile.good()) {
+        generateDefaultJson(pConst);
+    }
 
     // handle the json and set the variables
     JsonBox::Value v2;
     v2.loadFromStream(myfile);
-    WINDOW_WIDTH = v2["options"]["video"]["width"].getInt();
-    WINDOW_HEIGHT = v2["options"]["video"]["height"].getInt();
+    WINDOW_WIDTH = v2["video"]["width"].getInt();
+    WINDOW_HEIGHT = v2["video"]["height"].getInt();
 
-
+    KEY_FORWARD = v2["mapping"]["forward"].getInt();
+    KEY_BACKWARDS = v2["mapping"]["backwards"].getInt();
+    KEY_LEFT = v2["mapping"]["left"].getInt();
+    KEY_RIGHT = v2["mapping"]["right"].getInt();
+    KEY_PAUSE = v2["mapping"]["pause"].getInt();
 }
 
