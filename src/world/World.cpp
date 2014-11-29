@@ -19,7 +19,7 @@ bool World::init(void)
     return true;
 }
 
-bool World::create(char *hFileName, const int hWidth, const int hHeight)
+bool World::create(char const *hFileName, const int hWidth, const int hHeight)
 {
     hmHeight = hHeight;
     hmWidth = hWidth;

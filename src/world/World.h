@@ -37,7 +37,7 @@ private:
     bool init(void);
 
 public:
-    bool create(char *hFileName, const int hWidth, const int hHeight);
+    bool create(char const *hFileName, const int hWidth, const int hHeight);
 
     void render(void);
 

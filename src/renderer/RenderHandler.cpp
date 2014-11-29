@@ -2,6 +2,7 @@
 
 EntityPlayer player;
 World world;
+extern Config config;
 
 void perspectiveGL(GLdouble fovY, GLdouble aspect, GLdouble zNear, GLdouble zFar)
 {
@@ -16,12 +17,12 @@ void perspectiveGL(GLdouble fovY, GLdouble aspect, GLdouble zNear, GLdouble zFar
 
 void RenderHandler::initCamera()
 {
-    glViewport(0, 0, CLIENT_WIDTH, CLIENT_HEIGHT);
+    glViewport(0, 0, config.WINDOW_WIDTH, config.WINDOW_HEIGHT);
 
     glClearColor(0, 0.75f, 1, 1);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    perspectiveGL(60, (float) CLIENT_WIDTH / CLIENT_HEIGHT, 0.1f, 1000);
+    perspectiveGL(60, (float) config.WINDOW_WIDTH / config.WINDOW_HEIGHT, 0.1f, 1000);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 

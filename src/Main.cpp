@@ -1,6 +1,7 @@
 #include "Main.h"
 
 RenderHandler handler;
+Config config;
 
 void update()
 {
@@ -62,6 +63,8 @@ void loop()
 void init()
 {
 
+
+
     glfwSetErrorCallback(ErrorHandler::error_callback);
 
     if (!glfwInit())
@@ -72,8 +75,13 @@ void init()
 //    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 //    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
 
+
+    // load the config, if not their, make one
+    config.readConfig();
+
+    const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     // creates gui
-    window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
+    window = glfwCreateWindow(mode->width, mode->height, "Simple example", glfwGetPrimaryMonitor(), NULL);
 
     if (!window) {
         glfwTerminate();
