@@ -5,6 +5,9 @@
 #include <vector>
 
 #include "Value.h"
+#include "Grammar.h"
+#include "OutputFilter.h"
+#include "Indenter.h"
 
 namespace JsonBox {
 	/**

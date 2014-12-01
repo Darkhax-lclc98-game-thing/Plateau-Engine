@@ -1,6 +1,4 @@
-#include "JsonBox/IndentCanceller.h"
-
-#include "JsonBox/Grammar.h"
+#include "IndentCanceller.h"
 
 namespace JsonBox {
 	IndentCanceller::IndentCanceller() : afterBackSlash(false), inString(false) {

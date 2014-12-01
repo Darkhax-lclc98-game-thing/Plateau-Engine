@@ -6,7 +6,10 @@
 #include <string>
 
 #include "Value.h"
-
+#include "Value.h"
+#include "Grammar.h"
+#include "OutputFilter.h"
+#include "Indenter.h"
 namespace JsonBox {
 	/**
 	 * Represents a JSON object. It's a map with added methods. So the JSON

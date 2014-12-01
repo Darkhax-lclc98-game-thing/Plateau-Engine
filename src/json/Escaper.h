@@ -2,6 +2,8 @@
 #define JB_ESCAPER_H
 
 #include <streambuf>
+#include "Grammar.h"
+#include "Value.h"
 
 namespace JsonBox {
 	class Escaper {

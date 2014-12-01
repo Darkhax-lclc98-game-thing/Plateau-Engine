@@ -6,8 +6,7 @@
 #include <string>
 #include <iostream>
 #include <string>
-#include "json2/JsonBox/Value.h"
-#include "json2/JsonBox/Object.h"
+#include "JsonBox.h"
 #include <GLFW/glfw3.h>
 
 class Config

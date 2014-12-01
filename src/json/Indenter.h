@@ -1,19 +1,20 @@
-#ifndef JB_INDENT_CANCELLER_H
-#define JB_INDENT_CANCELLER_H
+#ifndef JB_INDENTER_H
+#define JB_INDENTER_H
 
 #include <streambuf>
+#include "Grammar.h"
 
 namespace JsonBox {
 	/**
-	 * Cancels indentations to a streambuf.
+	 * Adds a level of indentation to a streambuf.
 	 * @see JsonBox::OutputFilter
 	 */
-	class IndentCanceller {
+	class Indenter {
 	public:
 		/**
 		 * Default constructor.
 		 */
-		IndentCanceller();
+		Indenter();
 
 		/**
 		 * Inserts a tab character at the start of each line.
@@ -25,8 +26,8 @@ namespace JsonBox {
 		std::streambuf::int_type operator()(std::streambuf &destination,
 		                                    std::streambuf::int_type character);
 	private:
-		bool afterBackSlash;
-		bool inString;
+		/// Used to indicate if we are at the start of a new line.
+		bool atStartOfLine;
 	};
 }
 

@@ -24,8 +24,8 @@
  * @see JsonBox
  */
 
-#include <JsonBox/Value.h>
-#include <JsonBox/Array.h>
-#include <JsonBox/Object.h>
+#include "json/Value.h"
+#include "json/Array.h"
+#include "json/Object.h"
 
 #endif

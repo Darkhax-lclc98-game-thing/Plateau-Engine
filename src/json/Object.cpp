@@ -1,9 +1,4 @@
-#include "JsonBox/Object.h"
-
-#include "JsonBox/Value.h"
-#include "JsonBox/Grammar.h"
-#include "JsonBox/OutputFilter.h"
-#include "JsonBox/Indenter.h"
+#include "Object.h"
 
 namespace JsonBox {
 	Object::Object(const key_compare &comp, const allocator_type &alloc) : data(comp, alloc) {

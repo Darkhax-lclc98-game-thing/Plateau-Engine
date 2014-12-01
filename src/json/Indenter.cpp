@@ -1,6 +1,4 @@
-#include "JsonBox/Indenter.h"
-
-#include "JsonBox/Grammar.h"
+#include "Indenter.h"
 
 namespace JsonBox {
 	Indenter::Indenter() : atStartOfLine(true) {
