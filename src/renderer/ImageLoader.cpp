@@ -1,25 +1,40 @@
 #include "ImageLoader.h"
 
-GLubyte* ImageLoader::loadBmp(char *name, const int w, const int h)
+GLuint ImageLoader::loadBMP(char const *name)
 {
-    // Load data
-    GLubyte *tmp = new GLubyte[4 * w * h];
-    memset(tmp, 0, 4 * w * h * sizeof(GLubyte));
-    FILE *fp;
-    fp = fopen(name, "rb");
-    for (int i = 0; i < 4 * w * h; i += 4) {
-        fread(&tmp[i], sizeof(GLubyte), 3, fp);
-        tmp[i + 3] = 255;
-    }
-    fclose(fp);
+    GLuint texture;
+    int width, height;
+    unsigned char *data;
+    FILE *file = fopen(name, "rb");
 
-    // Invert texture
-    GLubyte *data = new GLubyte[4 * w * h];
-    memset(data, 0, 4 * w * h * sizeof(GLubyte));
-    for (int i = 0; i < h; ++i) {
-        memcpy(&data[4 * w * (h - i - 1)], &tmp[4 * w * i], 4 * w);
+    if (file == NULL) return 0;
+    width = 1024;
+    height = 512;
+    data = (unsigned char *) malloc(width * height * 3);
+    //int size = fseek(file,);
+    fread(data, width * height * 3, 1, file);
+    fclose(file);
+
+    for (int i = 0; i < width * height; ++i) {
+        int index = i * 3;
+        unsigned char B, R;
+        B = data[index];
+        R = data[index + 2];
+
+        data[index] = R;
+        data[index + 2] = B;
     }
 
-    delete[] tmp;
-    return data;
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
+    free(data);
+
+    return texture;
 }

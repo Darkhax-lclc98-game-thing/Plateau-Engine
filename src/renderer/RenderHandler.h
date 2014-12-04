@@ -5,17 +5,29 @@
 #include <GLFW/glfw3.h>
 #include <math.h>
 #include <iostream>
-#include "../Config.h"
+#include "ImageLoader.h"
+#include "../handlers/Config.h"
 #include "../world/World.h"
 #include "../entity/player/EntityPlayer.h"
-
+#include "../obj/tiny_obj_loader.h"
+#include <gl/glut.h>
+#include <sstream>
 class RenderHandler
 {
 public:
 
     void initCamera(int width, int height);
 
-    void update();
+    void update(int fps);
+
+    void renderText(std::string text, void *font, int x, int y);
+
+private:
+    void handlePlayer();
+
+    void handleRender(int fps);
+
+    void loadModel();
 };
 
 #endif

@@ -12,6 +12,8 @@ void perspectiveGL(GLdouble fovY, GLdouble aspect, GLdouble zNear, GLdouble zFar
     glFrustum(-fW, fW, -fH, fH, zNear, zFar);
 }
 
+GLuint test;
+
 static char *readFile(const char *filename)
 {
     FILE *fp = fopen(filename, "r");
@@ -80,6 +82,40 @@ GLuint makeShaderProgram(GLuint vertexShaderID, GLuint fragmentShaderID)
     return shaderID;
 }
 
+std::vector<tinyobj::shape_t> shapes;
+std::vector<tinyobj::material_t> materials;
+GLuint testz;
+
+std::string NumberToString(float num)
+{
+    std::stringstream ss;
+    ss << num;
+    return ss.str();
+}
+void loadFromMesh(std::vector<tinyobj::shape_t> shapes) {
+    for (size_t i = 0; i < shapes.size(); ++i) {
+        glBegin(GL_TRIANGLES);
+        std::vector<unsigned int> indices = shapes[i].mesh.indices;
+        for (size_t f = 0; f < indices.size(); ++f) {
+            glVertex3f(shapes[i].mesh.positions[indices[f] * 3 + 0],
+                    shapes[i].mesh.positions[indices[f] * 3 + 1],
+                    shapes[i].mesh.positions[indices[f] * 3 + 2]);
+        }
+        glEnd();
+    }
+}
+
+void RenderHandler::loadModel()
+{
+    std::string inputfile = "bridge.obj";
+    tinyobj::LoadObj(shapes, materials, inputfile.c_str());
+    test = ImageLoader::loadBMP("surface.bmp");
+    testz = glGenLists(0);
+    glNewList(testz, GL_COMPILE);
+    loadFromMesh(shapes);
+    glEndList();
+}
+
 void RenderHandler::initCamera(int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -99,9 +135,11 @@ void RenderHandler::initCamera(int width, int height)
     player.setY(25);
     world.hLOD = 8;
     world.create("heightField.raw", 1024, 1024);
+
+    loadModel();
 }
 
-void RenderHandler::update()
+void RenderHandler::handlePlayer()
 {
     player.update();
 
@@ -119,45 +157,55 @@ void RenderHandler::update()
     glRotatef(player.getYaw(), 0, 1, 0);
 
     glTranslated(-player.getX(), -player.getY(), -player.getZ());
-    std::cout << player.getX() << " " << player.getY() << " " << player.getZ() << std::endl;
+    renderText("X: " + NumberToString(player.getX()) + " Y: " + NumberToString(player.getY()) + " Z: " + NumberToString(player.getZ()), GLUT_BITMAP_9_BY_15, 10, 10);
     glPopAttrib();
+}
+
+void RenderHandler::handleRender(int fps)
+{
+    renderText("FPS: " + NumberToString(fps), GLUT_BITMAP_9_BY_15, 10, 25);
+    renderText("Shapes: " + NumberToString(shapes.size()), GLUT_BITMAP_9_BY_15, 10, 50);
 
     glPushMatrix();
-    GLfloat vertices[] =
-            {
-                    -1, -1, -1, -1, -1, 1, -1, 1, 1, -1, 1, -1,
-                    1, -1, -1, 1, -1, 1, 1, 1, 1, 1, 1, -1,
-                    -1, -1, -1, -1, -1, 1, 1, -1, 1, 1, -1, -1,
-                    -1, 1, -1, -1, 1, 1, 1, 1, 1, 1, 1, -1,
-                    -1, -1, -1, -1, 1, -1, 1, 1, -1, 1, -1, -1,
-                    -1, -1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1
-            };
-
-    GLfloat colors[] =
-            {
-                    0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0,
-                    1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0,
-                    0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0,
-                    0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0,
-                    0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0,
-                    0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1
-            };
-
-    /* We have a color array and a vertex array */
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_COLOR_ARRAY);
-    glVertexPointer(3, GL_FLOAT, 0, vertices);
-    glColorPointer(3, GL_FLOAT, 0, colors);
-
-    /* Send data : 24 vertices */
-    glDrawArrays(GL_QUADS, 0, 24);
-
-    /* Cleanup states */
-    glDisableClientState(GL_COLOR_ARRAY);
-    glDisableClientState(GL_VERTEX_ARRAY);
+    glColor4f(1, 1, 1, 1);
+    glCallList(testz);
     glPopMatrix();
 
+    // glPushMatrix();
+    // world.render();
+    // glPopMatrix();
+}
+
+void RenderHandler::update(int fps)
+{
+    handlePlayer();
+    handleRender(fps);
+}
+
+void RenderHandler::renderText(std::string text, void *font, int x, int y)
+{
     glPushMatrix();
-    world.render();
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+    gluOrtho2D(0, config.WINDOW_WIDTH, 0, config.WINDOW_HEIGHT);
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_ONE, GL_ONE);
+
+    glRasterPos2i(x, y);
+    for (std::string::iterator i = text.begin(); i != text.end(); ++i) {
+        char c = *i;
+        glColor3d(1.0, 1.0, 1.0);
+        glutBitmapCharacter(font, c);
+    }
+
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
+    glDisable(GL_BLEND);
     glPopMatrix();
 }

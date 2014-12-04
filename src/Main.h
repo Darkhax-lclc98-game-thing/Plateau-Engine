@@ -8,6 +8,8 @@
 #include "input/InputHandler.h"
 #include "handlers/ErrorHandler.h"
 #include "renderer/RenderHandler.h"
+#include "handlers/Config.h"
+
 #include <unistd.h>
 
 #if defined(__WIN32__)

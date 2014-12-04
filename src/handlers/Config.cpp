@@ -53,10 +53,13 @@ void Config::readConfig(GLFWvidmode const *pConst)
     WINDOW_WIDTH = v2["video"]["width"].getInt();
     WINDOW_HEIGHT = v2["video"]["height"].getInt();
 
+    VSYNC = v2["video"]["vsync"].getBoolean();
+
     KEY_FORWARD = v2["mapping"]["forward"].getInt();
     KEY_BACKWARDS = v2["mapping"]["backwards"].getInt();
     KEY_LEFT = v2["mapping"]["left"].getInt();
     KEY_RIGHT = v2["mapping"]["right"].getInt();
     KEY_PAUSE = v2["mapping"]["pause"].getInt();
+
 }
 

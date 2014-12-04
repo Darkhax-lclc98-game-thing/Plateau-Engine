@@ -24,6 +24,8 @@ public:
 
     float MOUSE_ACCELERATION;
 
+    bool VSYNC;
+
     void readConfig(GLFWvidmode const *pConst);
 };
 

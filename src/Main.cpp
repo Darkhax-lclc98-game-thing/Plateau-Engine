@@ -21,12 +21,13 @@ void update()
 //}
 
 
+int currentFps = 0;
 
 void loop()
 {
     while (!glfwWindowShouldClose(window)) {
 
-
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         int startTime = time_ms();
         long delta = startTime - lastLoopTime;
         lastLoopTime = startTime;
@@ -35,34 +36,34 @@ void loop()
         fps++;
 
         if (lastFpsTime >= 1000) {
-            std::cout << fps << std::endl;
+            currentFps = fps;
             lastFpsTime = 0;
             fps = 0;
         }
 
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        handler.update(currentFps);
         update();
-        handler.update();
         glfwSwapBuffers(window);
 
         sleepTime = (FRAME_PERIOD - delta);
 
-        if (sleepTime > 0) {
-            // sleep
-            usleep(sleepTime * 2000);
-        }
-        while (sleepTime < 0 && framesSkipped < MAX_FRAME_SKIPS) {
-            // update stuff
-            update();
-            sleepTime += FRAME_PERIOD;
-            framesSkipped++;
+        if (config.VSYNC) {
+            if (sleepTime > 0) {
+                // sleep
+                usleep(sleepTime * 2000);
+            }
+            while (sleepTime < 0 && framesSkipped < MAX_FRAME_SKIPS) {
+                // update stuff
+                update();
+                sleepTime += FRAME_PERIOD;
+                framesSkipped++;
+            }
         }
     }
 }
 
 void init()
 {
-
 
 
     glfwSetErrorCallback(ErrorHandler::error_callback);
@@ -82,7 +83,7 @@ void init()
 
 
     // creates gui
-    window = glfwCreateWindow(mode->width, mode->height, "Simple example", glfwGetPrimaryMonitor(), NULL);
+    window = glfwCreateWindow(config.WINDOW_WIDTH, config.WINDOW_HEIGHT, "Simple example", NULL /*glfwGetPrimaryMonitor()*/, NULL);
 
     if (!window) {
         glfwTerminate();
@@ -104,7 +105,7 @@ void init()
     glfwSetCursorPosCallback(window, InputHandler::mouseMove);
     glfwSetMouseButtonCallback(window, InputHandler::mousePressed);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    handler.initCamera(mode->width, mode->height);
+    handler.initCamera(config.WINDOW_WIDTH, config.WINDOW_HEIGHT);
 
 }
 

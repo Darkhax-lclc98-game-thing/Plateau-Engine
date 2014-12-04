@@ -1,13 +1,19 @@
 #ifndef IMAGELOADER_H
 #define IMAGELOADER_H
-#include <GL/gl.h>
-#include <string.h>
+
+#include <GL/glew.h>
+#include <stdlib.h>
+#include <GL/glu.h>
+#include <wchar.h>
 #include <stdio.h>
+
 
 class ImageLoader
 {
+private:
 public:
-    GLubyte *loadBmp(char *name, const int w, const int h);
+
+    static GLuint loadBMP(char const *name);
 
 };
 
