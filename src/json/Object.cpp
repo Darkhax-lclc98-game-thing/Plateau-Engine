@@ -1,186 +1,226 @@
 #include "Object.h"
 
 namespace JsonBox {
-	Object::Object(const key_compare &comp, const allocator_type &alloc) : data(comp, alloc) {
-	}
+    Object::Object(const key_compare &comp, const allocator_type &alloc) : data(comp, alloc)
+    {
+    }
 
-	Object::Object(const Object &other) : data(other.data) {
-	}
+    Object::Object(const Object &other) : data(other.data)
+    {
+    }
 
-	Object &Object::operator=(const Object &other) {
-		data = other.data;
-		return *this;
-	}
-	
-	bool Object::operator==(const Object &rhs) const {
-		return data == rhs.data;
-	}
-	
-	bool Object::operator!=(const Object &rhs) const {
-		return data != rhs.data;
-	}
-	
-	bool Object::operator<(const Object &rhs) const {
-		return data < rhs.data;
-	}
-	
-	bool Object::operator<=(const Object &rhs) const {
-		return data <= rhs.data;
-	}
-	
-	bool Object::operator>(const Object &rhs) const {
-		return data > rhs.data;
-	}
-	
-	bool Object::operator>=(const Object &rhs) const {
-		return data >= rhs.data;
-	}
+    Object &Object::operator=(const Object &other)
+    {
+        data = other.data;
+        return *this;
+    }
 
-	Object::allocator_type Object::get_allocator() const {
-		return data.get_allocator();
-	}
+    bool Object::operator==(const Object &rhs) const
+    {
+        return data == rhs.data;
+    }
 
-	Object::mapped_type &Object::operator[](const key_type &key) {
-		return data[key];
-	}
+    bool Object::operator!=(const Object &rhs) const
+    {
+        return data != rhs.data;
+    }
 
-	Object::iterator Object::begin() {
-		return data.begin();
-	}
+    bool Object::operator<(const Object &rhs) const
+    {
+        return data < rhs.data;
+    }
 
-	Object::const_iterator Object::begin() const {
-		return data.begin();
-	}
+    bool Object::operator<=(const Object &rhs) const
+    {
+        return data <= rhs.data;
+    }
 
-	Object::iterator Object::end() {
-		return data.end();
-	}
+    bool Object::operator>(const Object &rhs) const
+    {
+        return data > rhs.data;
+    }
 
-	Object::const_iterator Object::end() const {
-		return data.end();
-	}
+    bool Object::operator>=(const Object &rhs) const
+    {
+        return data >= rhs.data;
+    }
 
-	Object::reverse_iterator Object::rbegin() {
-		return data.rbegin();
-	}
+    Object::allocator_type Object::get_allocator() const
+    {
+        return data.get_allocator();
+    }
 
-	Object::const_reverse_iterator Object::rbegin() const {
-		return data.rbegin();
-	}
+    Object::mapped_type &Object::operator[](const key_type &key)
+    {
+        return data[key];
+    }
 
-	Object::reverse_iterator Object::rend() {
-		return data.rend();
-	}
+    Object::iterator Object::begin()
+    {
+        return data.begin();
+    }
 
-	Object::const_reverse_iterator Object::rend() const {
-		return data.rend();
-	}
+    Object::const_iterator Object::begin() const
+    {
+        return data.begin();
+    }
 
-	bool Object::empty() const {
-		return data.empty();
-	}
+    Object::iterator Object::end()
+    {
+        return data.end();
+    }
 
-	Object::size_type Object::size() const {
-		return data.size();
-	}
+    Object::const_iterator Object::end() const
+    {
+        return data.end();
+    }
 
-	Object::size_type Object::max_size() const {
-		return data.max_size();
-	}
+    Object::reverse_iterator Object::rbegin()
+    {
+        return data.rbegin();
+    }
 
-	void Object::clear() {
-		data.clear();
-	}
+    Object::const_reverse_iterator Object::rbegin() const
+    {
+        return data.rbegin();
+    }
 
-	std::pair<Object::iterator, bool> Object::insert(const_reference value) {
-		return data.insert(value);
-	}
+    Object::reverse_iterator Object::rend()
+    {
+        return data.rend();
+    }
 
-	Object::iterator Object::insert(iterator hint, const_reference value) {
-		return data.insert(hint, value);
-	}
+    Object::const_reverse_iterator Object::rend() const
+    {
+        return data.rend();
+    }
 
-	void Object::erase(iterator position) {
-		data.erase(position);
-	}
+    bool Object::empty() const
+    {
+        return data.empty();
+    }
 
-	void Object::erase(iterator first, iterator last) {
-		data.erase(first, last);
-	}
+    Object::size_type Object::size() const
+    {
+        return data.size();
+    }
 
-	Object::size_type Object::erase(const key_type &key) {
-		return data.erase(key);
-	}
+    Object::size_type Object::max_size() const
+    {
+        return data.max_size();
+    }
 
-	void Object::swap(Object &other) {
-		data.swap(other.data);
-	}
+    void Object::clear()
+    {
+        data.clear();
+    }
 
-	Object::size_type Object::count(const key_type &key) const {
-		return data.count(key);
-	}
+    std::pair<Object::iterator, bool> Object::insert(const_reference value)
+    {
+        return data.insert(value);
+    }
 
-	Object::iterator Object::find(const key_type &key) {
-		return data.find(key);
-	}
+    Object::iterator Object::insert(iterator hint, const_reference value)
+    {
+        return data.insert(hint, value);
+    }
 
-	Object::const_iterator Object::find(const key_type &key) const {
-		return data.find(key);
-	}
+    void Object::erase(iterator position)
+    {
+        data.erase(position);
+    }
 
-	std::pair<Object::iterator, Object::iterator> Object::equal_range(const key_type &key) {
-		return data.equal_range(key);
-	}
+    void Object::erase(iterator first, iterator last)
+    {
+        data.erase(first, last);
+    }
 
-	std::pair<Object::const_iterator, Object::const_iterator> Object::equal_range(const key_type &key) const {
-		return data.equal_range(key);
-	}
+    Object::size_type Object::erase(const key_type &key)
+    {
+        return data.erase(key);
+    }
 
-	Object::iterator Object::lower_bound(const key_type &key) {
-		return data.lower_bound(key);
-	}
+    void Object::swap(Object &other)
+    {
+        data.swap(other.data);
+    }
 
-	Object::const_iterator Object::lower_bound(const key_type &key) const {
-		return data.lower_bound(key);
-	}
+    Object::size_type Object::count(const key_type &key) const
+    {
+        return data.count(key);
+    }
 
-	Object::iterator Object::upper_bound(const key_type &key) {
-		return data.upper_bound(key);
-	}
+    Object::iterator Object::find(const key_type &key)
+    {
+        return data.find(key);
+    }
 
-	Object::const_iterator Object::upper_bound(const key_type &key) const {
-		return data.upper_bound(key);
-	}
+    Object::const_iterator Object::find(const key_type &key) const
+    {
+        return data.find(key);
+    }
 
-	Object::key_compare Object::key_comp() const {
-		return data.key_comp();
-	}
+    std::pair<Object::iterator, Object::iterator> Object::equal_range(const key_type &key)
+    {
+        return data.equal_range(key);
+    }
 
-	std::ostream &operator<<(std::ostream &output, const Object &o) {
-		// If the object is empty, we simply write "{}".
-		if (o.empty()) {
-			output << Structural::BEGIN_OBJECT << Structural::END_OBJECT;
+    std::pair<Object::const_iterator, Object::const_iterator> Object::equal_range(const key_type &key) const
+    {
+        return data.equal_range(key);
+    }
 
-		} else {
-			output << Structural::BEGIN_OBJECT << std::endl;
-			OutputFilter<Indenter> indent(output.rdbuf());
-			output.rdbuf(&indent);
+    Object::iterator Object::lower_bound(const key_type &key)
+    {
+        return data.lower_bound(key);
+    }
 
-			// For each item in the object.
-			for (Object::const_iterator i = o.begin(); i != o.end(); ++i) {
-				if (i != o.begin()) {
-					output << Structural::VALUE_SEPARATOR << std::endl;
-				}
+    Object::const_iterator Object::lower_bound(const key_type &key) const
+    {
+        return data.lower_bound(key);
+    }
 
-				// We print the name of the attribute and its value.
-				output << Structural::BEGIN_END_STRING << Value::escapeMinimumCharacters(i->first) << Structural::BEGIN_END_STRING << Whitespace::SPACE << Structural::NAME_SEPARATOR << Whitespace::SPACE << i->second;
-			}
+    Object::iterator Object::upper_bound(const key_type &key)
+    {
+        return data.upper_bound(key);
+    }
 
-			output.rdbuf(indent.getDestination());
+    Object::const_iterator Object::upper_bound(const key_type &key) const
+    {
+        return data.upper_bound(key);
+    }
 
-			output << std::endl << Structural::END_OBJECT;
-		}
+    Object::key_compare Object::key_comp() const
+    {
+        return data.key_comp();
+    }
 
-		return output;
-	}
+    std::ostream &operator<<(std::ostream &output, const Object &o)
+    {
+        // If the object is empty, we simply write "{}".
+        if (o.empty()) {
+            output << Structural::BEGIN_OBJECT << Structural::END_OBJECT;
+
+        } else {
+            output << Structural::BEGIN_OBJECT << std::endl;
+            OutputFilter<Indenter> indent(output.rdbuf());
+            output.rdbuf(&indent);
+
+            // For each item in the object.
+            for (Object::const_iterator i = o.begin(); i != o.end(); ++i) {
+                if (i != o.begin()) {
+                    output << Structural::VALUE_SEPARATOR << std::endl;
+                }
+
+                // We print the name of the attribute and its value.
+                output << Structural::BEGIN_END_STRING << Value::escapeMinimumCharacters(i->first) << Structural::BEGIN_END_STRING << Whitespace::SPACE << Structural::NAME_SEPARATOR << Whitespace::SPACE << i->second;
+            }
+
+            output.rdbuf(indent.getDestination());
+
+            output << std::endl << Structural::END_OBJECT;
+        }
+
+        return output;
+    }
 }

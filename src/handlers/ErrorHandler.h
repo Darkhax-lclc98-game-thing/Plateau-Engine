@@ -4,5 +4,5 @@
 class ErrorHandler
 {
 public:
-    static void error_callback(int, const char*);
+    static void error_callback(int, const char *);
 };

@@ -32,7 +32,7 @@ bool World::create(char const *hFileName, const int hWidth, const int hHeight)
 
     fclose(fp);
 
-    vhVertexCount = (hHeight * hHeight * 6) / (hLOD * hLOD);
+    vhVertexCount = (hWidth * hHeight * 6) / (hLOD * hLOD);
     vhVertices = new Vert[vhVertexCount];
     vhTexCoords = new TexCoord[vhVertexCount];
 
@@ -49,15 +49,12 @@ bool World::create(char const *hFileName, const int hWidth, const int hHeight)
                 vhVertices[nIndex].y = hHeightField[(int) flX][(int) flZ];
                 vhVertices[nIndex].z = flZ;
 
-                vhTexCoords[nIndex].u = flX / 1024;
-                vhTexCoords[nIndex].v = flZ / 1024;
+                vhTexCoords[nIndex].u = flX / hWidth;
+                vhTexCoords[nIndex].v = flZ / hHeight;
                 nIndex++;
             }
         }
     }
-
-//    SwiftTextureJpeg(tID, "texture.jpg", 0);
-
     init();
 
     return true;
@@ -66,8 +63,6 @@ bool World::create(char const *hFileName, const int hWidth, const int hHeight)
 void World::render(void)
 {
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, tID[0]);
 
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, vhVBOTexCoords);
     glTexCoordPointer(2, GL_FLOAT, 0, (char *) NULL);
@@ -80,6 +75,5 @@ void World::render(void)
 
     glDisableClientState(GL_VERTEX_ARRAY);
 
-    glDisable(GL_TEXTURE_2D);
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }

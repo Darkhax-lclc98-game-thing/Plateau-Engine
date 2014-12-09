@@ -1,6 +1,7 @@
 #include "../Entity.h"
 
-class EntityPlayer : public Entity {
+class EntityPlayer : public Entity
+{
 public:
     EntityPlayer();
 

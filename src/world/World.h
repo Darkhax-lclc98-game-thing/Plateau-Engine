@@ -1,3 +1,6 @@
+#ifndef WORLD_H
+#define WORLD_H
+
 #include <windows.h>
 #include <stdio.h>
 #include <GL/glew.h>
@@ -32,8 +35,6 @@ private:
     unsigned int vhVBOVertices;
     unsigned int vhVBOTexCoords;
 
-    unsigned int tID[2];
-
     bool init(void);
 
 public:
@@ -43,5 +44,7 @@ public:
 
     int hLOD;
 
-    BYTE hHeightField[1024][1024];
+    BYTE hHeightField[4096][2048];
 };
+
+#endif

@@ -111,7 +111,6 @@ void init()
 
 int main(void)
 {
-
     init();
     loop();
 

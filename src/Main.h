@@ -3,14 +3,16 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
 #include <stdlib.h>
 #include <iostream>
+#include <unistd.h>
+
 #include "input/InputHandler.h"
 #include "handlers/ErrorHandler.h"
 #include "renderer/RenderHandler.h"
 #include "handlers/Config.h"
 
-#include <unistd.h>
 
 #if defined(__WIN32__)
 

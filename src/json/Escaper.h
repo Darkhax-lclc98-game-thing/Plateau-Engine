@@ -6,16 +6,18 @@
 #include "Value.h"
 
 namespace JsonBox {
-	class Escaper {
-	public:
-		Escaper();
+    class Escaper
+    {
+    public:
+        Escaper();
 
-		std::streambuf::int_type operator()(std::streambuf &destination,
-		                                    std::streambuf::int_type character);
-	private:
-		bool afterBackSlash;
-		bool inString;
-	};
+        std::streambuf::int_type operator()(std::streambuf &destination,
+                std::streambuf::int_type character);
+
+    private:
+        bool afterBackSlash;
+        bool inString;
+    };
 }
 
 #endif

@@ -4,16 +4,18 @@
 #include <streambuf>
 
 namespace JsonBox {
-	class SolidusEscaper {
-	public:
-		SolidusEscaper();
+    class SolidusEscaper
+    {
+    public:
+        SolidusEscaper();
 
-		std::streambuf::int_type operator()(std::streambuf &destination,
-		                                    std::streambuf::int_type character);
-	private:
-		bool afterBackSlash;
-		bool inString;
-	};
+        std::streambuf::int_type operator()(std::streambuf &destination,
+                std::streambuf::int_type character);
+
+    private:
+        bool afterBackSlash;
+        bool inString;
+    };
 }
 
 #endif

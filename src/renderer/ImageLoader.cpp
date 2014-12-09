@@ -3,38 +3,67 @@
 GLuint ImageLoader::loadBMP(char const *name)
 {
     GLuint texture;
-    int width, height;
-    unsigned char *data;
-    FILE *file = fopen(name, "rb");
+    FILE *in;
+    char *tempData;
 
-    if (file == NULL) return 0;
-    width = 1024;
-    height = 512;
-    data = (unsigned char *) malloc(width * height * 3);
-    //int size = fseek(file,);
-    fread(data, width * height * 3, 1, file);
-    fclose(file);
-
-    for (int i = 0; i < width * height; ++i) {
-        int index = i * 3;
-        unsigned char B, R;
-        B = data[index];
-        R = data[index + 2];
-
-        data[index] = R;
-        data[index + 2] = B;
+    if (colours != 0) {
+        delete[] colours;
     }
+
+    in = fopen(name, "rb");
+
+    if (in == NULL) {
+        fclose(in);
+        return 0;
+    }
+
+    fread(&bmfh, sizeof(BitmapFileHeader), 1, in);
+    fread(&bmih, sizeof(BitmapInfoHeader), 1, in);
+    width = bmih.biWidth;
+    height = bmih.biHeight;
+    bpp = bmih.biBitCount;
+    dataSize = (width * height * (unsigned int) (bmih.biBitCount / 8.0));
+
+    tempData = new char[dataSize];
+    fread(tempData, sizeof(char), dataSize, in);
+    fclose(in);
+
+    byteWidth = padWidth = (int) ((float) width * (float) bpp / 8.0);
+
+    while (padWidth % 4 != 0) {
+        padWidth++;
+    }
+
+    tempData = convert24(tempData);
 
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
-    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
 
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
-    free(data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, tempData);
 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+    free(tempData);
     return texture;
 }
+
+char *ImageLoader::convert24(char *tempData)
+{
+    char *data = new char[width * height * 3];
+
+    int offset = padWidth - byteWidth;
+    for (int i = 0; i < dataSize; i += 3) {
+        if ((i + 1) % padWidth == 0) {
+            i += offset;
+        }
+        *(data + i + 2) = *(tempData + i);
+        *(data + i + 1) = *(tempData + i + 1);
+        *(data + i) = *(tempData + i + 2);
+    }
+
+    return data;
+}
+
