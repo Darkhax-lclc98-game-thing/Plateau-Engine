@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <windef.h>
 #include <iostream>
+#include <vector>
+#include <stdio.h>
 
 class ImageLoader
 {
@@ -14,10 +16,10 @@ private:
 #pragma pack(push,1)
     typedef struct
     {
-        char rgbBlue;
-        char rgbGreen;
-        char rgbRed;
-        char rgbReserved;
+        char blue;
+        char green;
+        char red;
+        char alpha;
     } RGBQuad;
 
     typedef struct
@@ -43,24 +45,37 @@ private:
         unsigned int biClrUsed;
         unsigned int biClrImportant;
     } BitmapInfoHeader;
-#pragma pack(pop)
 
-    BitmapFileHeader bmfh;
-    BitmapInfoHeader bmih;
-    int byteWidth;
-    int padWidth;
-    unsigned int dataSize;
+    typedef struct
+    {
+        char idlength;
+        char colourmaptype;
+        char datatypecode;
+        short int colourmaporigin;
+        short int colourmaplength;
+        char colourmapdepth;
+        short int x_origin;
+        short int y_origin;
+        short width;
+        short height;
+        char bitsperpixel;
+        char imagedescriptor;
+    } TGAHeader;
+
+#pragma pack(pop)
 
     char *convert24(char *data);
 
-public:
+    int padWidth;
+    int byteWidth;
+    unsigned int dataSize;
 
+public:
     GLuint loadBMP(char const *name);
 
+    GLuint loadTGA(char const *name);
 
-    RGBQuad *colours;
     int width, height;
-    unsigned short bpp;
 };
 
 #endif

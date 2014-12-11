@@ -167,7 +167,7 @@ void RenderHandler::initCamera(int width, int height)
     player.setY(25);
     world.hLOD = 8;
     world.create("height.bmp", 4096, 2048);
-    testWorld = loader.loadBMP("color.bmp");
+    testWorld = loader.loadTGA("color.tga");
 
     loadModel();
 }
