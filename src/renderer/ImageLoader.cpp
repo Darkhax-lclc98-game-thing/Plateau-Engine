@@ -1,4 +1,3 @@
-#include <stdexcept>
 #include "ImageLoader.h"
 
 GLuint ImageLoader::loadBMP(char const *name)
@@ -10,6 +9,9 @@ GLuint ImageLoader::loadBMP(char const *name)
     FILE *in;
     char *tempData;
     unsigned short bpp;
+    int padWidth;
+    int byteWidth;
+    unsigned int dataSize;
 
     in = fopen(name, "rb");
 
@@ -35,7 +37,19 @@ GLuint ImageLoader::loadBMP(char const *name)
         padWidth++;
     }
 
-    tempData = convert24(tempData);
+    char *data = new char[width * height * 3];
+
+    int offset = padWidth - byteWidth;
+    for (int i = 0; i < dataSize; i += 3) {
+        if ((i + 1) % padWidth == 0) {
+            i += offset;
+        }
+        *(data + i + 2) = *(tempData + i);
+        *(data + i + 1) = *(tempData + i + 1);
+        *(data + i) = *(tempData + i + 2);
+    }
+
+    tempData = data;
 
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
@@ -49,23 +63,6 @@ GLuint ImageLoader::loadBMP(char const *name)
 
     free(tempData);
     return texture;
-}
-
-char *ImageLoader::convert24(char *tempData)
-{
-    char *data = new char[width * height * 3];
-
-    int offset = padWidth - byteWidth;
-    for (int i = 0; i < dataSize; i += 3) {
-        if ((i + 1) % padWidth == 0) {
-            i += offset;
-        }
-        *(data + i + 2) = *(tempData + i);
-        *(data + i + 1) = *(tempData + i + 1);
-        *(data + i) = *(tempData + i + 2);
-    }
-
-    return data;
 }
 
 GLuint ImageLoader::loadTGA(char const *name)
@@ -157,5 +154,25 @@ GLuint ImageLoader::loadTGA(char const *name)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
     free(tempData);
+    return texture;
+}
+
+GLuint ImageLoader::loadPNG(char const *name)
+{
+    GLuint texture;
+    std::vector<unsigned char> tempData;
+    unsigned width, height;
+    unsigned error = lodepng::decode(tempData, width, height, name);
+
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &tempData[0]);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
     return texture;
 }

@@ -5,10 +5,12 @@
 #include <GL/glu.h>
 #include <fstream>
 #include <stdlib.h>
-#include <windef.h>
 #include <iostream>
 #include <vector>
 #include <stdio.h>
+#include <stdexcept>
+
+#include "../png/lodepng.h"
 
 class ImageLoader
 {
@@ -64,16 +66,11 @@ private:
 
 #pragma pack(pop)
 
-    char *convert24(char *data);
-
-    int padWidth;
-    int byteWidth;
-    unsigned int dataSize;
-
 public:
     GLuint loadBMP(char const *name);
 
     GLuint loadTGA(char const *name);
+    GLuint loadPNG(char const *name);
 
     int width, height;
 };

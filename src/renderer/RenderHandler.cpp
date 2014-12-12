@@ -165,8 +165,7 @@ void RenderHandler::initCamera(int width, int height)
     glCullFace(GL_BACK);
 
     player.setY(25);
-    world.hLOD = 8;
-    world.create("height.bmp", 4096, 2048);
+    world.create("height.bmp", 4096, 2048, 8);
     testWorld = loader.loadTGA("color.tga");
 
     loadModel();

@@ -1,11 +1,13 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include <windows.h>
 #include <stdio.h>
 #include <GL/glew.h>
 #include <ostream>
 #include <iostream>
+#include <vector>
+#include <stdlib.h>
+typedef unsigned char BYTE;
 
 class Vert
 {
@@ -25,8 +27,6 @@ public:
 class World
 {
 private:
-    int hmHeight;
-    int hmWidth;
 
     int vhVertexCount;
     Vert *vhVertices;
@@ -38,11 +38,9 @@ private:
     bool init(void);
 
 public:
-    bool create(char const *hFileName, const int hWidth, const int hHeight);
+    bool create(const char *hFileName, int hWidth, int hHeight, int hLOD);
 
     void render(void);
-
-    int hLOD;
 
     BYTE hHeightField[4096][2048];
 };

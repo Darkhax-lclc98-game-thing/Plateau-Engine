@@ -19,14 +19,10 @@ bool World::init(void)
     return true;
 }
 
-bool World::create(char const *hFileName, const int hWidth, const int hHeight)
+bool World::create(const char *hFileName, const int hWidth, const int hHeight, int hLOD)
 {
-    hmHeight = hHeight;
-    hmWidth = hWidth;
+    FILE *fp = fopen(hFileName, "rb");
 
-    FILE *fp;
-
-    fp = fopen(hFileName, "rb");
 
     fread(hHeightField, 1, hWidth * hHeight, fp);
 
@@ -40,8 +36,8 @@ bool World::create(char const *hFileName, const int hWidth, const int hHeight)
     float flX;
     float flZ;
 
-    for (int hMapX = 0; hMapX < hmWidth; hMapX += hLOD) {
-        for (int hMapZ = 0; hMapZ < hmHeight; hMapZ += hLOD) {
+    for (int hMapX = 0; hMapX < hWidth; hMapX += hLOD) {
+        for (int hMapZ = 0; hMapZ < hHeight; hMapZ += hLOD) {
             for (int nTri = 0; nTri < 6; nTri++) {
                 flX = (float) hMapX + ((nTri == 1 || nTri == 2 || nTri == 5) ? hLOD : 0);
                 flZ = (float) hMapZ + ((nTri == 2 || nTri == 4 || nTri == 5) ? hLOD : 0);

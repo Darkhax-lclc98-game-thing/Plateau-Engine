@@ -31,7 +31,7 @@ long time_ms(void)
 {
     struct timeval tv;
     gettimeofday(&tv, NULL);
-    return (msec_t)tv.tv_sec * 1000 + tv.tv_usec / 1000;
+    return tv.tv_sec * 1000 + tv.tv_usec / 1000;
 }
 
 #endif

@@ -28,6 +28,12 @@ local.properties
 # PDT-specific
 .buildpath
 
+CMakeFiles
+cmake_install.cmake
+CMakeCache
+.vagrant
+Makefile
+
 #################
 ## Intellij Idea
 #################
