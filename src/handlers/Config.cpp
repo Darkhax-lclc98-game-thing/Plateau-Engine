@@ -31,6 +31,12 @@ void generateDefaultJson(GLFWvidmode const *mode)
 
     o["mapping"]["attack"] = JsonBox::Value(0);
 
+    o["audio"]["master"] = JsonBox::Value(100);
+    o["audio"]["music"] = JsonBox::Value(100);
+    o["audio"]["ambient"] = JsonBox::Value(100);
+    o["audio"]["environment"] = JsonBox::Value(100);
+    o["audio"]["hostile"] = JsonBox::Value(100);
+    o["audio"]["weather"] = JsonBox::Value(100);
 
     std::cout << o << std::endl;
     JsonBox::Value v(o);
@@ -60,6 +66,13 @@ void Config::readConfig(GLFWvidmode const *pConst)
     KEY_LEFT = v2["mapping"]["left"].getInt();
     KEY_RIGHT = v2["mapping"]["right"].getInt();
     KEY_PAUSE = v2["mapping"]["pause"].getInt();
+
+    AUDIO_MASTER = v2["audio"]["master"].getInt();
+    AUDIO_MUSIC = v2["audio"]["music"].getInt();
+    AUDIO_AMBIENT = v2["audio"]["ambient"].getInt();
+    AUDIO_ENVIRONMENT = v2["audio"]["environment"].getInt();
+    AUDIO_HOSTILE = v2["audio"]["hostile"].getInt();
+    AUDIO_WEATHER = v2["audio"]["weather"].getInt();
 
 }
 

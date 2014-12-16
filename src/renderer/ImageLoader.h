@@ -67,12 +67,11 @@ private:
 #pragma pack(pop)
 
 public:
-    GLuint loadBMP(char const *name);
+    static GLuint loadBMP(char const *name);
 
-    GLuint loadTGA(char const *name);
-    GLuint loadPNG(char const *name);
+    static char * loadTGA(char const *name, int pInt, int i);
 
-    int width, height;
+    static void loadPNG(char const *name, GLuint textureID);
 };
 
 #endif

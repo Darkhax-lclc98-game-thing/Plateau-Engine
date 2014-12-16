@@ -26,6 +26,13 @@ public:
 
     bool VSYNC;
 
+    int AUDIO_MASTER;
+    int AUDIO_MUSIC;
+    int AUDIO_AMBIENT;
+    int AUDIO_ENVIRONMENT;
+    int AUDIO_HOSTILE;
+    int AUDIO_WEATHER;
+
     void readConfig(GLFWvidmode const *pConst);
 };
 

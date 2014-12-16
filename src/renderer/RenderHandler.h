@@ -8,6 +8,7 @@
 #include <math.h>
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 #include "ImageLoader.h"
 #include "../handlers/Config.h"

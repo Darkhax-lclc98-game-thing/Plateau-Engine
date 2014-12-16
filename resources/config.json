@@ -1,0 +1,31 @@
+{
+	"general" : {
+		"language" : "en_us"
+	},
+	"interface" : {
+		"subtitles" : true,
+		"subtitles language" : "en_us"
+	},
+	"mapping" : {
+		"attack" : 0,
+		"backwards" : 83,
+		"forward" : 87,
+		"left" : 65,
+		"pause" : 256,
+		"right" : 68
+	},
+	"mouse" : {
+		"acceleration" : 0,
+		"invert" : false,
+		"mouse acceleration" : true,
+		"sensitivity" : 50
+	},
+	"video" : {
+		"fov" : 50,
+		"height" : 800,
+		"popin" : 50,
+		"refresh" : 60,
+		"vsync" : false,
+		"width" : 1500
+	}
+}
