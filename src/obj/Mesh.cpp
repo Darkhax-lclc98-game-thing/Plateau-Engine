@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Mesh.h"
-#include "../renderer/ImageLoader.h"
+#include "renderer/ImageLoader.h"
 
 Mesh::Mesh(const char *filename)
 {

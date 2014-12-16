@@ -11,10 +11,10 @@
 #include <vector>
 
 #include "ImageLoader.h"
-#include "../handlers/Config.h"
-#include "../world/World.h"
-#include "../entity/player/EntityPlayer.h"
-#include "../obj/tiny_obj_loader.h"
+#include "handlers/Config.h"
+#include "world/World.h"
+#include "entity/player/EntityPlayer.h"
+#include "obj/tiny_obj_loader.h"
 
 class RenderHandler
 {

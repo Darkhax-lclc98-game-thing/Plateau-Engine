@@ -1,7 +1,7 @@
 #ifndef INPUTHANDLER_H
 #define INPUTHANDLER_H
 
-#include "../renderer/RenderHandler.h"
+#include "renderer/RenderHandler.h"
 
 extern EntityPlayer player;
 

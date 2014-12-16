@@ -1,5 +1,5 @@
 #include "RenderHandler.h"
-#include "../obj/Mesh.h"
+#include "obj/Mesh.h"
 
 EntityPlayer player;
 World world;

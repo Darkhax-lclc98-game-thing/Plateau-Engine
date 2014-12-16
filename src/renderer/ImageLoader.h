@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <stdexcept>
 
-#include "../png/lodepng.h"
+#include "png/lodepng.h"
 
 class ImageLoader
 {

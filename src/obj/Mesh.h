@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "tiny_obj_loader.h"
-#include "../png/lodepng.h"
+#include "png/lodepng.h"
 
 class Mesh
 {
