@@ -2,11 +2,16 @@
 #define INPUTHANDLER_H
 
 #include "renderer/RenderHandler.h"
+#include <algorithm>
+
+#define M_PI        3.14159265358979323846
 
 extern EntityPlayer player;
+extern Config config;
 
 class InputHandler
 {
+
 public:
 
     static void mouseMove(GLFWwindow *window, double x, double y);
@@ -14,6 +19,8 @@ public:
     static void keyPressed(GLFWwindow *window, int key, int scancode, int action, int mods);
 
     static void mousePressed(GLFWwindow *window, int button, int action, int mods);
+
+    static void updateKeys(long i);
 };
 
 #endif

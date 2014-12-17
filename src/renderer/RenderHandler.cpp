@@ -34,7 +34,7 @@ void RenderHandler::initCamera(int width, int height)
     glClearColor(0, 0.75f, 1, 1);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    perspectiveGL(60, (float) config.WINDOW_WIDTH / config.WINDOW_HEIGHT, 0.1f, 1000);
+    perspectiveGL(config.FOV, (float) config.WINDOW_WIDTH / config.WINDOW_HEIGHT, 0.1f, 1000);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 

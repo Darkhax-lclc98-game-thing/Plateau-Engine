@@ -13,7 +13,6 @@
 #include "renderer/RenderHandler.h"
 #include "handlers/Config.h"
 
-
 #if defined(__WIN32__)
 
 #include <windows.h>
@@ -46,6 +45,7 @@ int framesSkipped;
 int lastLoopTime = time_ms();
 int fps;
 int lastFpsTime;
+int currentFps = 0;
 
 GLFWwindow *window;
 

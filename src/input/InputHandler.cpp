@@ -1,12 +1,10 @@
 #include "InputHandler.h"
 
-#define M_PI        3.14159265358979323846
+int old_x;
+int old_y;
+float speed = 0.45;
 
-int old_x = 0;
-int old_y = 0;
-float speed = 0.75;
-
-extern Config config;
+std::vector<int> keyList;
 
 void InputHandler::mouseMove(GLFWwindow *window, double x, double y)
 {
@@ -62,20 +60,15 @@ void move(float dx, float dz)
 
 void InputHandler::keyPressed(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
+    std::cout << key << ":" << action << std::endl;
     if (key == config.KEY_PAUSE && action == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, GL_TRUE);
-    } else if (key == config.KEY_FORWARD) {
-        move(0, -speed);
-    } else if (key == config.KEY_BACKWARDS) {
-        move(0, speed);
-    } else if (key == config.KEY_LEFT) {
-        move(-speed, 0);
-    } else if (key == config.KEY_RIGHT) {
-        move(speed, 0);
-    } else if (key == GLFW_KEY_LEFT_SHIFT) {
-        move(0, speed, 0, true);
-    } else if (key == GLFW_KEY_SPACE) {
-        move(0, -speed, 0, true);
+    }
+
+    if (action == GLFW_PRESS) {
+        keyList.push_back(key);
+    } else if (action == GLFW_RELEASE) {
+        keyList.erase(std::remove(keyList.begin(), keyList.end(), key), keyList.end());
     }
 
 }
@@ -84,3 +77,22 @@ void InputHandler::mousePressed(GLFWwindow *window, int button, int action, int 
 {
 }
 
+void InputHandler::updateKeys(long delta)
+{
+    for (std::vector<int>::iterator it = keyList.begin(); it != keyList.end(); ++it) {
+        if (*it == config.KEY_FORWARD) {
+            move(0, -speed * delta);
+        } else if (*it == config.KEY_BACKWARDS) {
+            move(0, speed * delta);
+        } else if (*it == config.KEY_LEFT) {
+            move(-speed * delta, 0);
+        } else if (*it == config.KEY_RIGHT) {
+            move(speed * delta, 0);
+        } else if (*it == GLFW_KEY_LEFT_SHIFT) {
+            move(0, speed * delta, 0, true);
+        } else if (*it == GLFW_KEY_SPACE) {
+            move(0, -speed * delta, 0, true);
+        }
+    }
+
+}

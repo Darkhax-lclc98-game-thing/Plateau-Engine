@@ -1,13 +1,16 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include <GLFW/glfw3.h>
+
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <iostream>
 #include <string>
+
 #include "JsonBox.h"
-#include <GLFW/glfw3.h>
+
 
 class Config
 {
@@ -25,6 +28,7 @@ public:
     float MOUSE_ACCELERATION;
 
     bool VSYNC;
+    int FOV;
 
     int AUDIO_MASTER;
     int AUDIO_MUSIC;
@@ -33,7 +37,7 @@ public:
     int AUDIO_HOSTILE;
     int AUDIO_WEATHER;
 
-    void readConfig(GLFWvidmode const *pConst);
+    void readConfig();
 };
 
 #endif

@@ -1,27 +1,7 @@
 #include "Main.h"
 
-RenderHandler handler;
+RenderHandler renderHandler;
 Config config;
-
-void update()
-{
-    glfwPollEvents();
-}
-
-//int fps()
-//{
-//    lastFpsTime += (timeDiff + sleepTime);
-//    fpsTime++;
-//    if (lastFpsTime >= 1000) {
-//        currentFps = fpsTime;
-//        lastFpsTime = 0;
-//        fpsTime = 0;
-//    }
-//    return currentFps;
-//}
-
-
-int currentFps = 0;
 
 void loop()
 {
@@ -39,22 +19,22 @@ void loop()
             currentFps = fps;
             lastFpsTime = 0;
             fps = 0;
+
         }
+        InputHandler::updateKeys(delta);
 
-        handler.update(currentFps);
-        update();
+        renderHandler.update(currentFps);
         glfwSwapBuffers(window);
-
-        sleepTime = (FRAME_PERIOD - delta);
-
+        glfwPollEvents();
         if (config.VSYNC) {
+            sleepTime = (FRAME_PERIOD - delta);
+
             if (sleepTime > 0) {
                 // sleep
                 usleep(sleepTime * 2000);
             }
             while (sleepTime < 0 && framesSkipped < MAX_FRAME_SKIPS) {
                 // update stuff
-                update();
                 sleepTime += FRAME_PERIOD;
                 framesSkipped++;
             }
@@ -65,21 +45,13 @@ void loop()
 void init()
 {
 
-
     glfwSetErrorCallback(ErrorHandler::error_callback);
 
     if (!glfwInit())
         exit(EXIT_FAILURE);
 
-//    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL
-//    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // We want OpenGL 3.3
-//    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-//    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
-
-
     // load the config, if not their, make one
-    const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-    config.readConfig(mode);
+    config.readConfig();
 
 
     // creates gui
@@ -100,12 +72,14 @@ void init()
     }
 
     printf("OpenGL version supported by this platform (%s): \n", glGetString(GL_VERSION));
+
     // handle input
     glfwSetKeyCallback(window, InputHandler::keyPressed);
     glfwSetCursorPosCallback(window, InputHandler::mouseMove);
     glfwSetMouseButtonCallback(window, InputHandler::mousePressed);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    handler.initCamera(config.WINDOW_WIDTH, config.WINDOW_HEIGHT);
+
+    renderHandler.initCamera(config.WINDOW_WIDTH, config.WINDOW_HEIGHT);
 
 }
 

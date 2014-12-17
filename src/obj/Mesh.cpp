@@ -106,7 +106,7 @@ void Mesh::draw()
             }
         }
         if (uvHandles.size() > i) {
-            std::cout << uvHandles[i] << std::endl;
+           // std::cout << uvHandles[i] << std::endl;
             glEnableVertexAttribArray(2);
             glBindBuffer(GL_ARRAY_BUFFER, uvHandles[i]);
             glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);

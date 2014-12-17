@@ -1,7 +1,8 @@
 #include "Config.h"
 
-void generateDefaultJson(GLFWvidmode const *mode)
+void generateDefaultJson()
 {
+    GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     JsonBox::Object o;
 
     // options
@@ -19,7 +20,7 @@ void generateDefaultJson(GLFWvidmode const *mode)
     o["video"]["refresh"] = JsonBox::Value(mode->refreshRate);
     o["video"]["height"] = JsonBox::Value(mode->height);
     o["video"]["vsync"] = JsonBox::Value(false);
-    o["video"]["fov"] = JsonBox::Value(50);
+    o["video"]["fov"] = JsonBox::Value(60);
     o["video"]["popin"] = JsonBox::Value(50);
 
     // keyboard/mouse or gamepad mapping
@@ -44,22 +45,22 @@ void generateDefaultJson(GLFWvidmode const *mode)
 
 }
 
-void Config::readConfig(GLFWvidmode const *pConst)
+void Config::readConfig()
 {
-    WINDOW_WIDTH = 860;
-    WINDOW_HEIGHT = 480;
     std::ifstream myfile("config.json");
     if (!myfile.good()) {
-        generateDefaultJson(pConst);
+        generateDefaultJson();
     }
 
     // handle the json and set the variables
     JsonBox::Value v2;
     v2.loadFromStream(myfile);
+
     WINDOW_WIDTH = v2["video"]["width"].getInt();
     WINDOW_HEIGHT = v2["video"]["height"].getInt();
 
     VSYNC = v2["video"]["vsync"].getBoolean();
+    FOV = v2["video"]["fov"].getInt();
 
     KEY_FORWARD = v2["mapping"]["forward"].getInt();
     KEY_BACKWARDS = v2["mapping"]["backwards"].getInt();
