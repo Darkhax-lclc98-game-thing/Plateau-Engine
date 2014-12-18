@@ -12,6 +12,7 @@
 
 #include "ImageLoader.h"
 #include "handlers/Config.h"
+#include "obj/Mesh.h"
 #include "world/World.h"
 #include "entity/player/EntityPlayer.h"
 #include "obj/tiny_obj_loader.h"

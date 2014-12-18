@@ -1,5 +1,4 @@
 #include "RenderHandler.h"
-#include "obj/Mesh.h"
 
 EntityPlayer player;
 World world;
@@ -24,8 +23,11 @@ Mesh *mesh;
 
 void RenderHandler::loadModel()
 {
-    mesh = new Mesh("sponza.obj");
+    mesh = new Mesh("Tree_V10_Final.obj");
 }
+
+ImageLoader loader;
+GLuint testWorld;
 
 void RenderHandler::initCamera(int width, int height)
 {
@@ -34,19 +36,23 @@ void RenderHandler::initCamera(int width, int height)
     glClearColor(0, 0.75f, 1, 1);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    perspectiveGL(config.FOV, (float) config.WINDOW_WIDTH / config.WINDOW_HEIGHT, 0.1f, 1000);
+    perspectiveGL(config.FOV, (float) config.WINDOW_WIDTH / config.WINDOW_HEIGHT, 0.1f, 5000);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
     glEnable(GL_DEPTH_TEST); // Depth Testing
     glDepthFunc(GL_LEQUAL);
-    glDisable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
+    //glDisable(GL_CULL_FACE);
+    //glCullFace(GL_BACK);
 
     player.setY(25);
+
     world.create("height.bmp", 4096, 2048, 8);
+    testWorld = loader.loadTGA("color.tga");
 
     loadModel();
+
+
 }
 
 void RenderHandler::handlePlayer()
@@ -83,6 +89,7 @@ void RenderHandler::handleRender(int fps)
 //    glEnable(GL_TEXTURE_2D);
 //    glBindTexture(GL_TEXTURE_2D, testWorld);
 //    world.render();
+//    glBindTexture(GL_TEXTURE_2D, 0);
 //    glDisable(GL_TEXTURE_2D);
 //    glPopMatrix();
 }
@@ -103,13 +110,11 @@ void RenderHandler::renderText(std::string text, void *font, int x, int y)
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_ONE, GL_ONE);
 
     glRasterPos2i(x, y);
     for (std::string::iterator i = text.begin(); i != text.end(); ++i) {
         char c = *i;
-        glColor4d(0.0f, 0.0f, 0.0f, 1.0f);
+        glColor4d(1.0f, 1.0f, 1.0f, 1.0f);
         glutBitmapCharacter(font, c);
     }
 
@@ -117,6 +122,5 @@ void RenderHandler::renderText(std::string text, void *font, int x, int y)
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
-    glDisable(GL_BLEND);
     glPopMatrix();
 }

@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <stdexcept>
 
-#include "png/lodepng.h"
+#include "../png/lodepng.h"
 
 class ImageLoader
 {
@@ -67,11 +67,12 @@ private:
 #pragma pack(pop)
 
 public:
-    static GLuint loadBMP(char const *name);
+    GLuint loadBMP(char const *name);
 
-    static char * loadTGA(char const *name, int pInt, int i);
+    GLuint loadTGA(char const *name);
+    GLuint loadPNG(char const *name);
 
-    static void loadPNG(char const *name, GLuint textureID);
+    int width, height;
 };
 
 #endif

@@ -2,7 +2,7 @@
 
 void generateDefaultJson()
 {
-    GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     JsonBox::Object o;
 
     // options
@@ -20,7 +20,7 @@ void generateDefaultJson()
     o["video"]["refresh"] = JsonBox::Value(mode->refreshRate);
     o["video"]["height"] = JsonBox::Value(mode->height);
     o["video"]["vsync"] = JsonBox::Value(false);
-    o["video"]["fov"] = JsonBox::Value(60);
+    o["video"]["fov"] = JsonBox::Value(60.0f);
     o["video"]["popin"] = JsonBox::Value(50);
 
     // keyboard/mouse or gamepad mapping
