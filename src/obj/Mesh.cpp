@@ -76,14 +76,14 @@ void Mesh::loadTexture(tinyobj::material_t *materials, int spot)
     textures.push_back(0);
     ImageLoader loader;
     // Auto detect file extension
-    this->textures[spot] = loader.loadBMP(materials->diffuse_texname.c_str());
+    this->textures[spot] = loader.loadPNG(materials->diffuse_texname.c_str());
 
 }
 
 void Mesh::draw()
 {
     glEnable(GL_TEXTURE_2D);
-    for (int i = 0; i < this->totalShapes; i += 1) {
+    for (int i = 0; i < this->totalShapes; i++) {
         glBindTexture(GL_TEXTURE_2D, this->textures[i]);
         glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, this->verticesHandles[i]);

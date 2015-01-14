@@ -4,6 +4,10 @@ EntityPlayer player;
 World world;
 extern Config config;
 
+Mesh *mesh;
+GLuint testWorld;
+ImageLoader loader;
+
 void perspectiveGL(GLdouble fovY, GLdouble aspect, GLdouble zNear, GLdouble zFar)
 {
     GLdouble fW, fH;
@@ -19,15 +23,11 @@ std::string NumberToString(float num)
     return ss.str();
 }
 
-Mesh *mesh;
-
 void RenderHandler::loadModel()
 {
-    mesh = new Mesh("Tree_V10_Final.obj");
+    mesh = new Mesh("Grass_01.obj");
 }
 
-ImageLoader loader;
-GLuint testWorld;
 
 void RenderHandler::initCamera(int width, int height)
 {
@@ -51,8 +51,6 @@ void RenderHandler::initCamera(int width, int height)
     testWorld = loader.loadTGA("color.tga");
 
     loadModel();
-
-
 }
 
 void RenderHandler::handlePlayer()
@@ -85,13 +83,13 @@ void RenderHandler::handleRender(int fps)
     mesh->draw();
     glPopMatrix();
 
-//    glPushMatrix();
-//    glEnable(GL_TEXTURE_2D);
-//    glBindTexture(GL_TEXTURE_2D, testWorld);
-//    world.render();
-//    glBindTexture(GL_TEXTURE_2D, 0);
-//    glDisable(GL_TEXTURE_2D);
-//    glPopMatrix();
+    glPushMatrix();
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, testWorld);
+    world.render();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_TEXTURE_2D);
+    glPopMatrix();
 }
 
 void RenderHandler::update(int fps)
