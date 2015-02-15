@@ -8,29 +8,25 @@ Mesh *mesh;
 GLuint testWorld;
 ImageLoader loader;
 
-void perspectiveGL(GLdouble fovY, GLdouble aspect, GLdouble zNear, GLdouble zFar)
-{
+void perspectiveGL(GLdouble fovY, GLdouble aspect, GLdouble zNear, GLdouble zFar) {
     GLdouble fW, fH;
     fH = tan(fovY / 360 * 3.1415926535897932384626433832795) * zNear;
     fW = fH * aspect;
     glFrustum(-fW, fW, -fH, fH, zNear, zFar);
 }
 
-std::string NumberToString(float num)
-{
+std::string NumberToString(float num) {
     std::stringstream ss;
     ss << num;
     return ss.str();
 }
 
-void RenderHandler::loadModel()
-{
-    mesh = new Mesh("Grass_01.obj");
+void RenderHandler::loadModel() {
+    mesh = new Mesh("Test.obj");
 }
 
 
-void RenderHandler::initCamera(int width, int height)
-{
+void RenderHandler::initCamera(int width, int height) {
     glViewport(0, 0, width, height);
 
     glClearColor(0, 0.75f, 1, 1);
@@ -53,8 +49,7 @@ void RenderHandler::initCamera(int width, int height)
     loadModel();
 }
 
-void RenderHandler::handlePlayer()
-{
+void RenderHandler::handlePlayer() {
     player.update();
 
     glLoadIdentity();
@@ -75,13 +70,12 @@ void RenderHandler::handlePlayer()
     glPopAttrib();
 }
 
-void RenderHandler::handleRender(int fps)
-{
+void RenderHandler::handleRender(int fps) {
     renderText("FPS: " + NumberToString(fps), GLUT_BITMAP_9_BY_15, 10, 25);
 
-    glPushMatrix();
-    mesh->draw();
-    glPopMatrix();
+//    glPushMatrix();
+//    mesh->draw();
+//    glPopMatrix();
 
     glPushMatrix();
     glEnable(GL_TEXTURE_2D);
@@ -92,14 +86,12 @@ void RenderHandler::handleRender(int fps)
     glPopMatrix();
 }
 
-void RenderHandler::update(int fps)
-{
+void RenderHandler::update(int fps) {
     handlePlayer();
     handleRender(fps);
 }
 
-void RenderHandler::renderText(std::string text, void *font, int x, int y)
-{
+void RenderHandler::renderText(std::string text, void *font, int x, int y) {
     glPushMatrix();
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();

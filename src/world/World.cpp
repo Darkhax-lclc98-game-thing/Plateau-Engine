@@ -1,10 +1,9 @@
 #include "World.h"
 
-bool World::init(void)
-{
+bool World::init(void) {
     glGenBuffers(1, &vhVBOVertices);
     glBindBuffer(GL_ARRAY_BUFFER, vhVBOVertices);
-    glBufferData(GL_ARRAY_BUFFER, vhVertexCount * 2 * sizeof(float), vhVertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vhVertexCount * 3 * sizeof(float), vhVertices, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glGenBuffers(1, &vhVBOTexCoords);
@@ -20,13 +19,9 @@ bool World::init(void)
     return true;
 }
 
-bool World::create(const char *hFileName, const int hWidth, const int hHeight, int hLOD)
-{
+bool World::create(const char *hFileName, const int hWidth, const int hHeight, int hLOD) {
     FILE *fp = fopen(hFileName, "rb");
-
-
     fread(hHeightField, 1, hWidth * hHeight, fp);
-
     fclose(fp);
 
     vhVertexCount = (hWidth * hHeight * 6) / (hLOD * hLOD);
@@ -57,16 +52,16 @@ bool World::create(const char *hFileName, const int hWidth, const int hHeight, i
     return true;
 }
 
-void World::render(void)
-{
-    glEnableClientState(GL_VERTEX_ARRAY);
+void World::render(void) {
+
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
+    glEnableClientState(GL_VERTEX_ARRAY);
     glBindBuffer(GL_ARRAY_BUFFER, vhVBOVertices);
-    glVertexPointer(3, GL_FLOAT, 0, 0);
+    glVertexPointer(3, GL_FLOAT, 0, (char *) NULL);
 
     glBindBuffer(GL_ARRAY_BUFFER, vhVBOTexCoords);
-    glTexCoordPointer(2, GL_FLOAT, 0, 0);
+    glTexCoordPointer(2, GL_FLOAT, 0, (char *) NULL);
 
     glDrawArrays(GL_TRIANGLES, 0, vhVertexCount);
 

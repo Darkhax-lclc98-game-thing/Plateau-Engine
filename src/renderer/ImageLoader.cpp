@@ -6,7 +6,7 @@ GLuint ImageLoader::loadBMP(char const *name)
     BitmapInfoHeader bmih;
 
     GLuint texture;
-    FILE *in = fopen('\"' + name + '\"', "rb");
+    FILE *in = fopen(name, "rb");
     char *tempData;
     unsigned short bpp;
     int padWidth;
